@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="97.447266mm"
+   height="92.964172mm"
+   viewBox="0 0 97.447085 92.964"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1" /><g
+     id="layer1"
+     transform="translate(-56.276366,-102.01792)"><rect
+       style="fill:#272727;fill-opacity:1;stroke:#ff0000;stroke-width:0.1"
+       id="rect1"
+       width="97.347267"
+       height="92.864174"
+       x="56.326366"
+       y="102.06792"
+       ry="16.011065" /><g
+       id="g2"
+       transform="matrix(0.9594918,0,0,0.92750711,35.577953,56.212809)"><text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:76.3587px;line-height:1.25;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ff8100;fill-opacity:1;stroke-width:0.397701"
+         x="70.350677"
+         y="134.05467"
+         id="text1"><tspan
+           id="tspan1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:76.3587px;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff8100;fill-opacity:1;stroke-width:0.397701"
+           x="70.350677"
+           y="134.05467">C</tspan></text><g
+         style="fill:#ff8100;fill-opacity:1"
+         id="g1"
+         transform="matrix(4.4101602,0,0,-2.0642538,19.431067,94.977482)"><path
+           fill-rule="evenodd"
+           clip-rule="evenodd"
+           d="m 12.7071,14.7071 c -0.3905,0.3905 -1.0237,0.3905 -1.4142,0 L 6.29289,9.70711 c -0.39052,-0.39053 -0.39052,-1.02369 0,-1.41422 0.39053,-0.39052 1.02369,-0.39052 1.41422,0 L 12,12.5858 16.2929,8.29289 c 0.3905,-0.39052 1.0237,-0.39052 1.4142,0 0.3905,0.39053 0.3905,1.02369 0,1.41422 z"
+           fill="#000000"
+           id="path1"
+           style="fill:#ff8100;fill-opacity:1" /></g></g></g></svg>

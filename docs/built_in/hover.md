@@ -1,0 +1,85 @@
+---
+sidebar_position: 4
+---
+
+# Hover
+
+Specifies what to display once the enclosed content has been hovered over.
+
+## Show Text
+
+Displays a single line of text when hovering.
+
+| Attribute | Type   | Mandatory | Description        |
+|-----------|--------|-----------|--------------------|
+| value     | Markup | yes       | Content to display |
+
+```component-markup
+<hover-text
+  value={
+    <red>Displayed when hovering</red>
+  }
+>My text</hover-text>
+```
+
+## Show Item
+
+Displays the tooltip of an item when hovering.
+
+| Attribute | Type     | Mandatory | Description       |
+|-----------|----------|-----------|-------------------|
+| material  | Scalar   | no        | Material-constant |
+| amount    | Scalar   | no        | Stack-size        |
+| name      | Markdown | no        | Displayname       |
+| lore      | Markdown | no        | Lore-lines        |
+
+```component-markup
+<hover-item
+  material="dirt"
+  amount=3
+  name={
+    <red>My dirt</red>
+  }
+  lore={
+    <green>First line</green>
+    <br/>
+    <aqua>Second line</aqua>
+    <br/>
+    <gold>Third line</gold>
+  }
+>My text</hover-item>
+```
+
+## Show Entity
+
+Displays a tooltip containing information about an entity within the player's world; note that this only works when advanced tooltips are shown (F3+H); also note that the entity-ID has to exist for the tooltip to render at all; the name may be specified as any arbitrary content.
+
+| Attribute | Type     | Mandatory | Description          |
+|-----------|----------|-----------|----------------------|
+| type      | Scalar   | yes       | Entity-Type-constant |
+| id        | Scalar   | yes       | UUID of the entity   |
+| name      | Markdown | no        | Displayname          |
+
+```component-markup
+<hover-entity
+  type="pig"
+  id="4c3e2990-90d0-4c40-b42d-56ed89ee3a4e"
+  name={
+    <red>Peppa the pig
+  }
+>My text</hover-entity>
+```
+
+## Show Achievement
+
+Displays a tooltip containing information about the specified achievement; this action has been discontinued on modern versions of Minecraft.
+
+| Attribute | Type   | Mandatory | Description            |
+|-----------|--------|-----------|------------------------|
+| value     | Scalar | yes       | Key of the achievement |
+
+```component-markup
+<hover-achievement
+  value="achievement.mineWood"
+>My text</hover-achievement>
+```
