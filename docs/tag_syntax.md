@@ -62,6 +62,49 @@ Double {{ curly-brackets!
 
 once processed. This again is a conscious design-decision, as the aforementioned case will only occur very seldomly and not having to prepend every single opening curly-bracket with a backslash is going to reduce syntactic noise in the great scheme of things.
 
+### Newlines And Trailing Spaces
+
+In some cases, inserting linebreaks may increase readability; when inserted within text, a newline will collapse into a single space, such that
+
+```component-markup
+this text
+is newline-separated
+```
+
+becomes
+
+```component-markup
+this text is newline-separated
+```
+
+Also, trailing spaces relative to the linebreak will be trimmed, such that
+
+```component-markup
+this text
+  is newline-separated
+```
+
+also becomes
+
+```component-markup
+this text is newline-separated
+```
+
+When desiring to keep trailing spaces on a line which are usually stripped off, simply append them by a single backslash acting as a marker of intent, being removed automatically later on, such that
+
+```component-markup
+Before line-break: \
+<red>after line-break
+```
+
+becomes
+
+```component-markup
+Before line-break: <red>after line-break
+```
+
+once processed.
+
 ## Placeholders
 
 In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped twice by a pair of matching curly-brackets. Let's assume that the variable `player` holds a string-value of `"Steve"`, then the markup
