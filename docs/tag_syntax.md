@@ -206,7 +206,9 @@ In order to generate content based on a sequence of data-points, the intrinsic `
 >{{player_name}}</red>
 ```
 
-The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#conditionals), simply also add in the corresponding directive; let's skip names equal to `Steve`.
+The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#conditionals), simply also add in the corresponding `*if`-directive.
+
+Let's skip names equal to `Steve`:
 
 ```component-markup
 <gray>Online players: <red
@@ -214,6 +216,22 @@ The example above will generate the `red` tag once for each name in the list, in
   *if="player_name != 'Steve'"
   for-separator={<gray>, }
 >{{player_name}}</red>
+```
+In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else`-directives, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
+
+Let's render an alternate name for `Steve`:
+
+```component-markup
+<gray>
+  Online players:
+  <container
+    *for-player_name="player_names"
+    for-separator={<gray>, }
+  >
+    <green *if="player_name == 'Steve'">Alternate Name Here</green>
+    <red *else>{{player_name}}</red>
+  </container>
+</gray>
 ```
 
 Additional information is made available via the implicitly added temporary variable called `loop`; it also only exists for the duration of the tag-contents to which the `*for-`-directive has been applied to. It itself holds the following useful properties, updated for each iteration:
