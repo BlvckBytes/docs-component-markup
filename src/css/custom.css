@@ -40,3 +40,21 @@ td .theme-code-block:last-child {
 .token.tag-punctuation {
   filter: saturate(30%);
 }
+
+.token.tab {
+  /* Because I simply despise tabs. */
+  background: red;
+}
+
+.token.whitespace {
+  position: relative;
+}
+
+.token.whitespace::after {
+  content: '·';
+  opacity: .25;
+  font-weight: bolder;
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}

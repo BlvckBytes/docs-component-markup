@@ -21,7 +21,24 @@ class OutputBuilder {
   }
 
   text(value: string) {
-    this.tokens.push(new Prism.Token('plain', value));
+    let buffer = '';
+
+    for (let char of value) {
+      if (char == ' ' || char == '\t') {
+        if (buffer.length > 0) {
+          this.tokens.push(new Prism.Token('plain', buffer, 'text'));
+          buffer = '';
+        }
+
+        this.whitespace(char);
+        continue;
+      }
+
+      buffer += char;
+    }
+
+    if (buffer.length > 0)
+      this.tokens.push(new Prism.Token('plain', buffer, 'text'));
   }
 
   comment(value: string) {
@@ -85,7 +102,16 @@ class OutputBuilder {
     if (value.length == 0)
       return;
 
-    this.tokens.push(new Prism.Token('plain', value));
+    for (let char of value) {
+      let alias = undefined;
+
+      if (char == ' ')
+        alias = 'whitespace';
+      else if (char == '\t')
+        alias = 'tab';
+
+      this.tokens.push(new Prism.Token('plain', char, alias));
+    }
   }
 }
 
