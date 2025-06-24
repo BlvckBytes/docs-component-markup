@@ -157,14 +157,13 @@ All opening-tags, including the self-closing kind, may support a variety of attr
   c=3.42
   d=true
   e=false
-  f
-  g={
+  f={
     <red>Hello, world!
   }
 />
 ```
 
-In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type floating-point number, `d` and `e` of type boolean, `f` also of type boolean (as a "flag", indicating `true`) and `g` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, boolean), where the latter will never cause a type-mismatch and simply be interpreted as required.
+In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type floating-point number, `d` and `e` of type boolean and `f` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, boolean), where the latter will never cause a type-mismatch and simply be interpreted as required.
 
 Attributes of scalar types also support dynamic values, meaning values which are not specified immediately but rather are to be retrieved by evaluating an expression; to indicate this behaviour, simply enclose the attribute-name by a pair of square-brackets `[]`.
 
