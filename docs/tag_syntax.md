@@ -202,13 +202,13 @@ Please note that variables, by enforced convention, always follow the `snake_cas
 
 ### Conditionals
 
-The simplest form of a conditional is represented by the intrinsic `*if`-directive, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
+The simplest form of a conditional is represented by the intrinsic `*if` structural attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
 
 ```component-markup
 <red *if="my_condition">Shown if the condition matches!</red>
 ```
 
-Once a conditional has been declared as can be seen above, the directives `*else-if` as well as `*else` are now available to its direct siblings, meaning elements which succeed it on the same level of nesting.
+Once a conditional has been declared as can be seen above, the structural attributes `*else-if` as well as `*else` are now available to its direct siblings, meaning elements which succeed it on the same level of nesting.
 
 ```component-markup
 <red *if="my_number == 1">Shown if the value is one!</red>
@@ -239,7 +239,7 @@ Multiple such sequences may coexist one after another on the same level of depth
 
 ### Generative Loops
 
-In order to generate content based on a sequence of data-points, the intrinsic `*for-`-directive may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after the hyphen of the directive, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly). Once employed, the additional attribute `for-separator` becomes available, accepting an optional markup-value to be injected inbetween iterations.
+In order to generate content based on a sequence of data-points, the intrinsic `*for-` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after the hyphen of the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly). Once employed, the additional attribute `for-separator` becomes available, accepting an optional markup-value to be injected inbetween iterations.
 
 ```component-markup
 <gray>Online players: <red
@@ -248,7 +248,7 @@ In order to generate content based on a sequence of data-points, the intrinsic `
 >{{player_name}}</red>
 ```
 
-The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#conditionals), simply also add in the corresponding `*if`-directive.
+The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#conditionals), simply also add in the corresponding `*if` structural attribute.
 
 Let's skip names equal to `Steve`:
 
@@ -259,7 +259,7 @@ Let's skip names equal to `Steve`:
   for-separator={<gray>, }
 >{{player_name}}</red>
 ```
-In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else`-directives, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
+In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else` structural attributes, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
 
 Let's render an alternate name for `Steve`:
 
@@ -276,7 +276,7 @@ Let's render an alternate name for `Steve`:
 </gray>
 ```
 
-Additional information is made available via the implicitly added temporary variable called `loop`; it also only exists for the duration of the tag-contents to which the `*for-`-directive has been applied to. It itself holds the following useful properties, updated for each iteration:
+Additional information is made available via the implicitly added temporary variable called `loop`; it also only exists for the duration of the tag-contents to which the `*for-` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
 
 - `index`: Zero-based sequence-number of the current element
 - `is_even`: Whether the `index` is an even number
