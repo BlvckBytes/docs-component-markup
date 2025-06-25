@@ -1,4 +1,5 @@
 import { Prism } from 'prism-react-renderer';
+import { tokenizeMarkupExpression } from './markup-expression';
 
 class OutputBuilder {
   constructor(public tokens: Prism.Token[]) {}
@@ -17,7 +18,7 @@ class OutputBuilder {
   }
 
   expression(value: string) {
-    this.tokens.push(new Prism.Token('function', value));
+    this.tokens.push(...tokenizeMarkupExpression(value));
   }
 
   text(value: string) {
@@ -138,7 +139,7 @@ class InputCursor {
   consumeWhitespace(doOutput = true) {
     let buf = '';
 
-    while (/\s/.test(this.peekChar()))
+    while (/\s/.test(this.peekChar() || ''))
       buf += this.nextChar();
 
     if (doOutput && buf.length > 0) {

@@ -52,7 +52,8 @@ const config: Config = {
   ],
 
   clientModules: [
-    require.resolve("./src/custom-prism/component-markup")
+    require.resolve("./src/custom-prism/markup-expression"),
+    require.resolve("./src/custom-prism/component-markup"),
   ],
 
   themeConfig: {
