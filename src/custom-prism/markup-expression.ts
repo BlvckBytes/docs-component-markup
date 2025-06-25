@@ -33,10 +33,13 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
   let result: Prism.Token[] = [];
   let cursor = new InputCursor(input);
 
-  while (cursor.peekChar() !== null) {
+  const consumeAndHoldWhitespace = (): (() => void) | null => {
     let whitespace = cursor.consumeWhitespace();
 
-    if (whitespace.length != 0) {
+    if (whitespace.length == 0)
+      return null;
+
+    return () => {
       for (let char of whitespace) {
         let alias = undefined;
 
@@ -48,6 +51,10 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
         result.push(new Prism.Token('plain', char, alias));
       }
     }
+  }
+
+  while (cursor.peekChar() !== null) {
+    consumeAndHoldWhitespace()?.();
 
     let nextChar = cursor.nextChar();
 
@@ -58,6 +65,14 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
       let stringBuf = nextChar;
 
       while (true) {
+        const releaseWhitespace = consumeAndHoldWhitespace();
+
+        if (releaseWhitespace != null && stringBuf.length != 0) {
+          result.push(new Prism.Token('string', stringBuf));
+          stringBuf = '';
+          releaseWhitespace();
+        }
+
         let nextChar = cursor.nextChar();
 
         if (nextChar == null)
