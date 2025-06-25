@@ -1,9 +1,0 @@
-{
-  "label": "Built-In",
-  "position": 5,
-  "collapsible": false,
-  "link": {
-    "type": "generated-index",
-    "description": "Various natively supported tags"
-  }
-}
