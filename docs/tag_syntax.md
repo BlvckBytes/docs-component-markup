@@ -107,7 +107,7 @@ once processed.
 
 ## Placeholders
 
-In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped twice by a pair of matching curly-brackets. Let's assume that the variable `player` holds a string-value of `"Steve"`, then the markup
+In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped twice by a pair of matching curly-brackets. Let's assume that the variable `l-me: player` holds a string-value of `l-me: 'Steve'`, then the markup
 
 ```component-markup
 <red>Hello, {{player}}!
@@ -127,7 +127,7 @@ Tags represent calls to internally existing functionality, which then can modify
 
 ### Opening And Closing
 
-When invoking a tag which holds content, the tag becomes enabled to modify said members in order to implement various visual and/or generative transformations. The opening-tag is simply surrounded by pointy-brackets `<name>`, while the closing-tag has to be equally named, with the addition of a slash right before said name `</name>`.
+When invoking a tag which holds content, the tag becomes enabled to modify said members in order to implement various visual and/or generative transformations. The opening-tag is simply surrounded by pointy-brackets `l-cm: <name>`, while the closing-tag has to be equally named, with the addition of a slash right before said name `l-cm: </name>`.
 
 ```component-markup
 <red>
@@ -140,7 +140,7 @@ In the example above, both the `bold` and `italic` passages will be colored `red
 
 ### Self-Closing
 
-Tags which bear no content, as they simply insert data retrieved externally or mark special instructions, self-close by adding a slash right before the closing pointy-bracket `<name/>`.
+Tags which bear no content, as they simply insert data retrieved externally or mark special instructions, self-close by adding a slash right before the closing pointy-bracket `l-cm: <name/>`.
 
 ```component-markup
 The tag <my-tag/> self-closes and thus needs no corresponding closing-tag!
@@ -173,7 +173,7 @@ Attributes of scalar types also support dynamic values, meaning values which are
 />
 ```
 
-Now, `my-attribute` will be assigned to whatever value the expression `user.name` evaluates to.
+Now, `my-attribute` will be assigned to whatever value the expression `l-me: user.name` evaluates to.
 
 Attributes which support multiple values may be assigned more than once - each occurrence will be collected and passed to the tag as a list when executing it, maintaining the top-down order of assignment.
 
@@ -276,13 +276,13 @@ Let's render an alternate name for `Steve`:
 </gray>
 ```
 
-Additional information is made available via the implicitly added temporary variable called `loop`; it also only exists for the duration of the tag-contents to which the `*for-` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
+Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for-` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
 
-- `index`: Zero-based sequence-number of the current element
-- `is_even`: Whether the `index` is an even number
-- `is_odd`: Whether the `index` is an odd number
-- `is_first`: Whether the item is the first of the sequence
-- `is_last`: Whether the item is the last of the sequence
+- `l-me: index`: Zero-based sequence-number of the current element
+- `l-me: is_even`: Whether the `l-me: index` is an even number
+- `l-me: is_odd`: Whether the `l-me: index` is an odd number
+- `l-me: is_first`: Whether the item is the first of the sequence
+- `l-me: is_last`: Whether the item is the last of the sequence
 
 For single loops, accessing this variable directly marks the most straight-forward way; let's add positions (`#1`, `#2`, ...) to the prior example.
 

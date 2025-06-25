@@ -29,7 +29,7 @@ Power-users may define their own tags with ease, being able to generate content 
 
 ## Expressive Power
 
-With the majority of existing systems, templating seems to be an afterthought and is usually solved by substituting variables at the level of the input-string before parsing the final expression. This language supports not only the evaluation of flexible [GPEEE](https://github.com/BlvckBytes/GPEEE)-expressions at runtime, but also comes with conditionals, loops and variable-binding; the sky is the limit!
+With the majority of existing systems, templating seems to be an afterthought and is usually solved by substituting variables at the level of the input-string before parsing the final expression. This language supports not only the evaluation of flexible [Expressions](./expression_syntax.md) at runtime, but also comes with conditionals, loops and variable-binding; the sky is the limit!
 
 ```component-markup
 <gray>
