@@ -129,6 +129,58 @@ This operator may especially come in handy when combined with the structural `*f
 <red *for-number="1..10">Hello, {{number}}!
 ```
 
+## Substring Operator
+
+A substring represents a sub-sequence of characters within another string; it may span only a single character, a few or up to the whole input, based on the colon-separated (`:`) start- and end-indices, which are both *inclusive* and start at zero.
+
+Given an `l-me: input` of `l-me: 'ABCDEFGHIJ'` with the following indices
+
+<table style={{textAlign: 'center'}}>
+  <tr>
+    <th>Index</th>
+    <td>`l-me: 0`</td>
+    <td>`l-me: 1`</td>
+    <td>`l-me: 2`</td>
+    <td>`l-me: 3`</td>
+    <td>`l-me: 4`</td>
+    <td>`l-me: 5`</td>
+    <td>`l-me: 6`</td>
+    <td>`l-me: 7`</td>
+    <td>`l-me: 8`</td>
+    <td>`l-me: 9`</td>
+  </tr>
+  <tr>
+    <th>Letter</th>
+    <td>`l-me: 'A'`</td>
+    <td>`l-me: 'B'`</td>
+    <td>`l-me: 'C'`</td>
+    <td>`l-me: 'D'`</td>
+    <td>`l-me: 'E'`</td>
+    <td>`l-me: 'F'`</td>
+    <td>`l-me: 'G'`</td>
+    <td>`l-me: 'H'`</td>
+    <td>`l-me: 'I'`</td>
+    <td>`l-me: 'J'`</td>
+  </tr>
+</table>
+
+these will be the results of a few substring-operations
+
+| Operation | Result |
+|:---------:|:------:|
+| `l-me: input[0:9]` | `l-me: 'ABCDEFGHIJ'` |
+| `l-me: input[2:]` | `l-me: 'CDEFGHIJ'` |
+| `l-me: input[:8]` | `l-me: 'ABCDEFGHI'` |
+| `l-me: input[:]` | `l-me: 'ABCDEFGHIJ'` |
+| `l-me: input[4:6]` | `l-me: 'EFG'` |
+| `l-me: input[-1:]` | `l-me: 'J'` |
+| `l-me: input[:-2]` | `l-me: 'AB'` |
+| `l-me: input[-1:-2]` | `l-me: 'JAB'` |
+| `l-me: input[0:100]` | `l-me: 'ABCDEFGHIJ'` |
+| `l-me: input[-100:]` | `l-me: 'JIHGFEDCBA'` |
+
+As becomes apparent, both the start- and end-indices are omittable (up to bounds); also, negative indices will wrap around. Whenever an index is out of bounds, meaning that its absolute value is greater than or equal to the number of characters within the string, the operation will just stop right there.
+
 ## Keywords
 
 Keywords are reserved names, not able to be used as variables, holding a static value:
