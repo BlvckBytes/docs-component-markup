@@ -216,13 +216,22 @@ my_list[my_index]
 | `l-me: 2` | `l-me: 'third'`  |
 | `l-me: 3` | `l-me: null`     |
 
-Indices may also be specified immediately, with
+Indices can also be specified immediately, with
 
 ```markup-expression
 my_list[0]
 ```
 
 resulting in `l-me: 'first'`.
+
+Analogous to bounds on substrings, list-indices may also be negative, meaning that they access elements relative to the back of the sequence, with `l-me: -1` being the last, `l-me: -2` the second to last, etc.
+
+| my_index   | Result           |
+|:----------:|:----------------:|
+| `l-me: -1` | `l-me: 'third'`  |
+| `l-me: -2` | `l-me: 'second'` |
+| `l-me: -3` | `l-me: 'first'`  |
+| `l-me: -4` | `l-me: null`     |
 
 ### Map-Values
 

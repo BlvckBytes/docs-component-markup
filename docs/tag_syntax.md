@@ -239,7 +239,12 @@ Multiple such sequences may coexist one after another on the same level of depth
 
 ### Generative Loops
 
-In order to generate content based on a sequence of data-points, the intrinsic `*for-` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after the hyphen of the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly). Once employed, the additional attribute `for-separator` becomes available, accepting an optional markup-value to be injected inbetween iterations.
+In order to generate content based on a sequence of data-points, the intrinsic `*for-` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after the hyphen of the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
+
+Once employed, the additional attributes become available:
+
+- `for-separator`, accepting an optional markup-value to be injected inbetween iterations
+- `for-reversed`, accepting an optional boolean marking whether to iterate in reverse order
 
 ```component-markup
 <gray>Online players: <red
