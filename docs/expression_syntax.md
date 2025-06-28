@@ -80,6 +80,22 @@ The following mathematical operators are available when formulae are to be expre
 | Modulo         | `l-me: a % b` | 2          |
 | Exponentiation | `l-me: a ^ b` | 3          |
 
+## String Transformation
+
+The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
+
+| Operation     | Operator         | Result                  |
+|:-------------:|:----------------:|:-----------------------:|
+| Uppercase     | `l-me: ~^value`  | `l-me: ' HELLÖ WÖRLD '` |
+| Lowercase     | `l-me: ~_value`  | `l-me: ' hellö wörld '` |
+| Titlecase     | `l-me: ~#value`  | `l-me: ' Hellö Wörld '` |
+| Toggle Casing | `l-me: ~!value`  | `l-me: ' hELLÖ WÖrlD '` |
+| Slugify       | `l-me: ~-value`  | `l-me: ' hellö-wörld '` |
+| Asciify       | `l-me: ~?value`  | `l-me: ' Hello woRLd '` |
+| Trim          | `l-me: ~\|value` | `l-me: 'Hellö WöRLd'`   |
+
+In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(?-(~|value))`, resulting in `l-me: 'hello-world'`.
+
 ## Immediate List
 
 Whenever static lists of items are to be instantiated for further use, simply specify the desired items in a comma-separated (`l-me: ,`) list, enclosed by square brackets (`l-me: []`).
@@ -375,3 +391,165 @@ input ?? fallback_variable
 |:----------------:|:-------------------------:|
 | `l-me: null`     | `l-me: fallback_variable` |
 | non-`l-me: null` | `l-me: input`             |
+
+## Operator Precedence
+
+The following table provides an overview of all existing operators as well as their precedence, where precedence is defined as follows: a higher number is evaluated first. Since multiplication has higher precedence than addition, the input `l-me: a + b * c + d` is equal to `l-me: a + (b * c) + d`; to specify an alternate order, make use of parentheses where needed, e.g. `l-me: (a + b) * c + d`. or `l-me: (a + b) * (c + d)`.
+
+Associativity regards the order of operations on chains of operators of same precedence, with left-to-right posing the standard in the majority of cases, e.g. `l-me: a + b + c` being equal to `l-me: ((a + b) + c)`, whereas exponentiation (due to power-towers) is right-to-left, e.g. `l-me: a ^ b ^ c` being equal to `l-me: a ^ (b ^ c)` - the same holds true for all prefix-operators, e.g. negation, flip-sign and string-transform.
+
+<table style={{textAlign: 'center'}}>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Symbol</th>
+      <th>Precedence</th>
+      <th>Associativity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Branching</td>
+      <td>`l-me: ?`</td>
+      <td>1</td>
+      <td rowspan={16}>left-to-right</td>
+    </tr>
+    <tr>
+      <td>Disjunction</td>
+      <td>`l-me: ||`</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Conjunction</td>
+      <td>`l-me: &&`</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Equal To</td>
+      <td>`l-me: ==`</td>
+      <td rowspan={2}>4</td>
+    </tr>
+    <tr>
+      <td>Not Equal To</td>
+      <td>`l-me: !=`</td>
+    </tr>
+    <tr>
+      <td>Greater Than</td>
+      <td>`l-me: >`</td>
+      <td rowspan={4}>5</td>
+    </tr>
+    <tr>
+      <td>Greater Than Or Equal</td>
+      <td>`l-me: >=`</td>
+    </tr>
+    <tr>
+      <td>Less Than</td>
+      <td>`l-me: <`</td>
+    </tr>
+    <tr>
+      <td>Less Than Or Equal</td>
+      <td>`l-me: <=`</td>
+    </tr>
+    <tr>
+      <td>Concatenation</td>
+      <td>`l-me: &`</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>Range</td>
+      <td>`l-me: ..`</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Addition</td>
+      <td>`l-me: +`</td>
+      <td rowspan={2}>8</td>
+    </tr>
+    <tr>
+      <td>Subtraction</td>
+      <td>`l-me: -`</td>
+    </tr>
+    <tr>
+      <td>Multiplication</td>
+      <td>`l-me: *`</td>
+      <td rowspan={3}>9</td>
+    </tr>
+    <tr>
+      <td>Division</td>
+      <td>`l-me: /`</td>
+    </tr>
+    <tr>
+      <td>Modulo</td>
+      <td>`l-me: %`</td>
+    </tr>
+    <tr>
+      <td>Exponentiation</td>
+      <td>`l-me: ^`</td>
+      <td>10</td>
+      <td>right-to-left</td>
+    </tr>
+    <tr>
+      <td>Fallback</td>
+      <td>`l-me: ??`</td>
+      <td>11</td>
+      <td>left-to-right</td>
+    </tr>
+    <tr>
+      <td>Negation</td>
+      <td>`l-me: !`</td>
+      <td rowspan={9}>12</td>
+      <td rowspan={9}>right-to-left</td>
+    </tr>
+    <tr>
+      <td>Flip Sign</td>
+      <td>`l-me: -`</td>
+    </tr>
+    <tr>
+      <td>Uppercase</td>
+      <td>`l-me: ~^`</td>
+    </tr>
+    <tr>
+      <td>Lowercase</td>
+      <td>`l-me: ~_`</td>
+    </tr>
+    <tr>
+      <td>Titlecase</td>
+      <td>`l-me: ~#`</td>
+    </tr>
+    <tr>
+      <td>Toggle Casing</td>
+      <td>`l-me: ~!`</td>
+    </tr>
+    <tr>
+      <td>Slugify</td>
+      <td>`l-me: ~-`</td>
+    </tr>
+    <tr>
+      <td>Asciify</td>
+      <td>`l-me: ~?`</td>
+    </tr>
+    <tr>
+      <td>Trim</td>
+      <td>`l-me: ~|`</td>
+    </tr>
+    <tr>
+      <td>Subscripting</td>
+      <td>`l-me: []`</td>
+      <td rowspan={3}>13</td>
+      <td rowspan={4}>left-to-right</td>
+    </tr>
+    <tr>
+      <td>Substring</td>
+      <td>`l-me: [:]`</td>
+    </tr>
+    <tr>
+      <td>Member</td>
+      <td>`l-me: .`</td>
+    </tr>
+    <tr>
+      <td>Parentheses</td>
+      <td>`l-me: ()`</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
