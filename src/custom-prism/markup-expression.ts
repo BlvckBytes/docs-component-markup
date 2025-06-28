@@ -165,7 +165,7 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
       }
     }
 
-    if (['+', '-', '*', '/', '%', '^', '&', '?', ':'].includes(nextChar)) {
+    if (['+', '-', '*', '/', '%', '^', '&', '?', ':', '@'].includes(nextChar)) {
       result.push(new Prism.Token('operator', nextChar));
       continue;
     }

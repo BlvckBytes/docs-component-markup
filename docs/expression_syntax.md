@@ -197,6 +197,26 @@ these will be the results of a few substring-operations
 
 As becomes apparent, both the start- and end-indices are omittable (up to bounds); also, negative indices will wrap around. Whenever an index is out of bounds, meaning that its absolute value is greater than or equal to the number of characters within the string, the operation will just stop right there.
 
+## String-Explode Operator
+
+Whenever a sequence of characters is to be split up into sub-sequences based on a pattern of delimiters, the string-explode operator can be used to do so. Let's assume an `l-me: input` of `l-me: 'hello_world test1-test2'` and firstly focus on separators that are either `l-me: null` or empty - they split each single character up, such that `l-me: input @ null` and `l-me: input @ ''` both yield:
+
+```markup-expression
+[
+  'h', 'e', 'l', 'l', 'o', '_', 'w', 'o', 'r', 'l', 'd', ' ',
+  't', 'e', 's', 't', '1', '-', 't', 'e', 's', 't', '2'
+]
+```
+
+Since the delimiter is not only plain text, but actually interpreted as a regular expression, there are many ways in which this input can be split-up.
+
+| Operation | Result |
+|:---------:|:------:|
+| `l-me: input @ '_'` | `l-me: ['hello', 'world test1-test2']` |
+| `l-me: input @ '-'` | `l-me: ['hello_world test1', 'test2']` |
+| `l-me: input @ ' '` | `l-me: ['hello_world', 'test1-test2']` |
+| `l-me: input @ '[-_ ]'` | `l-me: ['hello', 'world', 'test1', 'test2']` |
+
 ## Keywords
 
 Keywords are reserved names, not able to be used as variables, holding a static value:
@@ -489,15 +509,21 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>right-to-left</td>
     </tr>
     <tr>
+      <td>String-Explode</td>
+      <td>`l-me: @`</td>
+      <td>11</td>
+      <td>left-to-right</td>
+    </tr>
+    <tr>
       <td>Fallback</td>
       <td>`l-me: ??`</td>
-      <td>11</td>
+      <td>12</td>
       <td>left-to-right</td>
     </tr>
     <tr>
       <td>Negation</td>
       <td>`l-me: !`</td>
-      <td rowspan={9}>12</td>
+      <td rowspan={9}>13</td>
       <td rowspan={9}>right-to-left</td>
     </tr>
     <tr>
@@ -535,7 +561,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Subscripting</td>
       <td>`l-me: []`</td>
-      <td rowspan={3}>13</td>
+      <td rowspan={3}>14</td>
       <td rowspan={4}>left-to-right</td>
     </tr>
     <tr>
@@ -549,7 +575,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Parentheses</td>
       <td>`l-me: ()`</td>
-      <td>14</td>
+      <td>15</td>
     </tr>
   </tbody>
 </table>
