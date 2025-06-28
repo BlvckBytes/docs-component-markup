@@ -207,15 +207,25 @@ Whenever a sequence of characters is to be split up into sub-sequences based on 
   't', 'e', 's', 't', '1', '-', 't', 'e', 's', 't', '2'
 ]
 ```
-
-Since the delimiter is not only plain text, but actually interpreted as a regular expression, there are many ways in which this input can be split-up.
+Specifying delimiters will yield the according sub-sequences:
 
 | Operation | Result |
 |:---------:|:------:|
 | `l-me: input @ '_'` | `l-me: ['hello', 'world test1-test2']` |
 | `l-me: input @ '-'` | `l-me: ['hello_world test1', 'test2']` |
 | `l-me: input @ ' '` | `l-me: ['hello_world', 'test1-test2']` |
-| `l-me: input @ '[-_ ]'` | `l-me: ['hello', 'world', 'test1', 'test2']` |
+
+In order to make use of regular expressions to split on a pattern of delimiters, simply specify the operator twice back-to-back:
+
+```markup-expression
+input @@ '[-_ ]'
+```
+
+will yield
+
+```markup-expression
+['hello', 'world', 'test1', 'test2']
+```
 
 ## Keywords
 
@@ -509,16 +519,19 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>right-to-left</td>
     </tr>
     <tr>
-      <td>String-Explode</td>
+      <td>String-Explode Literal</td>
       <td>`l-me: @`</td>
-      <td>11</td>
-      <td>left-to-right</td>
+      <td rowspan={2}>11</td>
+      <td rowspan={3}>left-to-right</td>
+    </tr>
+    <tr>
+      <td>String-Explode Regex</td>
+      <td>`l-me: @@`</td>
     </tr>
     <tr>
       <td>Fallback</td>
       <td>`l-me: ??`</td>
       <td>12</td>
-      <td>left-to-right</td>
     </tr>
     <tr>
       <td>Negation</td>
