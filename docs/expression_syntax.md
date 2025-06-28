@@ -93,7 +93,7 @@ The following transformations may come in handy when dealing with strings of cha
 | Slugify       | `l-me: ~-value`  | `l-me: ' hellö-wörld '` |
 | Asciify       | `l-me: ~?value`  | `l-me: ' Hello woRLd '` |
 | Trim          | `l-me: ~\|value` | `l-me: 'Hellö WöRLd'`   |
-| Reverse       | `l-me: ~<value` | `l-me: 'dLRöW ölleH'`   |
+| Reverse       | `l-me: ~<value`  | `l-me: 'dLRöW ölleH'`   |
 
 In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(?-(~|value))`, resulting in `l-me: 'hello-world'`.
 
@@ -148,13 +148,26 @@ This operator may especially come in handy when combined with the structural `*f
 
 ## Substring Operator
 
-A substring represents a sub-sequence of characters within another string; it may span only a single character, a few or up to the whole input, based on the colon-separated (`:`) start- and end-indices, which are both *inclusive* and start at zero.
+A substring represents a sub-sequence of characters within another string; it may span only a single character, a few or up to the whole input, based on the colon-separated (`:`) start- and end-indices, which are **both inclusive** and **start at 0**.
 
 Given an `l-me: input` of `l-me: 'ABCDEFGHIJ'` with the following indices
 
 <table style={{textAlign: 'center'}}>
   <tr>
-    <th>Index</th>
+    <th>Negative Index</th>
+    <td>`l-me: -10`</td>
+    <td>`l-me: -9`</td>
+    <td>`l-me: -8`</td>
+    <td>`l-me: -7`</td>
+    <td>`l-me: -6`</td>
+    <td>`l-me: -5`</td>
+    <td>`l-me: -4`</td>
+    <td>`l-me: -3`</td>
+    <td>`l-me: -2`</td>
+    <td>`l-me: -1`</td>
+  </tr>
+  <tr>
+    <th>Positive Index</th>
     <td>`l-me: 0`</td>
     <td>`l-me: 1`</td>
     <td>`l-me: 2`</td>
@@ -181,22 +194,21 @@ Given an `l-me: input` of `l-me: 'ABCDEFGHIJ'` with the following indices
   </tr>
 </table>
 
-these will be the results of a few substring-operations
+Whenever indices are negative, they simply wrap around the very beginning at `l-me: 0`, counting characters back-to-start; this may be useful to operate on strings of unknown length. Next up, instead of numeric indices, strings marking positions within the input may also be provided - if they do not occur, the fallback used is either the first- or last character-index, for start and end respectively.
+
+Let's look at some example-operations:
 
 | Operation | Result |
 |:---------:|:------:|
-| `l-me: input[0:9]` | `l-me: 'ABCDEFGHIJ'` |
-| `l-me: input[2:]` | `l-me: 'CDEFGHIJ'` |
-| `l-me: input[:8]` | `l-me: 'ABCDEFGHI'` |
-| `l-me: input[:]` | `l-me: 'ABCDEFGHIJ'` |
-| `l-me: input[4:6]` | `l-me: 'EFG'` |
-| `l-me: input[-1:]` | `l-me: 'J'` |
-| `l-me: input[:-2]` | `l-me: 'AB'` |
-| `l-me: input[-1:-2]` | `l-me: 'JAB'` |
-| `l-me: input[0:100]` | `l-me: 'ABCDEFGHIJ'` |
-| `l-me: input[-100:]` | `l-me: 'JIHGFEDCBA'` |
-
-As becomes apparent, both the start- and end-indices are omittable (up to bounds); also, negative indices will wrap around. Whenever an index is out of bounds, meaning that its absolute value is greater than or equal to the number of characters within the string, the operation will just stop right there.
+| `l-me: input[:]`<br/>`l-me: input[:9]`<br/>`l-me: input[0:]`<br/>`l-me: input[0:9]` | `l-me: 'ABCDEFGHIJ'` |
+| `l-me: input[:5]` | `l-me: 'ABCDEF'` |
+| `l-me: input[3:6]` | `l-me: 'DEFG'` |
+| `l-me: input[0:3]` | `l-me: 'ABCD'` |
+| `l-me: input[-2:]` | `l-me: 'IJ'` |
+| `l-me: input[-5:-2]` | `l-me: 'FGHI'` |
+| `l-me: input['G':]` | `l-me: 'GHIJ'` |
+| `l-me: input[:'E']` | `l-me: 'ABCDE'` |
+| `l-me: input[-4:'I']` | `l-me: 'GHI'` |
 
 ## String-Explode Operator
 
@@ -386,7 +398,7 @@ lhs && rhs
 | `l-me: true`  | `l-me: false` | `l-me: false` |
 | `l-me: true`  | `l-me: true`  | `l-me: true`  |
 
-### Ternary Operator
+### Branching
 
 If an expression is to be selected out of two branches, one for `l-me: true` and one for `l-me: false`, given a boolean input, this will be the operator of choice.
 
