@@ -93,6 +93,7 @@ The following transformations may come in handy when dealing with strings of cha
 | Slugify       | `l-me: ~-value`  | `l-me: ' hellö-wörld '` |
 | Asciify       | `l-me: ~?value`  | `l-me: ' Hello woRLd '` |
 | Trim          | `l-me: ~\|value` | `l-me: 'Hellö WöRLd'`   |
+| Reverse       | `l-me: ~<value` | `l-me: 'dLRöW ölleH'`   |
 
 In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(?-(~|value))`, resulting in `l-me: 'hello-world'`.
 
@@ -536,8 +537,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Negation</td>
       <td>`l-me: !`</td>
-      <td rowspan={9}>13</td>
-      <td rowspan={9}>right-to-left</td>
+      <td rowspan={10}>13</td>
+      <td rowspan={10}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
@@ -570,6 +571,10 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Trim</td>
       <td>`l-me: ~|`</td>
+    </tr>
+    <tr>
+      <td>Reverse</td>
+      <td>`l-me: ~<`</td>
     </tr>
     <tr>
       <td>Subscripting</td>

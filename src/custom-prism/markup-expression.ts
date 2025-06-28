@@ -203,7 +203,7 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
 
     if (nextChar == '~') {
       let peek = cursor.peekChar();
-      if (peek == '^' || peek == '_' || peek == '#' || peek == '!' || peek == '-' || peek == '?' || peek == '|') {
+      if (peek == '^' || peek == '_' || peek == '#' || peek == '!' || peek == '-' || peek == '?' || peek == '|' || peek == '<') {
         result.push(new Prism.Token('operator', nextChar + cursor.nextChar()));
         continue;
       }
