@@ -514,9 +514,6 @@ class MarkupParser {
 
     let tagName = this.tryParseIdentifier();
 
-    if (tagName == null)
-      throw new Error('MISSING_TAG_NAME');
-
     if (wasClosingTag) {
       if (this.cursor.nextChar() != '>')
         throw new Error('UNTERMINATED_TAG');
@@ -524,10 +521,16 @@ class MarkupParser {
       this.output.whitespace(pendingWhitespace);
       this.output.punctuation('<');
       this.output.punctuation('/');
-      this.output.tagName(tagName);
+
+      if (tagName != null)
+        this.output.tagName(tagName);
+
       this.output.punctuation('>');
       return;
     }
+
+    if (tagName == null)
+      throw new Error('MISSING_TAG_NAME');
 
     if (this.tryConsumeCommentTag(tagName)) {
       this.output.comment(this.cursor.input.substring(beginning, this.cursor.nextCharIndex));

@@ -12,5 +12,5 @@ thereby be self-closing (does not accept content).
 | name        | Scalar | yes       | Key of font |
 
 ```component-markup
-<font name="my-font">My text rendered in my-font</font>
+<font name="my-font">My text rendered in my-font</>
 ```

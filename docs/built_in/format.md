@@ -8,7 +8,7 @@ Specifys the enclosed content's formats, being either enabled, disabled or unset
 to reset all prior formatting back to the default, use the corresponding tag:
 
 ```component-markup
-<reset>My text</reset>
+<reset>My text</>
 ```
 
 ## Immediate
@@ -36,12 +36,12 @@ tag will suffice.
       </td>
       <td>
         ```component-markup
-        <b>Bold text</b>
-        <!b>Non-bold text</!b>
+        <b>Bold text</>
+        <!b>Non-bold text</>
         ```
         ```component-markup
-        <&l>Bold text</&l>
-        <&!l>Non-bold text</&!l>
+        <&l>Bold text</>
+        <&!l>Non-bold text</>
         ```
       </td>
     </tr>
@@ -54,12 +54,12 @@ tag will suffice.
       </td>
       <td>
         ```component-markup
-        <i>Italic text</i>
-        <!i>Non-italic text</!i>
+        <i>Italic text</>
+        <!i>Non-italic text</>
         ```
         ```component-markup
-        <&o>Italic text</&o>
-        <&!o>Non-italic text</&!o>
+        <&o>Italic text</>
+        <&!o>Non-italic text</>
         ```
       </td>
     </tr>
@@ -72,12 +72,12 @@ tag will suffice.
       </td>
       <td>
         ```component-markup
-        <u>Underlined text</u>
-        <!u>Non-underlined text</!u>
+        <u>Underlined text</>
+        <!u>Non-underlined text</>
         ```
         ```component-markup
-        <&n>Underlined text</&n>
-        <&!n>Non-underlined text</&!n>
+        <&n>Underlined text</>
+        <&!n>Non-underlined text</>
         ```
       </td>
     </tr>
@@ -90,12 +90,12 @@ tag will suffice.
       </td>
       <td>
         ```component-markup
-        <st>Strikethrough text</st>
-        <!st>Non-strikethrough text</!st>
+        <st>Strikethrough text</>
+        <!st>Non-strikethrough text</>
         ```
         ```component-markup
-        <&m>Strikethrough text</&m>
-        <&!m>Non-strikethrough text</&!m>
+        <&m>Strikethrough text</>
+        <&!m>Non-strikethrough text</>
         ```
       </td>
     </tr>
@@ -108,12 +108,12 @@ tag will suffice.
       </td>
       <td>
         ```component-markup
-        <obf>Obfuscated text</obf>
-        <!obf>Non-obfuscated text</!obf>
+        <obf>Obfuscated text</>
+        <!obf>Non-obfuscated text</>
         ```
         ```component-markup
-        <&k>Obfuscated text</&k>
-        <&!k>Non-obfuscated text</&!k>
+        <&k>Obfuscated text</>
+        <&!k>Non-obfuscated text</>
         ```
       </td>
     </tr>
@@ -132,5 +132,5 @@ style as an attribute of corresponding name, accepting nullable booleans (null m
   [underlined]="<expression>"
   [strikethrough]="<expression>"
   [obfuscated]="<expression>"
->My text</format>
+>My text</>
 ```

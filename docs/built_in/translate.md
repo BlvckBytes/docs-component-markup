@@ -19,13 +19,13 @@ must thereby be self-closing (does not accept content).
 <translate
   key="chat.type.advancement.challenge"
   with={
-    <green>Username</green>
+    <green>Username
   }
   with={
-    <green>Challenge-Name</green>
+    <green>Challenge-Name
   }
   fallback={
-    <red>Could not locate key</red>
+    <red>Could not locate key
   }
 />
 ```

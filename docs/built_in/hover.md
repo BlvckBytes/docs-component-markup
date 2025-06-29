@@ -17,9 +17,9 @@ Displays a single line of text when hovering.
 ```component-markup
 <hover-text
   value={
-    <red>Displayed when hovering</red>
+    <red>Displayed when hovering
   }
->My text</hover-text>
+>My text</>
 ```
 
 ## Show Item
@@ -38,16 +38,14 @@ Displays the tooltip of an item when hovering.
   material="dirt"
   amount=3
   name={
-    <red>My dirt</red>
+    <red>My dirt
   }
   lore={
-    <green>First line</green>
-    <br/>
-    <aqua>Second line</aqua>
-    <br/>
-    <gold>Third line</gold>
+    <green>First line<br/>
+    <aqua>Second line<br/>
+    <gold>Third line
   }
->My text</hover-item>
+>My text</>
 ```
 
 ## Show Entity
@@ -67,7 +65,7 @@ Displays a tooltip containing information about an entity within the player's wo
   name={
     <red>Peppa the pig
   }
->My text</hover-entity>
+>My text</>
 ```
 
 ## Show Achievement
@@ -81,5 +79,5 @@ Displays a tooltip containing information about the specified achievement; this 
 ```component-markup
 <hover-achievement
   value="achievement.mineWood"
->My text</hover-achievement>
+>My text</>
 ```

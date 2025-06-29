@@ -13,13 +13,13 @@ Specifies the enclosed content's shadow-color, supporting either RGB `#RRGGBB` o
 
 
 ```component-markup
-<shadow value="red">My text</shadow>
+<shadow value="red">My text</>
 ```
 
 ```component-markup
-<shadow value="#FF02FA">My text</shadow>
+<shadow value="#FF02FA">My text</>
 ```
 
 ```component-markup
-<shadow value="&6" opacity=55.4>My text</shadow>
+<shadow value="&6" opacity=55.4>My text</>
 ```

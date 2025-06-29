@@ -14,13 +14,15 @@ As for readability and maintainability, we employ proper XML-syntax with named a
 
 ```component-markup
 <hover-item
-  name={<red>My tooltip</red>}
+  name={<red>My tooltip}
   lore={
     <green>First line<br/>
     <aqua>Second line<br/>
     <gold>Third line
   }
-><blue>Go ahead and hover over me! :)
+>
+  <blue>Go ahead and hover over me! :)
+</>
 ```
 
 ## Extensibility
@@ -42,9 +44,9 @@ With the majority of existing systems, templating seems to be an afterthought an
   >
     <run-command
       [value]="'/tp ' + player_name"
-    >#{{position_number}} {{player_name}}</run-command>
-  </red>
-</gray>
+    >#{{position_number}} {{player_name}}</>
+  </>
+</>
 ```
 
 Make sure to check out the [Tag Syntax](./tag_syntax.md) as to ensure effective and frictionless use of this language!
