@@ -239,12 +239,20 @@ Multiple such sequences may coexist one after another on the same level of depth
 
 ### Generative Loops
 
-In order to generate content based on a sequence of data-points, the intrinsic `*for-` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after the hyphen of the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
+In order to generate content based on a sequence of data-points, the intrinsic `*for` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after a hyphen attached to the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
 
 Once employed, the additional attributes become available:
 
 - `for-separator`, accepting an optional markup-value to be injected inbetween iterations
 - `for-reversed`, accepting an optional boolean marking whether to iterate in reverse order
+
+When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax.md#range-operator) (the `l-me: loop` context is discussed further below).
+
+```component-markup
+<red *for="1..10">The #{{loop.index + 1}} occurrence of this line!
+```
+
+When iteration-items are required, simply attach the desired variable-name with a hyphen to the attribute.
 
 ```component-markup
 <gray>Online players: <red
@@ -281,7 +289,7 @@ Let's render an alternate name for `Steve`:
 </gray>
 ```
 
-Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for-` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
+Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
 
 - `l-me: index`: Zero-based sequence-number of the current element
 - `l-me: is_even`: Whether the `l-me: index` is an even number
