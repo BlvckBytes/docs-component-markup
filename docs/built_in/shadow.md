@@ -21,5 +21,5 @@ Specifies the enclosed content's shadow-color, supporting either RGB `#RRGGBB` o
 ```
 
 ```component-markup
-<shadow value="gold" opacity=55.4>My text</shadow>
+<shadow value="&6" opacity=55.4>My text</shadow>
 ```
