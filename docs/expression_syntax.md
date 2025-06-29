@@ -222,8 +222,8 @@ Whenever a sequence of characters is to be split up into sub-sequences based on 
 ```
 Specifying delimiters will yield the according sub-sequences:
 
-| Operation | Result |
-|:---------:|:------:|
+| Operation           | Result                                 |
+|:-------------------:|:--------------------------------------:|
 | `l-me: input @ '_'` | `l-me: ['hello', 'world test1-test2']` |
 | `l-me: input @ '-'` | `l-me: ['hello_world test1', 'test2']` |
 | `l-me: input @ ' '` | `l-me: ['hello_world', 'test1-test2']` |
@@ -239,6 +239,16 @@ will yield
 ```markup-expression
 ['hello', 'world', 'test1', 'test2']
 ```
+
+## Repeat Operator
+
+Whenever a sequence of characters is to be repeated a certain number of times by simply joining it back-to-back with itself, the repeat-operator allows to depict such behaviour. Let's assume an `l-me: input` of `l-me: 'abc'`, then the following output-table applies:
+
+| Operation | Result                             |
+|:---------:|:----------------------------------:|
+| `l-me: input ** 1` | `l-me: 'abc'`             |
+| `l-me: input ** 2` | `l-me: 'abcabc'`          |
+| `l-me: input ** 5` | `l-me: 'abcabcabcabcabc'` |
 
 ## Keywords
 
@@ -534,12 +544,16 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>String-Explode Literal</td>
       <td>`l-me: @`</td>
-      <td rowspan={2}>11</td>
-      <td rowspan={3}>left-to-right</td>
+      <td rowspan={3}>11</td>
+      <td rowspan={4}>left-to-right</td>
     </tr>
     <tr>
       <td>String-Explode Regex</td>
       <td>`l-me: @@`</td>
+    </tr>
+    <tr>
+      <td>Repeat</td>
+      <td>`l-me: **`</td>
     </tr>
     <tr>
       <td>Fallback</td>
