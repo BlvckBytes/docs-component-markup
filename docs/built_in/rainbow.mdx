@@ -1,0 +1,102 @@
+---
+sidebar_position: 13
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Rainbow
+
+Colorizes enclosed content with one continuous rainbow char-by-char, where client-rendered content like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be split up and will just be considered as an atomic unit.
+
+There are many available attributes, like whether to override the color of already-colorized members, whether to skip whitespace (for better visual continuity), whether to skip non-text (aforementioned atomic units), whether to merge inner rainbows in order to create one large continuous transition as well as whether to dive into markup-attributes of children to colorize them too (deep).
+
+| Attribute           | Type   | Mandatory | Default         | Description                                       |
+|:-------------------:|:------:|:---------:|:---------------:|:-------------------------------------------------:|
+| override-colors     | Scalar | no        | `l-me: false`   | Whether to override already colorized members     |
+| skip-whitespace     | Scalar | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
+| skip-non-text       | Scalar | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
+| merge-inner         | Scalar | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
+| deep                | Scalar | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
+| phase               | Scalar | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
+
+## Examples
+
+### Continuous Rainbow
+
+The simplest form of a rainbow, using all standard attribute-values.
+
+```component-markup
+<rainbow>All of the fancy rainbow colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/static_continuous_rainbow.png')} />
+
+
+### Injected Color
+
+By default, colorized members will keep their style and the transition will just skip over them.
+
+```component-markup
+<rainbow>All of the <red>fancy</> rainbow colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/static_injected_rainbow.png')} />
+
+### Split Individual Rainbows
+
+In the following example, the text `l-me: 'hellohello-worldworld-testtest'` is to be colorized
+with individual rainbows per word, having the hyphens shaded in a mere grey-tone.
+
+```component-markup
+<rainbow
+  *for-word="'hellohello-worldworld-testtest' @ '-'"
+  for-separator={<gray>-}
+>{{word}}</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/static_split_rainbow.png')} />
+
+The above could also be specified without making use of advanced features like loops and the
+explode-operator, just like the following example portrays:
+
+```component-markup
+<rainbow>hellohello</><gray>-</><rainbow>worldworld</><gray>-</><rainbow>testtest</>
+```
+
+But the prior style allows for great flexibility when it comes to data-driven rendering, as injected monochrome
+passages may now be dynamically defined by the environment.
+
+### Split Continuous Rainbow
+
+When the merge-attribute is enabled, inner rainbows will be joined in order to allow for visual continuity.
+
+```component-markup
+<rainbow merge-inner=true>
+  <rainbow
+    *for-word="'hellohello-worldworld-testtest' @ '-'"
+    for-separator={<gray>-}
+  >{{word}}</>
+</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/static_split_continuous_rainbow.png')} />
+
+### Animated Split Continuous Rainbow
+
+By binding the phase-offset to an environment-variable, all while altering said variable in-between calls to
+render, animations may be created.
+
+```component-markup
+<rainbow
+  merge-inner=true
+  [phase]="current_phase"
+>
+  <rainbow
+    *for-word="'hellohello-worldworld-testtest' @ '-'"
+    for-separator={<gray>-}
+  >{{word}}</>
+</>
+```
+
+
+<img className='rendered-image' src={useBaseUrl('/img/animated_split_continuous_rainbow.gif')} />
