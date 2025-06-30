@@ -1,0 +1,142 @@
+---
+sidebar_position: 14
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Gradient
+
+Colorizes enclosed content with one continuous gradient char-by-char, where client-rendered content
+like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be
+split up and will just be considered as an atomic unit.
+
+| Attribute           | Type         | Mandatory | Default         | Description                                       |
+|:-------------------:|:------------:|:---------:|:---------------:|:-------------------------------------------------:|
+| color               | Multi-Scalar | no        | `l-me: null`    | Colors to be used within the gradient             |
+| offset              | Multi-Scalar | no        | `l-me: null`    | Offsets at which the colors lie; 0-100%           |
+| z-index             | Multi-Scalar | no        | `l-me: 0`       | Z-indices of the color-points                     |
+| skip-whitespace     | Scalar       | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
+| skip-non-text       | Scalar       | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
+| merge-inner         | Scalar       | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
+| deep                | Scalar       | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
+| phase               | Scalar       | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
+
+When specifying `color`-points on the gradient, simply specify them one each per attribute
+
+```component-markup
+<gradient
+  color="red"
+  color="blue"
+  color="green"
+>All of the fancy gradient colors!</>
+```
+
+or employ the spread-operator in order to bind a dynamic list of items
+
+```component-markup
+<gradient
+  [...color]="['red', 'blue', 'green']"
+>All of the fancy gradient colors!</>
+```
+
+When not specifying any `offset`-values, colors will simply be spaced equidistant automatically. When specifying
+less offsets than colors, the provided entries are sorted ascendingly and clamped to an interval between 0 and 100;
+the remaining distance, if any, will be shared equidistant amongst the remaining colors. Usually though, one either
+specifies no offsets, or all of them, for fine-grained control. For manually specified gradients, it is recommended
+to specify `color`- and `offset`-values in an alternating manner to increase readability.
+
+```component-markup
+<gradient
+  color="red"
+  offset=0
+  color="blue"
+  offset=25.2
+  color="green"
+  offset=70.5
+  color="gold"
+  offset=100
+>All of the fancy gradient colors!</>
+```
+
+When specifying dynamic templates with full control, simply mark both attributes by the spread-operator and
+pass one list each using the environment.
+
+```component-markup
+<gradient
+  [...color]="my_colors"
+  [...offset]="my_offsets"
+>All of the fancy gradient colors!</>
+```
+
+When it comes to z-indices, they too are assigned one-by-one to colors, meaning that if one wants to specify
+the third index, the prior two values need to be specified also, in order to avoid being erroneously assigned
+to the first. In general, it is advised to always specify the used attribute at hand for all color-points or
+for none, as to avoid confusion.
+
+## Examples
+
+### Two Color Gradient
+
+The simplest form of a gradient is that between two colors.
+
+```component-markup
+<gradient
+  color="red"
+  color="blue"
+>All of the fancy gradient colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/two_color_gradient.png')} />
+
+### Three Color Gradient
+
+By adding another color, the offsets along the gradient will be automatically balanced if not specified otherwise.
+
+```component-markup
+<gradient
+  color="red"
+  color="yellow"
+  color="blue"
+>All of the fancy gradient colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/three_color_gradient.png')} />
+
+### Variable Phase Gradient
+
+By binding the phase-offset to an environment-variable, all while altering said variable in-between calls to
+render, animations may be created.
+
+```component-markup
+<gradient
+  [phase]="current_phase"
+  color="red"
+  color="yellow"
+  color="blue"
+>All of the fancy gradient colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/variable_phase_gradient.gif')} />
+
+### Variable Offset Gradient
+
+If instead of shifting the whole gradient, just a single point (or multiple points, for that matter) on it is to be
+moved, simply bind the corresponding offset(s) to altering environment-variables. It is highly advised to now
+also employ the `z-index` attribute as to ensure that the moving point(s) take precedence all along the gradient
+in order to avoid visual glitches.
+
+```component-markup
+<gradient
+  color="red"
+  offset=0
+  z-index=0
+  color="yellow"
+  [offset]="current_phase"
+  z-index=1
+  color="blue"
+  offset=100
+  z-index=0
+>All of the fancy gradient colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/variable_offset_gradient.gif')} />

@@ -6,18 +6,18 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Rainbow
 
-Colorizes enclosed content with one continuous rainbow char-by-char, where client-rendered content like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be split up and will just be considered as an atomic unit.
-
-There are many available attributes, like whether to override the color of already-colorized members, whether to skip whitespace (for better visual continuity), whether to skip non-text (aforementioned atomic units), whether to merge inner rainbows in order to create one large continuous transition as well as whether to dive into markup-attributes of children to colorize them too (deep).
+Colorizes enclosed content with one continuous rainbow char-by-char, where client-rendered content
+like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be
+split up and will just be considered as an atomic unit.
 
 | Attribute           | Type   | Mandatory | Default         | Description                                       |
 |:-------------------:|:------:|:---------:|:---------------:|:-------------------------------------------------:|
-| override-colors     | Scalar | no        | `l-me: false`   | Whether to override already colorized members     |
-| skip-whitespace     | Scalar | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
-| skip-non-text       | Scalar | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
-| merge-inner         | Scalar | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
-| deep                | Scalar | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
-| phase               | Scalar | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
+| override-colors     | Scalar | no        | `l-me: false`   | Whether to override already colorized members     |
+| skip-whitespace     | Scalar | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
+| skip-non-text       | Scalar | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
+| merge-inner         | Scalar | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
+| deep                | Scalar | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
+| phase               | Scalar | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
 
 ## Examples
 
