@@ -46,7 +46,7 @@ class OutputBuilder {
     this.tokens.push(new Prism.Token('comment', value));
   }
 
-  attributeName(value: string) {
+  attributeName(value: string, isExpression = false) {
     let firstChar = value.charAt(0);
     let lastChar = value.charAt(value.length - 1);
 
@@ -64,8 +64,14 @@ class OutputBuilder {
 
     if (firstChar == '[' && lastChar == ']') {
       this.punctuation('[');
-      this.tokens.push(new Prism.Token('keyword', value.substring(1, value.length - 1)));
+      this.attributeName(value.substring(1, value.length - 1), true);
       this.punctuation(']');
+      return;
+    }
+
+    if (isExpression && value.startsWith('...')) {
+      this.punctuation('...');
+      this.attributeName(value.substring(3), true);
       return;
     }
 

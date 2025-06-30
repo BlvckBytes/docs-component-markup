@@ -196,6 +196,24 @@ Attributes which support multiple values may be assigned more than once - each o
 
 In the above example, the two values of `with` will be matched with the two placeholders of the `challenge` translation-message by the client; such messages may have a different number of slots, with component-markup allowing the user to specify as many values as necessary.
 
+Whenever attributes support multiple values **and** are enclosed by square-brackets `[]` in order to be bound to an expression, the spread-operator `...` may be prepended to the attribute-name within said brackets in order to evaluate the result of the expression and instantiate an attribute-value for each item of the list it returns (becomes a singleton-list if the expression returns a scalar).
+
+```component-markup
+<my-tag [...my-attribute]="['hello', 'world', 'test']">
+```
+
+In the above example, the attribute `my-attribute` of the tag `my-tag` will be instantiated once for each item of the [Immediate List](./expression_syntax.md#immediate-list) `l-me: ['hello', 'world', 'test']`, such that the resulting meaning effectively becomes:
+
+```component-markup
+<my-tag
+  [my-attribute]="'hello'"
+  [my-attribute]="'world'"
+  [my-attribute]="'test'"
+>
+```
+
+This can be very useful for data-driven rendering, where the environment holds lists of values which are to be **individually** bound to tag-attributes. Beware of the fact that if the spreading-operator is not employed on a multi-value attribute, results may vastly differ from expectations, because a **single attribute-value** holding the outermost list is not equivalent to **multiple attribute-values** each holding a single item of said list.
+
 ### Let-Bindings
 
 Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable; the attribute-value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
