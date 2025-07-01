@@ -8,16 +8,19 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Colorizes enclosed content with one continuous gradient char-by-char, where client-rendered content
 like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be
-split up and will just be considered as an atomic unit.
+split up and will just be considered as an atomic unit. Check out the examples regarding common attributes
+over at the [Rainbow](./rainbow.mdx)-Tag, as they behave exactly the same and their documentation is
+therefore kept centrally.
 
 | Attribute           | Type         | Mandatory | Default         | Description                                       |
 |:-------------------:|:------------:|:---------:|:---------------:|:-------------------------------------------------:|
 | color               | Multi-Scalar | no        | `l-me: null`    | Colors to be used within the gradient             |
 | offset              | Multi-Scalar | no        | `l-me: null`    | Offsets at which the colors lie; 0-100%           |
 | z-index             | Multi-Scalar | no        | `l-me: 0`       | Z-indices of the color-points                     |
+| override-colors     | Scalar       | no        | `l-me: false`   | Whether to override already colorized members     |
 | skip-whitespace     | Scalar       | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
 | skip-non-text       | Scalar       | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
-| merge-inner         | Scalar       | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
+| merge-inner         | Scalar       | no        | `l-me: false`   | Whether to merge inner gradients for continuity   |
 | deep                | Scalar       | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
 | phase               | Scalar       | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
 

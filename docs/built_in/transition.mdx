@@ -1,0 +1,69 @@
+---
+sidebar_position: 14
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Transition
+
+Colorizes enclosed content with a monochome color based on the current phase of the gradient; this tag is similar
+to the [Gradient](./gradient.mdx)-Tag, just that the gradient does not occur on a char-by-char basis, but instead
+on a whole-content basis. This feature usually makes the most sense not necessarily in chat, but at in-place updatable
+slots like the action-bar, tab, scoreboard, etc. Check out the details regarding these attributes over at the
+aforementioned Gradient-Tag, as they behave exactly the same and their documentation is therefore kept centrally.
+
+| Attribute           | Type         | Mandatory | Default         | Description                                       |
+|:-------------------:|:------------:|:---------:|:---------------:|:-------------------------------------------------:|
+| color               | Multi-Scalar | no        | `l-me: null`    | Colors to be used within the gradient             |
+| offset              | Multi-Scalar | no        | `l-me: null`    | Offsets at which the colors lie; 0-100%           |
+| z-index             | Multi-Scalar | no        | `l-me: 0`       | Z-indices of the color-points                     |
+| override-colors     | Scalar       | no        | `l-me: false`   | Whether to override already colorized members     |
+| skip-non-text       | Scalar       | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
+| deep                | Scalar       | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
+| phase               | Scalar       | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
+
+## Examples
+
+### Two Color Transition
+
+The simplest form of a transition is that between two colors.
+
+```component-markup
+<transition
+  [phase]="current_phase"
+  color="red"
+  color="blue"
+>All of the fancy transition colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/two_color_transition.png')} />
+
+### Three Color Transition
+
+By adding another color, the offsets along the transition will be automatically balanced if not specified otherwise.
+
+```component-markup
+<transition
+  [phase]="current_phase"
+  color="red"
+  color="green"
+  color="blue"
+>All of the fancy transition colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/three_color_transition.png')} />
+
+### Injected Static Color
+
+If not specified otherwise, existing colors won't be overridden, allowing the user to set
+certain statically tinted highlights.
+
+```component-markup
+<transition
+  [phase]="current_phase"
+  color="red"
+  color="blue"
+>All of the fancy <gold>transition</> colors!</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/injected_static_transition.png')} />
