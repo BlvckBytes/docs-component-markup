@@ -4,18 +4,14 @@ sidebar_position: 1
 
 import ColorSquare from '@site/src/components/ColorSquare';
 
-# Color
+# Color Shorthands
 
 Specifies the enclosed content's color. When evaluating components on an older version,
 unsupported colors (e.g. hexadecimal) will be converted to known constants, thereby
 supporting a broad range of versions without having to compromise on modern features.
 
-## Immediate
-
 Both the vanilla set of Minecraft's legacy-colors as well as all hexadecimal values may
 be used as shorthand tag-names.
-
-### Legacy Colors
 
 For the sake of brevity, while ensuring compatibility and familiarity, both the constant-names
 *and* the ubiquitous ampersand-sequences are supported; keep in mind that the latter also uses
@@ -43,11 +39,11 @@ tag-notation, as to unify syntax and stick to the new standard.
 To be used as follows:
 
 ```component-markup
-<green>Green text</green>
+<green>Green text</>
 ```
 
 ```component-markup
-<&b>Aqua text</&b>
+<&b>Aqua text</>
 ```
 
 ### Hexadecimal Colors
@@ -69,7 +65,7 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td>#E8871E</td>
       <td>
         ```component-markup
-        <#E8871E>My text</#E8871E>
+        <#E8871E>My text</>
         ```
       </td>
     </tr>
@@ -78,7 +74,7 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td>#6883BA</td>
       <td>
         ```component-markup
-        <#6883BA>My text</#6883BA>
+        <#6883BA>My text</>
         ```
       </td>
     </tr>
@@ -87,22 +83,9 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td>#DD99BB</td>
       <td>
         ```component-markup
-        <#DD99BB>My text</#DD99BB>
+        <#DD99BB>My text</>
         ```
       </td>
     </tr>
   </tbody>
 </table>
-
-## Dynamic
-
-If the color is to be driven by data, or when values shall be fully custom (for various purposes,
-like modded clients, etc.), there exists the explicit tag which takes in a `value`-attribute.
-
-```component-markup
-<color value="static value">My text</>
-```
-
-```component-markup
-<color [value]="<expression>">My text</>
-```
