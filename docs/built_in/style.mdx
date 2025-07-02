@@ -2,18 +2,103 @@
 sidebar_position: 2
 ---
 
+import ColorSquare from '@site/src/components/ColorSquare';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-# Format
+# Style
 
-Specifys the enclosed content's formats, being either enabled, disabled or unset (default). In order
+Specifys the enclosed content's style, being either enabled, disabled or unset (default). In order
 to reset all prior formatting back to the default, use the corresponding tag:
 
 ```component-markup
 <reset>My text</>
 ```
 
-## Shorthands
+## Color Shorthands
+
+Specifies the enclosed content's color. When evaluating components on an older version,
+unsupported colors (e.g. hexadecimal) will be converted to known constants, thereby
+supporting a broad range of versions without having to compromise on modern features.
+
+Both the vanilla set of Minecraft's legacy-colors as well as all hexadecimal values may
+be used as shorthand tag-names.
+
+For the sake of brevity, while ensuring compatibility and familiarity, both the constant-names
+*and* the ubiquitous ampersand-sequences are supported; keep in mind that the latter also uses
+tag-notation, as to unify syntax and stick to the new standard.
+
+| Color                           | Constant              | Sequence           |
+|:-------------------------------:|-----------------------|--------------------|
+| <ColorSquare color="#55FF55" /> | green                 | &a                 |
+| <ColorSquare color="#55FFFF" /> | aqua                  | &b                 |
+| <ColorSquare color="#FF5555" /> | red                   | &c                 |
+| <ColorSquare color="#FF55FF" /> | light_purple          | &d                 |
+| <ColorSquare color="#FFFF55" /> | yellow                | &e                 |
+| <ColorSquare color="#FFFFFF" /> | white                 | &f                 |
+| <ColorSquare color="#000000" /> | black                 | &0                 |
+| <ColorSquare color="#0000AA" /> | dark_blue             | &1                 |
+| <ColorSquare color="#00AA00" /> | dark_green            | &2                 |
+| <ColorSquare color="#00AAAA" /> | dark_aqua             | &3                 |
+| <ColorSquare color="#AA0000" /> | dark_red              | &4                 |
+| <ColorSquare color="#AA00AA" /> | dark_purple           | &5                 |
+| <ColorSquare color="#FFAA00" /> | gold                  | &6                 |
+| <ColorSquare color="#AAAAAA" /> | gray                  | &7                 |
+| <ColorSquare color="#555555" /> | dark_gray             | &8                 |
+| <ColorSquare color="#5555FF" /> | blue                  | &9                 |
+
+To be used as follows:
+
+```component-markup
+<green>Green text</>
+```
+
+```component-markup
+<&b>Aqua text</>
+```
+
+Since Minecraft version `1.16`, hexadecimal colors are now fully supported, enabling the user
+to access the whole realm of 16.7 million new values. In order to specify such colors, use the pattern `#RRGGBB` as a tag-name, used as follows:
+
+<table>
+  <thead>
+    <tr>
+      <th>Color</th>
+      <th>Hex-Value</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign: 'center'}}><ColorSquare color="#E8871E" /></td>
+      <td>#E8871E</td>
+      <td>
+        ```component-markup
+        <#E8871E>My text</>
+        ```
+      </td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}><ColorSquare color="#6883BA" /></td>
+      <td>#6883BA</td>
+      <td>
+        ```component-markup
+        <#6883BA>My text</>
+        ```
+      </td>
+    </tr>
+    <tr>
+      <td style={{textAlign: 'center'}}><ColorSquare color="#DD99BB" /></td>
+      <td>#DD99BB</td>
+      <td>
+        ```component-markup
+        <#DD99BB>My text</>
+        ```
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Format Shorthands
 
 Both the full format as well as it's shorthand may be used as tag-names (also supporting the
 ubiquitous ampersand-sequences); prepend a bang in order to disable this style (and don't
@@ -122,7 +207,7 @@ tag will suffice.
   </tbody>
 </table>
 
-## Tag And Attributes
+## Explicit Tag
 
 While there are shorthand-tags for formats and colors, the explicit `<style>`-tag comes in handy whenever
 style is to be driven by data dynamically, or special properties like the `font` or the `shadow` are to be
