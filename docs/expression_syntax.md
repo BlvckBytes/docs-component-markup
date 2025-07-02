@@ -44,10 +44,21 @@ Fractional values may be depicted using the decimal-dot (`.`).
 2.7182
 ```
 
+Where the leading zero can be dropped entirely:
+
+```markup-expression
+.5
+```
+
 Additionally, numbers may become negative simply by prepending a minus-sign (`l-me: -`).
 
 ```markup-expression
 -512
+```
+
+
+```markup-expression
+-.23
 ```
 
 ## Concatenation Operator
