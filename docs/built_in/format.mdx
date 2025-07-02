@@ -2,6 +2,8 @@
 sidebar_position: 2
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 # Format
 
 Specifys the enclosed content's formats, being either enabled, disabled or unset (default). In order
@@ -11,7 +13,7 @@ to reset all prior formatting back to the default, use the corresponding tag:
 <reset>My text</>
 ```
 
-## Immediate
+## Shorthands
 
 Both the full format as well as it's shorthand may be used as tag-names (also supporting the
 ubiquitous ampersand-sequences); prepend a bang in order to disable this style (and don't
@@ -120,17 +122,46 @@ tag will suffice.
   </tbody>
 </table>
 
-## Dynamic
+## Tag And Attributes
 
-If the format is to be driven by data, there exists the explicit tag which takes each individual
-style as an attribute of corresponding name, accepting nullable booleans (null means unset).
+While there are shorthand-tags for formats and colors, the explicit `<style>`-tag comes in handy whenever
+style is to be driven by data dynamically, or special properties like the `font` or the `shadow` are to be
+controlled.
+
+| Attribute           | Default        | Description                            |
+|:-------------------:|:--------------:|:--------------------------------------:|
+| bold                | `l-me: false`  | Whether to render text bold            |
+| italic              | `l-me: false`  | Whether to render text italic          |
+| underlined          | `l-me: false`  | Whether to underline text              |
+| strikethrough       | `l-me: false`  | Whether to strikethrough text          |
+| obfuscated          | `l-me: false`  | Whether to apply the obfuscated effect |
+| font                | `l-me: null`   | Key of the font to render the text in  |
+| color               | `l-me: null`   | Color to apply to the text             |
+| shadow              | `l-me: null`   | Color of the text's shadow             |
+| shadow-opacity      | `l-me: 50`     | Opacity of the text's shadow; 0-100%   |
+
+## Examples
+
+To set a font, simply assign the corresponding attribute to the desired string:
 
 ```component-markup
-<format
-  [bold]="<expression>"
-  [italic]="<expression>"
-  [underlined]="<expression>"
-  [strikethrough]="<expression>"
-  [obfuscated]="<expression>"
->My text</>
+<style font="my.font">Hello, world!
 ```
+
+If the value is to be driven by data, attribute-binding allows to assign expressions instead:
+
+```component-markup
+<style [bold]="a || b">Hello, world!
+```
+
+Next to specifying style statically or dynamically, one may also employ this tag in order to toggle
+multiple styles dynamically, by leveraging the structural `*use`-attribute:
+
+
+```component-markup
+The following \
+<style *use="enable_warning" color="red" bold italic underlined>WARNING</> \
+is really important!
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/style_use_warning.gif')} />
