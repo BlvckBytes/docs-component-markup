@@ -228,7 +228,7 @@ Each tag, no matter its underlying implementation, supports binding the result o
 
 Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
 
-### Conditionals
+### If-Conditionals
 
 The simplest form of a conditional is represented by the intrinsic `*if` structural attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
 
@@ -264,6 +264,21 @@ Multiple such sequences may coexist one after another on the same level of depth
 </>
 <red *else>Shown if condition 2 is not met!</>
 ```
+
+### Use-Conditional
+
+If instead of disabling the applied-to element and its children altogether, the intrinsic `*use` structural attribute
+allows to only prevent the very tag it is applied to from taking effect, while still always rendering its content; that
+said, the `*if` condition takes precedence and when it itself evaluates to `l-me: false`, the `*use` condition will
+not have any effect.
+
+```component-markup
+<rainbow *if="show_text" *use="enable_rainbow">Hello, world!</>
+```
+
+In the example above, if `l-me: show_text` evaluates to `l-me: false`, the entire tag will not render, including its
+textual contents; otherwise, the value of `l-me: enable_rainbow` dictates whether the rainbow is applied or not - if it
+evaluates to `l-me: false`, the text `Hello, world!` will remain uncolorized.
 
 ### Generative Loops
 
