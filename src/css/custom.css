@@ -62,4 +62,6 @@ td .theme-code-block:last-child {
 .rendered-image {
   width: 40%;
   min-width: 330px;
+  margin-bottom: var(--ifm-leading);
+  display: block;
 }

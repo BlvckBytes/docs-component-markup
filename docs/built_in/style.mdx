@@ -7,12 +7,65 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Style
 
-Specifys the enclosed content's style, being either enabled, disabled or unset (default). In order
-to reset all prior formatting back to the default, use the corresponding tag:
+Specifys the enclosed content's style, being either enabled, disabled or unset (default, as dictated by
+the component-slot rendered into).
+
+## Reset
+
+By definition, resetting resets style **only**, meaning formats (bold, italic, etc.), as well as color,
+shadow-color and font (click- and hover-events are **not** affected, by design!). In
+essence, it affects all properties of the `<style>`-tag documented on this page, which is why the
+`<reset>`-tag also resides here; think of it as the successor to its legacy equivalent `&r`, which also
+immediately dictates what will be reset to: chat-style, meaning white color, no formats as well
+as default font and shadow.
+
+The above is the only future-proof definition of resetting style, as various component-slots come with
+differing implicit default styles, e.g. `italic` formatting and `dark_purple` color on lore-lines. Mojang
+may change these up in the future and can, at any release, introduce new default-styles for other slots.
+Implicitly resetting by default in order to level the playing-field is not an option either, as
+some users may want to take advantage of these default formats; choosing to make it be an explicit action
+to normalize style thus enables all participants to be able to express their rendering desires.
+
+A lore-line without reset looks as follows
 
 ```component-markup
-<reset>My text</>
+This is a lore-line!
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/reset_lore_default.png')} />
+
+While reset will clear styles to equal chat-format.
+
+```component-markup
+<reset>This is a lore-line!
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/reset_lore_cleared.png')} />
+
+Another use-case for resetting style is to inject differently styled content without having to re-specify
+the formats for all other parts; let's look at the less-clean version first.
+
+```component-markup
+<red><b><i>It has </red>
+<blue>injected</>
+<red><b><i> content!
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/reset_lore_injected.png')} />
+
+Instead, in order to inject an independent part, simply invoke `reset`, without having to exit
+the surrounding style; while we're at it, let's also use the shorthand name `r`.
+
+```component-markup
+<red><b><i>
+  It has \
+  <r><blue>injected</r> \
+  content!
+```
+
+The system is aware of which slot a component is rendered into and thereby also knows its default style, which
+is why `<reset>` will only ever emit the style-properties absolutely necessary and is not adding any additional
+weight to the final output component.
 
 ## Color Shorthands
 
