@@ -315,7 +315,7 @@ When iteration-items are required, simply attach the desired variable-name with 
 </>
 ```
 
-The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#conditionals), simply also add in the corresponding `*if` structural attribute.
+The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#if-conditionals), simply also add in the corresponding `*if` structural attribute.
 
 Let's skip names equal to `Steve`:
 
