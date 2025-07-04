@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 # Hover
 
 Specifies what to display once the enclosed content has been hovered over.
@@ -12,15 +14,17 @@ Displays a single line of text when hovering.
 
 | Attribute | Type   | Mandatory | Description        |
 |-----------|--------|-----------|--------------------|
-| value     | Markup | yes       | Content to display |
+| value     | Markup | yes       | Content to display |
 
 ```component-markup
 <hover-text
   value={
     <red>Displayed when hovering
   }
->My text</>
+><aqua>My text</*>
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_text.png')} />
 
 ## Show Item
 
@@ -28,10 +32,10 @@ Displays the tooltip of an item when hovering.
 
 | Attribute | Type     | Mandatory | Description       |
 |-----------|----------|-----------|-------------------|
-| material  | Scalar   | no        | Material-constant |
-| amount    | Scalar   | no        | Stack-size        |
-| name      | Markdown | no        | Displayname       |
-| lore      | Markdown | no        | Lore-lines        |
+| material  | Scalar   | no        | Material-constant |
+| amount    | Scalar   | no        | Stack-size        |
+| name      | Markdown | no        | Displayname       |
+| lore      | Markdown | no        | Lore-lines        |
 
 ```component-markup
 <hover-item
@@ -45,8 +49,10 @@ Displays the tooltip of an item when hovering.
     <aqua>Second line<br/>
     <gold>Third line
   }
->My text</>
+><yellow>My text</>
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_item.png')} />
 
 ## Show Entity
 
@@ -54,9 +60,9 @@ Displays a tooltip containing information about an entity within the player's wo
 
 | Attribute | Type     | Mandatory | Description          |
 |-----------|----------|-----------|----------------------|
-| type      | Scalar   | yes       | Entity-Type-constant |
-| id        | Scalar   | yes       | UUID of the entity   |
-| name      | Markdown | no        | Displayname          |
+| type      | Scalar   | yes       | Entity-Type-constant |
+| id        | Scalar   | yes       | UUID of the entity   |
+| name      | Markdown | no        | Displayname          |
 
 ```component-markup
 <hover-entity
@@ -65,12 +71,15 @@ Displays a tooltip containing information about an entity within the player's wo
   name={
     <red>Peppa the pig
   }
->My text</>
+><aqua>My text</>
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_entity.png')} />
 
 ## Show Achievement
 
-Displays a tooltip containing information about the specified achievement; this action has been discontinued on modern versions of Minecraft.
+Displays a tooltip containing information about the specified achievement; this action has been
+discontinued on all versions past (including) `1.12` and is now to be simulated via `hover-text`.
 
 | Attribute | Type   | Mandatory | Description            |
 |-----------|--------|-----------|------------------------|
@@ -78,6 +87,8 @@ Displays a tooltip containing information about the specified achievement; this 
 
 ```component-markup
 <hover-achievement
-  value="achievement.mineWood"
->My text</>
+  value="achievement.openInventory"
+><aqua>My text</>
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_achievement.png')} />
