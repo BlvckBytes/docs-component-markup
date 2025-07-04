@@ -147,6 +147,14 @@ As a compromise between brevity and exactness, a shorthand-tag has been introduc
 </>
 ```
 
+If a "hard-reset" is to be achieved, there also exists the close-all tag, namely `l-cm: </*>`, which will close every
+tag that is currently open and thus bring whatever follows after it right back to root-level scope. Again, it is
+strongly advised to handle this special feature with great care.
+
+```component-markup
+<red><b><i>I am formatted!</*>I am plain!
+```
+
 ### Self-Closing
 
 Tags which bear no content, as they simply insert data retrieved externally or mark special instructions, self-close by adding a slash right before the closing pointy-bracket `l-cm: <name/>`.
