@@ -10,7 +10,7 @@ Whenever specifying placeholders, binding variables, using structural attributes
 
 ## String Literals
 
-A string represents a sequence of characters as-is, to be used in expressions; their contents are delimited by single-quotes (`l-me: '`).
+A string represents a sequence of characters as-is, to be used in expressions; their contents are delimited by single-quotes (`l-me: '`) or, alternatively, double-quotes (`l-me: "`).
 
 ```markup-expression
 'this is a string-literal'
@@ -164,45 +164,47 @@ A substring represents a sub-sequence of characters within another string; it ma
 Given an `l-me: input` of `l-me: 'ABCDEFGHIJ'` with the following indices
 
 <table style={{textAlign: 'center'}}>
-  <tr>
-    <th>Negative Index</th>
-    <td>`l-me: -10`</td>
-    <td>`l-me: -9`</td>
-    <td>`l-me: -8`</td>
-    <td>`l-me: -7`</td>
-    <td>`l-me: -6`</td>
-    <td>`l-me: -5`</td>
-    <td>`l-me: -4`</td>
-    <td>`l-me: -3`</td>
-    <td>`l-me: -2`</td>
-    <td>`l-me: -1`</td>
-  </tr>
-  <tr>
-    <th>Positive Index</th>
-    <td>`l-me: 0`</td>
-    <td>`l-me: 1`</td>
-    <td>`l-me: 2`</td>
-    <td>`l-me: 3`</td>
-    <td>`l-me: 4`</td>
-    <td>`l-me: 5`</td>
-    <td>`l-me: 6`</td>
-    <td>`l-me: 7`</td>
-    <td>`l-me: 8`</td>
-    <td>`l-me: 9`</td>
-  </tr>
-  <tr>
-    <th>Letter</th>
-    <td>`l-me: 'A'`</td>
-    <td>`l-me: 'B'`</td>
-    <td>`l-me: 'C'`</td>
-    <td>`l-me: 'D'`</td>
-    <td>`l-me: 'E'`</td>
-    <td>`l-me: 'F'`</td>
-    <td>`l-me: 'G'`</td>
-    <td>`l-me: 'H'`</td>
-    <td>`l-me: 'I'`</td>
-    <td>`l-me: 'J'`</td>
-  </tr>
+  <tbody>
+    <tr>
+      <th>Negative Index</th>
+      <td>`l-me: -10`</td>
+      <td>`l-me: -9`</td>
+      <td>`l-me: -8`</td>
+      <td>`l-me: -7`</td>
+      <td>`l-me: -6`</td>
+      <td>`l-me: -5`</td>
+      <td>`l-me: -4`</td>
+      <td>`l-me: -3`</td>
+      <td>`l-me: -2`</td>
+      <td>`l-me: -1`</td>
+    </tr>
+    <tr>
+      <th>Positive Index</th>
+      <td>`l-me: 0`</td>
+      <td>`l-me: 1`</td>
+      <td>`l-me: 2`</td>
+      <td>`l-me: 3`</td>
+      <td>`l-me: 4`</td>
+      <td>`l-me: 5`</td>
+      <td>`l-me: 6`</td>
+      <td>`l-me: 7`</td>
+      <td>`l-me: 8`</td>
+      <td>`l-me: 9`</td>
+    </tr>
+    <tr>
+      <th>Letter</th>
+      <td>`l-me: 'A'`</td>
+      <td>`l-me: 'B'`</td>
+      <td>`l-me: 'C'`</td>
+      <td>`l-me: 'D'`</td>
+      <td>`l-me: 'E'`</td>
+      <td>`l-me: 'F'`</td>
+      <td>`l-me: 'G'`</td>
+      <td>`l-me: 'H'`</td>
+      <td>`l-me: 'I'`</td>
+      <td>`l-me: 'J'`</td>
+    </tr>
+  </tbody>
 </table>
 
 Whenever indices are negative, they simply wrap around the very beginning at `l-me: 0`, counting characters back-to-start; this may be useful to operate on strings of unknown length. Next up, instead of numeric indices, strings marking positions within the input may also be provided - if they do not occur, the fallback used is either the first- or last character-index, for start and end respectively.
@@ -476,7 +478,7 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>Branching</td>
       <td>`l-me: ?`</td>
       <td>1</td>
-      <td rowspan={16}>left-to-right</td>
+      <td rowSpan={16}>left-to-right</td>
     </tr>
     <tr>
       <td>Disjunction</td>
@@ -491,7 +493,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Equal To</td>
       <td>`l-me: ==`</td>
-      <td rowspan={2}>4</td>
+      <td rowSpan={2}>4</td>
     </tr>
     <tr>
       <td>Not Equal To</td>
@@ -500,7 +502,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Greater Than</td>
       <td>`l-me: >`</td>
-      <td rowspan={4}>5</td>
+      <td rowSpan={4}>5</td>
     </tr>
     <tr>
       <td>Greater Than Or Equal</td>
@@ -527,7 +529,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Addition</td>
       <td>`l-me: +`</td>
-      <td rowspan={2}>8</td>
+      <td rowSpan={2}>8</td>
     </tr>
     <tr>
       <td>Subtraction</td>
@@ -536,7 +538,7 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Multiplication</td>
       <td>`l-me: *`</td>
-      <td rowspan={3}>9</td>
+      <td rowSpan={3}>9</td>
     </tr>
     <tr>
       <td>Division</td>
@@ -555,8 +557,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>String-Explode Literal</td>
       <td>`l-me: @`</td>
-      <td rowspan={3}>11</td>
-      <td rowspan={4}>left-to-right</td>
+      <td rowSpan={3}>11</td>
+      <td rowSpan={4}>left-to-right</td>
     </tr>
     <tr>
       <td>String-Explode Regex</td>
@@ -574,8 +576,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Negation</td>
       <td>`l-me: !`</td>
-      <td rowspan={10}>13</td>
-      <td rowspan={10}>right-to-left</td>
+      <td rowSpan={10}>13</td>
+      <td rowSpan={10}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
@@ -616,8 +618,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Subscripting</td>
       <td>`l-me: []`</td>
-      <td rowspan={3}>14</td>
-      <td rowspan={4}>left-to-right</td>
+      <td rowSpan={3}>14</td>
+      <td rowSpan={4}>left-to-right</td>
     </tr>
     <tr>
       <td>Substring</td>

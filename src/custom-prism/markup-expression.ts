@@ -61,7 +61,8 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
     if (nextChar === null)
       break;
 
-    if (nextChar == '\'') {
+    if (nextChar == '\'' || nextChar == '"') {
+      const quoteChar = nextChar;
       let stringBuf = nextChar;
 
       while (true) {
@@ -83,7 +84,7 @@ export const tokenizeMarkupExpression = (input: string): Prism.Token[] => {
         if (stringBuf.length > 1 && stringBuf[stringBuf.length - 2] == '\\')
           continue;
 
-        if (nextChar == '\'')
+        if (nextChar == quoteChar)
           break;
       }
 

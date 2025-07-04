@@ -35,7 +35,7 @@ With the majority of existing systems, templating seems to be an afterthought an
 
 ```component-markup
 <gray>
-  Online players:
+  Online players:<space/>
   <red
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
