@@ -58,8 +58,8 @@ the surrounding style; while we're at it, let's also use the shorthand name `r`.
 
 ```component-markup
 <red><b><i>
-  It has \
-  <r><blue>injected</r> \
+  It has<space/>
+  <r><blue>injected</r><space/>
   content!
 ```
 
@@ -297,8 +297,8 @@ multiple styles dynamically, by leveraging the structural `*use`-attribute:
 
 
 ```component-markup
-The following \
-<style *use="enable_warning" color="red" bold italic underlined>WARNING</> \
+The following<space/>
+<style *use="enable_warning" color="red" bold italic underlined>WARNING</><space/>
 is really important!
 ```
 

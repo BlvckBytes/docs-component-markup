@@ -12,5 +12,5 @@ a placeholder and must thereby be self-closing (does not accept content).
 | key         | Scalar | yes       | Path of key |
 
 ```component-markup
-Press <key key="key.jump" /> to jump!
+Press <key key="key.jump"/> to jump!
 ```
