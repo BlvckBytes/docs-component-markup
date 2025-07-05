@@ -2,6 +2,8 @@
 sidebar_position: 2
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 # Tag Syntax
 
 This markup-language has been heavily inspired by XML while also making various domain-specific improvements as to reduce friction when trying to depict component-templates. The following overview will outline its features and facets one by one, all while explaining why these patterns are in place.
@@ -345,3 +347,21 @@ To generate multiple elements per iteration, make use of the invisible `containe
   <gold>Greetings, {{player_name}}!</>
 </>
 ```
+
+Whenever attribute-values are of type markup, as is the case with the `for-separator`, nesting may
+extend to any arbitrary depth; e.g. a separator which again displays `hover-text`:
+
+```component-markup
+<container
+  *for-word="['first', 'second', 'third']"
+  for-separator={
+    <hover-text value={<red>I am a separator!}>,<space/>
+  }
+>
+  <hover-text value={<red>I am an element!}>
+    <gray>#{{loop.index + 1}} <red>{{word}}
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/nested_markup_element.png')} />
+
+<img className='rendered-image' src={useBaseUrl('/img/nested_markup_separator.png')} />
