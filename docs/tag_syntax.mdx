@@ -246,8 +246,8 @@ In contrast to `*if`-conditionals, where expressions are evaluated to `l-me: tru
 to decide which branch to evaluate, processed in a top-down order, `*when`-matching is taking the value of an
 expression as an input and then tries to match it against one of the existing cases; cases cannot be expressions
 but are rather constrained to static string-values, such that internally, a hashing-algorithm can be applied
-in order to improve runtime performance - especially in comparison to the `*if`-equivalent. *When-comparisons are always
-case-insensitive!*
+in order to improve runtime performance - especially in comparison to the `*if`-equivalent. When-comparisons are always
+case-insensitive; `l-me: null`-values always invoke the `*else`-fallback!
 
 ```component-markup
 <container *when="my.input.expression">
