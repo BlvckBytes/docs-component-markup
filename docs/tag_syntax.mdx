@@ -247,18 +247,18 @@ to decide which branch to evaluate, processed in a top-down order, `*when`-match
 expression as an input and then tries to match it against one of the existing cases; cases cannot be expressions
 but are rather constrained to static string-values, such that internally, a hashing-algorithm can be applied
 in order to improve runtime performance - especially in comparison to the `*if`-equivalent. When-comparisons are always
-case-insensitive; `l-me: null`-values always invoke the `*else`-fallback!
+case-insensitive; `l-me: null`-values always invoke the `*other`-fallback!
 
 ```component-markup
 <container *when="my.input.expression">
   <red *is="A">First case</>
   <green *is="B">Second case</>
   <blue *is="C">Third case</>
-  <gray *else>Fallback case</>
+  <gray *other>Fallback case</>
 </>
 ```
 
-If no specified `*is`-case applies, an optional `*else`-fallback may be provided to evaluate; if absent, nothing
+If no specified `*is`-case applies, an optional `*other`-fallback may be provided to evaluate; if absent, nothing
 will be rendered. The above is functionally (but not computationally!) equivalent to the following `*if`-chain,
 which is *absolutely advised against*:
 
@@ -266,13 +266,13 @@ which is *absolutely advised against*:
 <red *if="my.input.expression == 'A'">First case</>
 <green *else-if="my.input.expression == 'B'">Second case</>
 <blue *else-if="my.input.expression == 'C'">Third case</>
-<gray *else>Fallback case</>
+<gray *other>Fallback case</>
 ```
 
 As always, these structural attributes may be applied to any tag, which means that if the cases are already wrapped
 in a parent-container due to the template at hand, one does not need to introduce an extra `container` - it simply
 serves as an invisible wrapper for `*is`-cases. **All** children within the parent holding the `*when`-attribute
-are required to be members of the matching-process, meaning `*is`-cases or an `*else`, where the latter may only
+are required to be members of the matching-process, meaning `*is`-cases or an `*other`, where the latter may only
 exist once; consider this whole block as atomic - it cannot be split up, cannot be injected with static content and
 always evaluates to a single branch within it.
 
@@ -286,7 +286,7 @@ In case it is ever truly needed, when-matching can be nested, as follows:
     <gold *is="D">Case D within C</>
     <yellow *is="E">Case E within C</>
   </>
-  <gray *else>Fallback Case</>
+  <gray *other>Fallback Case</>
 </>
 ```
 
