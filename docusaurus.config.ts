@@ -82,7 +82,8 @@ const config: Config = {
     footer: {},
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.vsDark
+      darkTheme: prismThemes.vsDark,
+      additionalLanguages: ['Java'],
     },
   } satisfies Preset.ThemeConfig,
 };

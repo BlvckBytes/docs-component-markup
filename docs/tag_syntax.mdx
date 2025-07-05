@@ -86,7 +86,54 @@ becomes
 <red>Hello, Steve!
 ```
 
-once processed.
+once processed. Whenever the result of an expression, no matter its complexity, is an instance of a
+`MarkupNode`, said markup is immediately interpreted and thereby injected into its designated placeholder.
+
+```java
+MarkupNode outerMarkup = MarkupParser.parse(
+  // v- User-changeable value
+  "...",
+  BuiltInTagRegistry.INSTANCE
+);
+
+MarkupNode innerMarkup = MarkupParser.parse(
+  // v- This value could be another config-key
+  "<red><b>Hello, world!",
+  BuiltInTagRegistry.INSTANCE
+);
+
+List<Object> components = MarkupInterpreter.interpret(
+  // v- Platform-specific
+  componentConstructor,
+  new EnvironmentBuilder()
+    .withStatic("inner_markup", innerMarkup),
+  SlotType.CHAT,
+  outerMarkup
+);
+
+// v- Platform-specific
+componentApplicator.sendInChat(player, components);
+```
+
+With a user-changable value of
+
+```component-markup
+<aqua>Before</>
+<br/>
+<container *for="1..3">{{inner_markup}}</>
+<br/>
+<gold>After</>
+```
+
+the final result thus becomes
+
+<img className='rendered-image' src={useBaseUrl('/img/markup_interpolation_example.png')} />
+
+As becomes immediately apparent, this powerful feature allows to define reusable templates which then
+may be injected and augmented (conditions, loops, etc.) as needed; when evaluating said templates, they
+are granted access to all environment-variables and bindings which are available at their placeholder's position.
+Due to the fact that only pre-parsed nodes are renderable via this method, there's no additional computational
+burden caused by reusable partial templates in comparison to defining the whole template all in one place.
 
 ## Tags
 
