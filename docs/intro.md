@@ -49,7 +49,7 @@ With the majority of existing systems, templating seems to be an afterthought an
 </>
 ```
 
-Make sure to check out the [Tag Syntax](./tag_syntax.md) as to ensure effective and frictionless use of this language!
+Make sure to check out the [Tag Syntax](./tag_syntax.mdx) as to ensure effective and frictionless use of this language!
 
 ## Performance
 
