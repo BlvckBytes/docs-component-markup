@@ -240,6 +240,41 @@ Multiple such sequences may coexist one after another on the same level of depth
 <red *else>Shown if condition 2 is not met!</>
 ```
 
+### When Matching
+
+In contrast to `*if`-conditionals, where expressions are evaluated to `l-me: true` and `l-me: false` in order
+to decide which branch to evaluate, processed in a top-down order, `*when`-matching is taking the value of an
+expression as an input and then tries to match it against one of the existing cases; cases cannot be expressions
+but are rather constrained to static string-values, such that internally, a hashing-algorithm can be applied
+in order to improve runtime performance - especially in comparison to the `*if`-equivalent.
+
+```component-markup
+<container *when="my.input.expression">
+  <red *is="A">First case</>
+  <green *is="B">Second case</>
+  <blue *is="C">Third case</>
+  <gray *else>Fallback case</>
+</>
+```
+
+If no specified `*is`-case applies, an optional `*else`-fallback may be provided to evaluate; if absent, nothing
+will be rendered. The above is functionally (but not computationally!) equivalent to the following `*if`-chain,
+which is *absolutely advised against*:
+
+```component-markup
+<red *if="my.input.expression == 'A'">First case</>
+<green *else-if="my.input.expression == 'B'">Second case</>
+<blue *else-if="my.input.expression == 'C'">Third case</>
+<gray *else>Fallback case</>
+```
+
+As always, these structural attributes may be applied to any tag, which means that if the cases are already wrapped
+in a parent-container due to the template at hand, one does not need to introduce an extra `container` - it simply
+serves as an invisible wrapper for `*is`-cases. **All** children within the parent holding the `*when`-attribute
+are required to be members of the matching-process, meaning `*is`-cases or an `*else`, where the latter may only
+exist once; consider this whole block as atomic - it cannot be split up, cannot be injected with static content and
+always evaluates to a single branch within it.
+
 ### Use-Conditional
 
 If instead of disabling the applied-to element and its children altogether, the intrinsic `*use` structural attribute
