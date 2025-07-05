@@ -276,6 +276,20 @@ are required to be members of the matching-process, meaning `*is`-cases or an `*
 exist once; consider this whole block as atomic - it cannot be split up, cannot be injected with static content and
 always evaluates to a single branch within it.
 
+In case it is ever truly needed, when-matching can be nested, as follows:
+
+```component-markup
+<container *when="first_input">
+  <red *is="A">Case A</>
+  <green *is="B">Case B</>
+  <container *is="C" *when="second_input">
+    <gold *is="D">Case D within C</>
+    <yellow *is="E">Case E within C</>
+  </>
+  <gray *else>Fallback Case</>
+</>
+```
+
 ### Use-Conditional
 
 If instead of disabling the applied-to element and its children altogether, the intrinsic `*use` structural attribute
