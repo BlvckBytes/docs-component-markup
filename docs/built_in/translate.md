@@ -9,11 +9,11 @@ client-language while allowing to set placeholders in retrieved values as well a
 a fallback if there was no value with the given key; this tag acts as a placeholder and
 must thereby be self-closing (does not accept content).
 
-| Attribute   | Type        | Mandatory | Description              |
-|-------------|-------------|-----------|--------------------------|
-| key         | Scalar      | yes       | Path of translation      |
-| with        | Markup-List | no        | Placeholder-values       |
-| fallback    | Markup      | no        | Fallback if non-existent |
+| Attribute   | Type        | Mandatory | Description                          |
+|-------------|-------------|-----------|--------------------------------------|
+| key         | Scalar      | yes       | Path of translation                  |
+| with        | Markup-List | no        | Placeholder-values                   |
+| fallback    | Scalar      | no        | Fallback translation if non-existent |
 
 ```component-markup
 <translate
@@ -24,8 +24,6 @@ must thereby be self-closing (does not accept content).
   with={
     <green>Challenge-Name
   }
-  fallback={
-    <red>Could not locate key
-  }
+  fallback="Could not locate key"
 />
 ```
