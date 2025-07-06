@@ -248,6 +248,26 @@ Each tag, no matter its underlying implementation, supports binding the result o
 </>
 ```
 
+Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
+
+```component-markup
+<container
+  let-spacer={
+    <dark_gray><st>{{ ' ' ** 15 }}
+  }
+>
+  {{spacer}}<br/>
+  <aqua>First line!</><br/>
+  {{spacer}}<br/>
+  <aqua>Second line!</><br/>
+  {{spacer}}<br/>
+  <aqua>Third line!</><br/>
+  {{spacer}}
+</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
+
 Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
 
 ### If-Conditionals
