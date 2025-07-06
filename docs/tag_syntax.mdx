@@ -177,6 +177,39 @@ Tags which bear no content, as they simply insert data retrieved externally or m
 The tag <my-tag/> self-closes and thus needs no corresponding closing-tag!
 ```
 
+### Let-Bindings
+
+Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable; the attribute-value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
+
+```component-markup
+<red let-my_var="my.complex.extracted.expression">
+  <bold>First use {{my_var}} of it</>
+  <italic>Second use {{my_var}} of it</>
+</>
+```
+
+Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
+
+```component-markup
+<container
+  let-spacer={
+    <dark_gray><st>{{ ' ' ** 15 }}
+  }
+>
+  {{spacer}}<br/>
+  <aqua>First line!</><br/>
+  {{spacer}}<br/>
+  <aqua>Second line!</><br/>
+  {{spacer}}<br/>
+  <aqua>Third line!</><br/>
+  {{spacer}}
+</>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
+
+Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
+
 ### Immediate Attribute-Values
 
 All opening-tags, including the self-closing kind, may support a variety of attributes - be they simple scalar values or more complex markup.
@@ -304,39 +337,6 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
 ```
 
 <img className='rendered-image' src={useBaseUrl('/img/markup_attribute_binding_non_markup.png')} />
-
-### Let-Bindings
-
-Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable; the attribute-value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
-
-```component-markup
-<red let-my_var="my.complex.extracted.expression">
-  <bold>First use {{my_var}} of it</>
-  <italic>Second use {{my_var}} of it</>
-</>
-```
-
-Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
-
-```component-markup
-<container
-  let-spacer={
-    <dark_gray><st>{{ ' ' ** 15 }}
-  }
->
-  {{spacer}}<br/>
-  <aqua>First line!</><br/>
-  {{spacer}}<br/>
-  <aqua>Second line!</><br/>
-  {{spacer}}<br/>
-  <aqua>Third line!</><br/>
-  {{spacer}}
-</>
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
-
-Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
 
 ### If-Conditionals
 
