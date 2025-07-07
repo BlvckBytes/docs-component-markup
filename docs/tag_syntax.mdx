@@ -71,7 +71,7 @@ more about the details.
 
 ## Placeholders
 
-In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped twice by a pair of matching curly-brackets. Let's assume that the variable `l-me: player` holds a string-value of `l-me: 'Steve'`, then the markup
+In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped by a pair of matching curly-brackets. Let's assume that the variable `l-me: player` holds a string-value of `l-me: 'Steve'`, then the markup
 
 ```component-markup
 <red>Hello, {player}!
@@ -83,8 +83,10 @@ becomes
 <red>Hello, Steve!
 ```
 
-once processed. Whenever the result of an expression, no matter its complexity, is an instance of a
-`MarkupNode`, said markup is immediately interpreted and thereby injected into its designated placeholder.
+once processed. Placeholders must not span across multiple lines as to enforce readability and simplicity; expressions will always remain terse if employed as intended, in conjunction with structural attributes and bindings.
+
+Whenever the result of an expression, no matter its complexity, is an instance of a `MarkupNode`, said
+markup is immediately interpreted and thereby injected into its designated placeholder.
 
 ```java
 MarkupNode outerMarkup = MarkupParser.parse(
