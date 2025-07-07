@@ -178,7 +178,21 @@ The tag <my-tag/> self-closes and thus needs no corresponding closing-tag!
 
 ### Let-Bindings
 
-Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable; the attribute-value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
+Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable.
+
+When providing immediate values which are not of type string, i.e. numbers and booleans, variables are directly bound to the specified constant, not requiring them to be wrapped by expressions artificially. Bindings are evaluated in top-down order, meaning that later bindings can access the results of their predecessors, allowing for dependent expressions, as follows:
+
+```component-markup
+<container
+  let-a=5
+  let-b=12
+  let-c="b - a"
+  let-d=3
+  let-e="c ^ d"
+>{e}"
+```
+
+which will display a value of `343`. Attribute-values of type string are **always** interpreted as an expression (square brackets must **not** be added explicitly!).
 
 ```component-markup
 <red let-my_var="my.complex.extracted.expression">
