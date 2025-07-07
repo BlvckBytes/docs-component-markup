@@ -500,6 +500,7 @@ Let's render an alternate name for `Steve`:
 Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
 
 - `l-me: index`: Zero-based sequence-number of the current element
+- `l-me: length`: Number of elements to be iterated over in total
 - `l-me: is_even`: Whether the `l-me: index` is an even number
 - `l-me: is_odd`: Whether the `l-me: index` is an odd number
 - `l-me: is_first`: Whether the item is the first of the sequence
