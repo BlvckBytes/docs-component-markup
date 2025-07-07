@@ -28,9 +28,9 @@ This text does not open a <new tag! :)
 
 once processed.
 
-### Closing Curly-Brackets
+### Curly-Brackets
 
-Literal closing curly-brackets are **always** to be marked by a leading backslash in order to avoid them erroneously being interpreted as the premature end of a tag-attribute's markup-value, as said markup-values are delimited by a matching pair of curly brackets.
+Literal curly-brackets are **always** to be marked by a leading backslash in order to avoid them erroneously being interpreted as the premature end of a tag-attribute's markup-value or the beginning of a placeholder:
 
 ```component-markup
 <my-tag
@@ -46,23 +46,20 @@ The value of `my-attribute` will become
 <red>This curly bracket } does not close the attribute's input!
 ```
 
-once processed. It does *not* matter whether the text is within one such delimiting block - closing curly-brackets are to be escaped unconditionally, as to avoid having to differentiate and thus make code-fragments become context-sensitive (=brittle).
+once processed. Also
 
-### Opening Double Curly-Brackets
-
-Due to placeholder-notation, as to avoid two back-to-back opening curly-brackets being erroneously interpreted as the beginning of a placeholder slot, simply introduce a placeholder of the desired value being a string-literal. The input
-
-```component-markup
-Double {{"{{"}} curly-brackets!
+```
+This \{ curly-bracket does not mark a placeholder!
 ```
 
-becomes
+will become
 
-```txt
-Double {{ curly-brackets!
+```
+This { curly-bracket does not mark a placeholder!
 ```
 
-once processed. This again is a conscious design-decision, as the aforementioned case will only occur very seldomly and not having to prepend every single opening curly-bracket with a backslash is going to reduce syntactic noise in the great scheme of things.
+once processed. It's best to, in general, think of curly-brackets as special and reserved tokens
+within this templating-language, because that's what they are; if to be used literally, do so with care.
 
 ### Newlines And Whitespace
 
@@ -77,7 +74,7 @@ more about the details.
 In order to substitute variables and various expressions in general into designated slots, said expressions are simply to be wrapped twice by a pair of matching curly-brackets. Let's assume that the variable `l-me: player` holds a string-value of `l-me: 'Steve'`, then the markup
 
 ```component-markup
-<red>Hello, {{player}}!
+<red>Hello, {player}!
 ```
 
 becomes
@@ -120,7 +117,7 @@ With a user-changable value of
 ```component-markup
 <aqua>Before</>
 <br/>
-<container *for="1..3" for-separator={<br/>}>{{inner_markup}}</>
+<container *for="1..3" for-separator={<br/>}>{inner_markup}</>
 <br/>
 <gold>After</>
 ```
@@ -183,8 +180,8 @@ Each tag, no matter its underlying implementation, supports binding the result o
 
 ```component-markup
 <red let-my_var="my.complex.extracted.expression">
-  <bold>First use {{my_var}} of it</>
-  <italic>Second use {{my_var}} of it</>
+  <bold>First use {my_var} of it</>
+  <italic>Second use {my_var} of it</>
 </>
 ```
 
@@ -193,16 +190,16 @@ Next to expressions, markup-values may also be bound to temporary variables, eff
 ```component-markup
 <container
   let-spacer={
-    <dark_gray><st>{{ ' ' ** 15 }}
+    <dark_gray><st>{ ' ' ** 15 }
   }
 >
-  {{spacer}}<br/>
+  {spacer}<br/>
   <aqua>First line!</><br/>
-  {{spacer}}<br/>
+  {spacer}<br/>
   <aqua>Second line!</><br/>
-  {{spacer}}<br/>
+  {spacer}<br/>
   <aqua>Third line!</><br/>
-  {{spacer}}
+  {spacer}
 </>
 ```
 
@@ -452,7 +449,7 @@ Once employed, the additional attributes become available:
 When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax.md#range-operator) (the `l-me: loop` context is discussed further below).
 
 ```component-markup
-<red *for="1..10">The #{{loop.index + 1}} occurrence of this line!
+<red *for="1..10">The #{loop.index + 1} occurrence of this line!
 ```
 
 When iteration-items are required, simply attach the desired variable-name with a hyphen to the attribute.
@@ -463,7 +460,7 @@ When iteration-items are required, simply attach the desired variable-name with 
   <red
     *for-player_name="player_names"
     for-separator={<gray>, }
-  >{{player_name}}</>
+  >{player_name}</>
 </>
 ```
 
@@ -478,7 +475,7 @@ Let's skip names equal to `Steve`:
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
     for-separator={<gray>, }
-  >{{player_name}}</>
+  >{player_name}</>
 </>
 ```
 In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else` structural attributes, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
@@ -493,7 +490,7 @@ Let's render an alternate name for `Steve`:
     for-separator={<gray>, }
   >
     <green *if="player_name == 'Steve'">Alternate Name Here</>
-    <red *else>{{player_name}}</>
+    <red *else>{player_name}</>
   </>
 </>
 ```
@@ -515,7 +512,7 @@ For single loops, accessing this variable directly marks the most straight-forwa
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
     for-separator={<gray>, }
-  >#{{loop.index + 1}} {{player_name}}</>
+  >#{loop.index + 1} {player_name}</>
 </>
 ```
 
@@ -529,7 +526,7 @@ To generate multiple elements per iteration, make use of the invisible `containe
   <red>First member</>
   <green>Second member</>
   <blue>Third member</>
-  <gold>Greetings, {{player_name}}!</>
+  <gold>Greetings, {player_name}!</>
 </>
 ```
 
@@ -544,7 +541,7 @@ extend to any arbitrary depth; e.g. a separator which again displays `hover-text
   }
 >
   <hover-text value={<red>I am an element!}>
-    <gray>#{{loop.index + 1}} <red>{{word}}
+    <gray>#{loop.index + 1} <red>{word}
 ```
 
 <img className='rendered-image' src={useBaseUrl('/img/nested_markup_element.png')} />

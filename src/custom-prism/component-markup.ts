@@ -581,47 +581,40 @@ class MarkupParser {
       let preConsumePosition = this.cursor.nextCharIndex;
       let possibleNonTextBeginIndex = this.cursor.nextCharIndex;
 
-      if (this.cursor.peekChar() == '{') {
+      if (this.cursor.peekChar() == '{' && priorChar !== '\\') {
         this.cursor.nextChar();
 
-        if (this.cursor.peekChar() == '{') {
-          this.cursor.nextChar();
-
-          if (this.substringBuilder.hasStartSet()) {
-            this.substringBuilder.setEndExclusive(possibleNonTextBeginIndex);
-            this.output.text(this.substringBuilder.build());
-          }
-
-          this.substringBuilder.setStartInclusive(this.cursor.nextCharIndex);
-
-          while (this.cursor.peekChar() !== null) {
-            let possiblePreTerminationIndex = this.cursor.nextCharIndex;
-            let c = this.cursor.nextChar();
-
-            this.inStringDetector.onEncounter(c);
-
-            if (this.inStringDetector.isInString())
-              continue;
-
-            if (c == '}' && this.cursor.peekChar() == '}') {
-              this.cursor.nextChar();
-              this.substringBuilder.setEndExclusive(possiblePreTerminationIndex);
-              break;
-            }
-          }
-
-          if (!this.substringBuilder.hasEndSet())
-            throw new Error('UNTERMINATED_INTERPOLATION');
-
-          this.inStringDetector.reset();
-
-          this.output.punctuation('{{');
-          this.output.expression(this.substringBuilder.build());
-          this.output.punctuation('}}');
-          continue;
+        if (this.substringBuilder.hasStartSet()) {
+          this.substringBuilder.setEndExclusive(possibleNonTextBeginIndex);
+          this.output.text(this.substringBuilder.build());
         }
 
-        this.cursor.nextCharIndex = preConsumePosition;
+        this.substringBuilder.setStartInclusive(this.cursor.nextCharIndex);
+
+        while (this.cursor.peekChar() !== null) {
+          let possiblePreTerminationIndex = this.cursor.nextCharIndex;
+          let c = this.cursor.nextChar();
+
+          this.inStringDetector.onEncounter(c);
+
+          if (this.inStringDetector.isInString())
+            continue;
+
+          if (c == '}') {
+            this.substringBuilder.setEndExclusive(possiblePreTerminationIndex);
+            break;
+          }
+        }
+
+        if (!this.substringBuilder.hasEndSet())
+          throw new Error('UNTERMINATED_INTERPOLATION');
+
+        this.inStringDetector.reset();
+
+        this.output.punctuation('{');
+        this.output.expression(this.substringBuilder.build());
+        this.output.punctuation('}');
+        continue;
       }
 
       let pendingWhitespace = this.cursor.consumeWhitespace(false);
@@ -646,7 +639,7 @@ class MarkupParser {
       if (!this.substringBuilder.hasStartSet())
         this.substringBuilder.setStartInclusive(nextCharIndex);
 
-      if (nextChar == '\\' && (this.cursor.peekChar() == '<' || this.cursor.peekChar() == '}'))
+      if (nextChar == '\\' && (this.cursor.peekChar() == '<' || this.cursor.peekChar() == '}' || this.cursor.peekChar() == '{'))
         nextChar = this.cursor.nextChar();
 
       priorChar = nextChar;

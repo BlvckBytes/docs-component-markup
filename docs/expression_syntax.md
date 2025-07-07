@@ -119,7 +119,7 @@ Whenever static lists of items are to be instantiated for further use, simply sp
 This notation may especially come in handy when combined with the structural `*for-` attribute:
 
 ```component-markup
-<red *for-word="['first', 'second', 'third']">Hello, {{word}}!
+<red *for-word="['first', 'second', 'third']">Hello, {word}!
 ```
 
 Items may also once again be lists themselves, allowing for a tuple-style dataset.
@@ -134,7 +134,7 @@ And thereby give rise to more advanced concepts of templating.
 <color
   *for-word="[['apple', 'red'], ['banana', 'yellow']]"
   [value]="word[1]"
->Hello, {{word[0]}}!
+>Hello, {word[0]}!
 ```
 
 ## Range Operator
@@ -154,7 +154,7 @@ is thereby equivalent to
 This operator may especially come in handy when combined with the structural `*for-` attribute.
 
 ```component-markup
-<red *for-number="1..10">Hello, {{number}}!
+<red *for-number="1..10">Hello, {number}!
 ```
 
 ## Substring Operator

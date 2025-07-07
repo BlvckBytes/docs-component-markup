@@ -48,7 +48,7 @@ The `<space/>` tag acts as a mere placeholder and does not bear any content - it
 the case ever arise that more than one space are to be inserted, consider using the [Repeat Operator](../expression_syntax.md#repeat-operator), as follows:
 
 ```component-markup
-this text{{" " ** 5}}
+this text{" " ** 5}
   is newline-separated
 ```
 

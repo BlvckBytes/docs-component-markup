@@ -44,7 +44,7 @@ With the majority of existing systems, templating seems to be an afterthought an
   >
     <run-command
       [value]="'/tp ' + player_name"
-    >#{{position_number}} {{player_name}}</>
+    >#{position_number} {player_name}</>
   </>
 </>
 ```
