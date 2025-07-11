@@ -27,7 +27,7 @@ As for readability and maintainability, we employ proper XML-syntax with named a
 
 ## Extensibility
 
-Power-users may define their own tags with ease, being able to generate content and rewrite tag-members by working with the AST; learn about the details over at [Defining Tags](./defining_tags.md).
+Power-users may define their own tags with ease, being able to generate content and rewrite tag-members by working with the AST; learn about the details over at the [Extension API](./extension_api.mdx).
 
 ## Expressive Power
 
