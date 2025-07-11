@@ -1,0 +1,97 @@
+---
+sidebar_position: 5
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Consumer API
+
+The consumer-facing API has been kept as concise and convenient as humanly possible, in order to be easily
+integrateable into whichever approach to managing configuration-files as well as various other day-to-day
+surroundings the developer at hand may have chosen.
+
+## Parsing the AST
+
+In order to parse an input-string into an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree),
+the only parameter required is a reference to the tag-registry being used; in the majority of cases, the
+built-in instance will suffice, allowing for quick and easy access:
+
+```java
+try {
+  MarkupNode ast = MarkupParser.parse("<rainbow>Hello, world!", BuiltInTagRegistry.INSTANCE);
+} catch (MarkupParseException parseException) {
+  for (String line : parseException.makeErrorScreen())
+    LoggerProvider.get().log(Level.SEVERE, line);
+}
+```
+
+In general, errors are only thrown during the parsing-stage, with all errors being unified under the
+`MarkupParseException`, which is also able to generate a nicely formatted error-screen, for example:
+
+```
+1: <translate
+2:   let-a="b"
+3:   [key]="my.expr[222 c.d.e"
+----------------------^
+   Error: Expected a closing-bracket after the indexing-invocation: ]
+4:   fallback={
+5:     hello, {user}
+6:   }
+7: />
+```
+
+Next to the above, there are also many dozens of error-type enumeration-constants all throughout the system,
+stemming from stages like the XML event-parser as well as the expression tokenizer/parser; these are subject
+to change and not considered stable API, which is why next to this mention, they will not be documented.
+
+## Interpreting the AST
+
+Once an input has been successfully parsed, its result as well as all calls to the interpreter are now safe - they
+will never throw at runtime and instead simply log errors to the console, which are handled as gracefully as
+possible, as to not bring down whatever relied on receiving an output to render.
+
+```java
+// Platform-specific reference obtained via the factory
+// TODO: An implementation of said factory still requires more work
+ComponentConstructor componentConstructor;
+
+// An instance which has been successfully parsed prior
+MarkupNode ast;
+
+InterpretationEnvironment myEnvironment = new EnvironmentBuilder()
+  .withStatic("first_variable", "hello, world!")
+  .withDynamic("second_variable", Math::random);
+
+// TODO: In the future, slot-type decision as well as application will
+//       be handled by a more convenient helper
+
+List<Object> components = MarkupInterpreter.interpret(
+  componentConstructor,
+  myEnvironment,
+  SlotType.CHAT,
+  ast
+);
+
+// The components above may now be manually applied however necessary
+```
+
+## Logging Errors
+
+Since runtime-errors are handled gracefully, logging is an integral part of this system; thus, the internally
+widely-used `LoggerProvider` has been introduced, which allows the user to provide a reference of their own
+at any point in time:
+
+```java
+public class LoggerProvider {
+
+  private static Logger logger = Logger.getAnonymousLogger();
+
+  public static Logger get() {
+    return logger;
+  }
+
+  public static void set(Logger logger) {
+    LoggerProvider.logger = logger;
+  }
+}
+```

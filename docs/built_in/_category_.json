@@ -1,6 +1,6 @@
 {
-  "label": "Built-In",
-  "position": 5,
+  "label": "Built-In Tags",
+  "position": 6,
   "collapsible": false,
   "link": {
     "type": "generated-index",
