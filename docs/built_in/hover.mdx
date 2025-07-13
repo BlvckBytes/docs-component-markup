@@ -30,29 +30,89 @@ Displays a single line of text when hovering.
 
 Displays the tooltip of an item when hovering.
 
-| Attribute | Type     | Mandatory | Description       |
-|-----------|----------|-----------|-------------------|
-| material  | Scalar   | no        | Material-constant |
-| amount    | Scalar   | no        | Stack-size        |
-| name      | Markdown | no        | Displayname       |
-| lore      | Markdown | no        | Lore-lines        |
+| Attribute       | Type     | Mandatory | Description                            |
+|-----------------|----------|-----------|----------------------------------------|
+| material        | Scalar   | no        | Material-constant                      |
+| amount          | Scalar   | no        | Stack-size                             |
+| name            | Markdown | no        | Displayname                            |
+| lore            | Markdown | no        | Lore-lines                             |
+| hide-properties | Scalar   | no        | Whether to hide all vanilla properties |
+
+The following sections will demonstrate common applications of this hover-type.
+
+### Multiline Text
+
+Since `l-cm: <hover-text>` only supports single-line tooltips due to inherent limitations on the client,
+as soon as multiline tooltips are to be displayed, `l-cm: <hover-item>` becomes a viable alternative; note
+that there is a bit more spacing in-between the item-name and the first lore-line than is between subsequent
+lore-lines, which is why this special markup-slot would make for a great headline, as to not break uniformity.
 
 ```component-markup
 <hover-item
-  material="dirt"
-  amount=3
   name={
-    <red>My dirt
+    <red>First line
   }
   lore={
-    <green>First line<br/>
-    <aqua>Second line<br/>
-    <gold>Third line
+    <green>Second line<br/>
+    <aqua>Third line<br/>
+    <gold>Fourth line
   }
 ><yellow>My text</>
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/hover_show_item.png')} />
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_item_multiline.png')} />
+
+### Mimicking Items
+
+The main intent of this hover-type is to display tooltips of items with arbitrary complexity, meaning not
+just custom name and lore-lines, but also enchantments, attributes, effects, and so on and so forth; these
+do not take any actual effect, but end up as mere visual signals.
+
+While it has been the norm up to this point
+to specify said special properties as a raw [NBT](https://minecraft.fandom.com/wiki/NBT_format)-value, we
+would like to propose a simplification: employ the `l-cm: <translate/>`-tag in order to render language-agnostic
+names and then just incrementally build out the the item's visual representation - always enable the
+`hide-properties` flag, as to ensure that any vanilla-details like attack-damage and the like do not end
+up disturbing the final result.
+
+This new approach significantly reduces complexity, as only translation-keys must be known, instead of
+the full NBT-structure, which undergoes so many regular changes; resolving them from bukkit-constants across
+all versions could be neatly packaged up into a little library.
+
+Let's take the following real item as a template:
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_item_item_template.png')} />
+
+Then, the following markup, which could easily become data-driven, will perfectly represent its real tooltip:
+
+```component-markup
+<hover-item
+  hide-properties=true
+  name={
+    <reset><&b><&l>My Sword
+  }
+  lore={
+    <reset>
+      <gray>
+        <translate key="enchantment.minecraft.sharpness"/> VI<br/>
+        <translate key="enchantment.minecraft.fire_aspect"/> II<br/>
+        <translate key="enchantment.minecraft.unbreaking"/> III<br/>
+        <translate key="enchantment.minecraft.mending"/><br/>
+      </>
+      <&c>First line</><br/>
+      <&b>Second line</><br/>
+      <&d>Third line</><br/>
+      <br/>
+      <&7><translate key="item.modifiers.body"/></><br/>
+      <&9>+12 <translate key="attribute.name.max_health"/></><br/>
+      <&9><translate key="item.unbreakable"/></>
+  }
+><yellow>My item
+```
+
+Yielding in the following result:
+
+<img className='rendered-image' src={useBaseUrl('/img/hover_show_item_item_result.png')} />
 
 ## Show Entity
 
