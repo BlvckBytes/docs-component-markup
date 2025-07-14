@@ -104,8 +104,8 @@ MarkupNode innerMarkup = MarkupParser.parse(
 List<Object> components = MarkupInterpreter.interpret(
   // v- Platform-specific
   componentConstructor,
-  new EnvironmentBuilder()
-    .withStatic("inner_markup", innerMarkup),
+  new InterpretationEnvironment()
+    .withVariable("inner_markup", innerMarkup),
   SlotType.CHAT,
   outerMarkup
 );

@@ -58,9 +58,9 @@ ComponentConstructor componentConstructor;
 // An instance which has been successfully parsed prior
 MarkupNode ast;
 
-InterpretationEnvironment myEnvironment = new EnvironmentBuilder()
-  .withStatic("first_variable", "hello, world!")
-  .withDynamic("second_variable", Math::random);
+InterpretationEnvironment myEnvironment = new InterpretationEnvironment()
+  .withVariable("first_variable", "hello, world!")
+  .withVariable("second_variable", Math.random());
 
 // TODO: In the future, slot-type decision as well as application will
 //       be handled by a more convenient helper
