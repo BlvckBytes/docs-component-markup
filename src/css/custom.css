@@ -65,3 +65,7 @@ td .theme-code-block:last-child {
   margin-bottom: var(--ifm-leading);
   display: block;
 }
+
+.prism-code.language-java .token.annotation {
+  color: rgb(186, 181, 70) !important;
+}
