@@ -101,11 +101,13 @@ MarkupNode innerMarkup = MarkupParser.parse(
   BuiltInTagRegistry.INSTANCE
 );
 
-List<Object> components = MarkupInterpreter.interpret(
+ComponentOutput components = MarkupInterpreter.interpret(
   // v- Platform-specific
   componentConstructor,
   new InterpretationEnvironment()
     .withVariable("inner_markup", innerMarkup),
+  // v- No immediate recipient-personalization required
+  null,
   SlotType.CHAT,
   outerMarkup
 );
