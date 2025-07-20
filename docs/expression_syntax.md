@@ -6,7 +6,7 @@ import InlineCode from '@site/src/components/InlineCode';
 
 # Expression Syntax
 
-Whenever specifying placeholders, binding variables, using structural attributes or binding dynamic values to the attributes of tags, expressions are the means via which to describe the value used; they can be as simple as accessing a variable, stringing data together or computing a numeric value and may become as nuanced as using boolean logic, providing fallback-values or accessing members of a variable.
+Whenever specifying placeholders, binding variables, using intrinsic expression-attributes or binding dynamic values to the attributes of tags, expressions are the means via which to describe the value used; they can be as simple as accessing a variable, stringing data together or computing a numeric value and may become as nuanced as using boolean logic, providing fallback-values or accessing members of a variable.
 
 ## String Literals
 
@@ -116,7 +116,7 @@ Whenever static lists of items are to be instantiated for further use, simply sp
 ['first', 'second', 'third']
 ```
 
-This notation may especially come in handy when combined with the structural `*for-` attribute:
+This notation may especially come in handy when combined with the intrinsic `*for-` attribute:
 
 ```component-markup
 <red *for-word="['first', 'second', 'third']">Hello, {word}!
@@ -151,7 +151,7 @@ is thereby equivalent to
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
-This operator may especially come in handy when combined with the structural `*for-` attribute.
+This operator may especially come in handy when combined with the intrinsic `*for-` attribute.
 
 ```component-markup
 <red *for-number="1..10">Hello, {number}!

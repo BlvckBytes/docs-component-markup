@@ -598,7 +598,7 @@ also passed down into the render-method - thus, "outer" variables are easily acc
 combination allows for flexible and uniform markup across multiple stages of evaluation.
 
 ```component-markup
-<gray let-my_var="'test'">Hello,<space/>
+<gray *let-my_var="'test'">Hello,<space/>
   <player-name
     representation={ <rainbow>{player_name}</>, <red>{my_var} }
   />! :)

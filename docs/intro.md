@@ -39,8 +39,8 @@ With the majority of existing systems, templating seems to be an afterthought an
   <red
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
-    let-position_number="loop.index + 1"
-    for-separator={<gray>, }
+    *let-position_number="loop.index + 1"
+    *for-separator={<gray>, }
   >
     <run-command
       [value]="'/tp ' + player_name"

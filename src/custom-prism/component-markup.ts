@@ -50,7 +50,7 @@ class OutputBuilder {
     let firstChar = value.charAt(0);
     let lastChar = value.charAt(value.length - 1);
 
-    if (firstChar == '*') {
+    if (firstChar == '*' || firstChar == '+') {
       this.punctuation(firstChar);
 
       if (value.startsWith('*for-')) {

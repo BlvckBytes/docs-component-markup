@@ -83,7 +83,7 @@ becomes
 <red>Hello, Steve!
 ```
 
-once processed. Placeholders must not span across multiple lines as to enforce readability and simplicity; expressions will always remain terse if employed as intended, in conjunction with structural attributes and bindings.
+once processed. Placeholders must not span across multiple lines as to enforce readability and simplicity; expressions will always remain terse if employed as intended, in conjunction with intrinsic attributes and bindings.
 
 Whenever the result of an expression, no matter its complexity, is an instance of a `MarkupNode`, said
 markup is immediately interpreted and thereby injected into its designated placeholder.
@@ -121,7 +121,7 @@ With a user-changable value of
 ```component-markup
 <aqua>Before</>
 <br/>
-<container *for="1..3" for-separator={<br/>}>{inner_markup}</>
+<container *for="1..3" *for-separator={<br/>}>{inner_markup}</>
 <br/>
 <gold>After</>
 ```
@@ -178,36 +178,40 @@ Tags which bear no content, as they simply insert data retrieved externally or m
 The tag <my-tag/> self-closes and thus needs no corresponding closing-tag!
 ```
 
+### Intrinsic Attributes
+
+Attributes who are marked with a preceding asterisk `*` or plus-symbol `+` are always consumed by the system (thus *never* relayed to tag-definitions) and thereby considered intrinsic, meaning that they are natively supported on *all* tags as well as that they have been implemented directly within the engine itself. A leading asterisk will signal expression-mode, i.e. `*my_attr="a.b.c"`, while a leading plus-symbol enters literal-mode, in which values of all kinds are captured as-is, i.e. `+my_attr="Hello, world!"`.
+
+A list of supported intrinsic attributes can be found here:
+- [Let-Bindings](#let-bindings)
+- [If-Conditionals](#if-conditionals)
+- [When-Matching](#when-matching)
+- [Use-Conditionals](#use-conditionals)
+- [Generative Loops](#generative-loops)
+
 ### Let-Bindings
 
-Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions. In order to introduce such a binding, make use of the reserved `let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable.
+Each tag, no matter its underlying implementation, supports binding the result of expressions to temporary variables whose lifetime spans the content of said tag. While there are many uses for this feature, one of the simplest will be to extract complex common expressions.
+
+In order to introduce such a binding, make use of the intrinsic `*let-` attribute namespace, where the identifier after the dash denotes the name of the newly introduced temporary variable. Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
 
 When providing immediate values which are not of type string, i.e. numbers and booleans, variables are directly bound to the specified constant, not requiring them to be wrapped by expressions artificially. Bindings are evaluated in top-down order, meaning that later bindings can access the results of their predecessors, allowing for dependent expressions, as follows:
 
 ```component-markup
 <container
-  let-a=5
-  let-b=12
-  let-c="b - a"
-  let-d=3
-  let-e="c ^ d"
+  *let-a=5
+  *let-b=12
+  *let-c="b - a"
+  *let-d=3
+  *let-e="c ^ d"
 >{e}"
 ```
 
-which will display a value of `343`. Attribute-values of type string are **always** interpreted as an expression (square brackets must **not** be added explicitly!).
-
-```component-markup
-<red let-my_var="my.complex.extracted.expression">
-  <bold>First use {my_var} of it</>
-  <italic>Second use {my_var} of it</>
-</>
-```
-
-Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
+which will display a value of `343`. Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
 
 ```component-markup
 <container
-  let-spacer={
+  *let-spacer={
     <dark_gray><st>{ ' ' ** 15 }
   }
 >
@@ -223,7 +227,11 @@ Next to expressions, markup-values may also be bound to temporary variables, eff
 
 <img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
 
-Please note that variables, by enforced convention, always follow the `snake_case`-style, meaning being all lower-case with spaces represented as underscores. In contrast, tag- as well as attribute-names enforce the same pattern, just with the alteration of them swapping out underscores for hyphens, making it become `kebab-case`. By this simple yet effective differentiation, it is immediately visually obvious to which realm an identifier belongs to.
+If bindings containing literal strings are to be created, simply employ the literal intrinsic attribute prefix `+` instead of its expression counterpart `*`, as follows:
+
+```component-markup
+<container +let-my_string="Hello, world!">{my_string}
+```
 
 ### Immediate Attribute-Values
 
@@ -309,8 +317,8 @@ is equivalent to that of (using [Let-Bindings](#let-bindings) to introduce marku
 
 ```component-markup
 <container
-  let-first={<aqua>Username}
-  let-second={<aqua>Challenge-Name}
+  *let-first={<aqua>Username}
+  *let-second={<aqua>Challenge-Name}
 >
   <translate
     key="chat.type.advancement.challenge"
@@ -326,8 +334,8 @@ In contrast to the above, if not using the spread-operator, components will simp
 
 ```component-markup
 <container
-  let-first={<aqua>First}
-  let-second={<aqua>Second}
+  *let-first={<aqua>First}
+  *let-second={<aqua>Second}
 >
   <translate
     key="chat.type.advancement.challenge"
@@ -342,7 +350,7 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
 
 ```component-markup
 <container
-  let-first="'hello, world'"
+  *let-first="'hello, world'"
 >
   <translate
     key="chat.type.advancement.challenge"
@@ -355,13 +363,13 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
 
 ### If-Conditionals
 
-The simplest form of a conditional is represented by the intrinsic `*if` structural attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
+The simplest form of a conditional is represented by the intrinsic `*if` intrinsic attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
 
 ```component-markup
 <red *if="my_condition">Shown if the condition matches!</>
 ```
 
-Once a conditional has been declared as can be seen above, the structural attributes `*else-if` as well as `*else` are now available to its direct siblings, meaning elements which succeed it on the same level of nesting.
+Once a conditional has been declared as can be seen above, the intrinsic attributes `*else-if` as well as `*else` are now available to its direct siblings, meaning elements which succeed it on the same level of nesting.
 
 ```component-markup
 <red *if="my_number == 1">Shown if the value is one!</>
@@ -390,7 +398,7 @@ Multiple such sequences may coexist one after another on the same level of depth
 <red *else>Shown if condition 2 is not met!</>
 ```
 
-### When Matching
+### When-Matching
 
 In contrast to `*if`-conditionals, where expressions are evaluated to `l-me: true` and `l-me: false` in order
 to decide which branch to evaluate, processed in a top-down order, `*when`-matching is taking the value of an
@@ -401,14 +409,14 @@ case-insensitive; `l-me: null`-values always invoke the `*other`-fallback!
 
 ```component-markup
 <container *when="my.input.expression">
-  <red *is="A">First case</>
-  <green *is="B">Second case</>
-  <blue *is="C">Third case</>
+  <red +is="A">First case</>
+  <green +is="B">Second case</>
+  <blue +is="C">Third case</>
   <gray *other>Fallback case</>
 </>
 ```
 
-If no specified `*is`-case applies, an optional `*other`-fallback may be provided to evaluate; if absent, nothing
+If no specified `+is`-case applies, an optional `*other`-fallback may be provided to evaluate; if absent, nothing
 will be rendered. The above is functionally (but not computationally!) equivalent to the following `*if`-chain,
 which is *absolutely advised against*:
 
@@ -419,10 +427,10 @@ which is *absolutely advised against*:
 <gray *else>Fallback case</>
 ```
 
-As always, these structural attributes may be applied to any tag, which means that if the cases are already wrapped
+As always, these intrinsic attributes may be applied to any tag, which means that if the cases are already wrapped
 in a parent-container due to the template at hand, one does not need to introduce an extra `container` - it simply
-serves as an invisible wrapper for `*is`-cases. **All** children within the parent holding the `*when`-attribute
-are required to be members of the matching-process, meaning `*is`-cases or an `*other`, where the latter may only
+serves as an invisible wrapper for `+is`-cases. **All** children within the parent holding the `*when`-attribute
+are required to be members of the matching-process, meaning `+is`-cases or an `*other`, where the latter may only
 exist once; consider this whole block as atomic - it cannot be split up, cannot be injected with static content and
 always evaluates to a single branch within it.
 
@@ -430,19 +438,19 @@ In case it is ever truly needed, when-matching can be nested, as follows:
 
 ```component-markup
 <container *when="first_input">
-  <red *is="A">Case A</>
-  <green *is="B">Case B</>
-  <container *is="C" *when="second_input">
-    <gold *is="D">Case D within C</>
-    <yellow *is="E">Case E within C</>
+  <red +is="A">Case A</>
+  <green +is="B">Case B</>
+  <container +is="C" *when="second_input">
+    <gold +is="D">Case D within C</>
+    <yellow +is="E">Case E within C</>
   </>
   <gray *other>Fallback Case</>
 </>
 ```
 
-### Use-Conditional
+### Use-Conditionals
 
-If instead of disabling the applied-to element and its children altogether, the intrinsic `*use` structural attribute
+If instead of disabling the applied-to element and its children altogether, the intrinsic `*use` attribute
 allows to only prevent the very tag it is applied to from taking effect, while still always rendering its content; that
 said, the `*if` condition takes precedence and when it itself evaluates to `l-me: false`, the `*use` condition will
 not have any effect.
@@ -457,12 +465,13 @@ evaluates to `l-me: false`, the text `Hello, world!` will remain uncolorized.
 
 ### Generative Loops
 
-In order to generate content based on a sequence of data-points, the intrinsic `*for` structural attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after a hyphen attached to the structural attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
+In order to generate content based on a sequence of data-points, the intrinsic `*for` attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after a hyphen attached to the intrinsic attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
 
 Once employed, the additional attributes become available:
 
-- `for-separator`, accepting an optional markup-value to be injected inbetween iterations
-- `for-reversed`, accepting an optional boolean marking whether to iterate in reverse order
+- `*for-separator`, accepting an optional markup-value to be injected inbetween iterations
+- `*for-empty`, accepting an optional markup-value to be injected if there are no items to iterate
+- `*for-reversed`, accepting an optional boolean marking whether to iterate in reverse order
 
 When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax.md#range-operator) (the `l-me: loop` context is discussed further below).
 
@@ -477,12 +486,12 @@ When iteration-items are required, simply attach the desired variable-name with 
   Online players:<space/>
   <red
     *for-player_name="player_names"
-    for-separator={<gray>, }
+    *for-separator={<gray>, }
   >{player_name}</>
 </>
 ```
 
-The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#if-conditionals), simply also add in the corresponding `*if` structural attribute.
+The example above will generate the `red` tag once for each name in the list, injecting the `gray` separators inbetween iterations. If items are to be skipped based on a [Condition](#if-conditionals), simply also add in the corresponding `*if` intrinsic attribute.
 
 Let's skip names equal to `Steve`:
 
@@ -492,11 +501,11 @@ Let's skip names equal to `Steve`:
   <red
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
-    for-separator={<gray>, }
+    *for-separator={<gray>, }
   >{player_name}</>
 </>
 ```
-In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else` structural attributes, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
+In this context, meaning when combined with a loop, the `*if`-condition may not be chained with `*else-if`/`*else` intrinsic attributes, as it does not control whether the *node* is rendered, but whether an *iteration* is rendered, and thereby becomes attached with a completely different meaning. For more nuanced control, consider adding conditions on child-tags.
 
 Let's render an alternate name for `Steve`:
 
@@ -505,7 +514,7 @@ Let's render an alternate name for `Steve`:
   Online players:<space/>
   <container
     *for-player_name="player_names"
-    for-separator={<gray>, }
+    *for-separator={<gray>, }
   >
     <green *if="player_name == 'Steve'">Alternate Name Here</>
     <red *else>{player_name}</>
@@ -513,7 +522,7 @@ Let's render an alternate name for `Steve`:
 </>
 ```
 
-Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for` structural attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
+Additional information is made available via the implicitly added temporary variable called `l-me: loop`; it also only exists for the duration of the tag-contents to which the `*for` intrinsic attribute has been applied to. It itself holds the following useful properties, updated for each iteration:
 
 - `l-me: index`: Zero-based sequence-number of the current element
 - `l-me: length`: Number of elements to be iterated over in total
@@ -530,7 +539,7 @@ For single loops, accessing this variable directly marks the most straight-forwa
   <red
     *for-player_name="player_names"
     *if="player_name != 'Steve'"
-    for-separator={<gray>, }
+    *for-separator={<gray>, }
   >#{loop.index + 1} {player_name}</>
 </>
 ```
@@ -540,7 +549,7 @@ To generate multiple elements per iteration, make use of the invisible `containe
 ```component-markup
 <container
   *for-player_name="player_names"
-  for-separator={<br/>}
+  *for-separator={<br/>}
 >
   <red>First member</>
   <green>Second member</>
@@ -549,13 +558,13 @@ To generate multiple elements per iteration, make use of the invisible `containe
 </>
 ```
 
-Whenever attribute-values are of type markup, as is the case with the `for-separator`, nesting may
+Whenever attribute-values are of type markup, as is the case with the `*for-separator`, nesting may
 extend to any arbitrary depth; e.g. a separator which again displays `hover-text`:
 
 ```component-markup
 <container
   *for-word="['first', 'second', 'third']"
-  for-separator={
+  *for-separator={
     <hover-text value={<red>I am a separator!}>,<space/>
   }
 >
