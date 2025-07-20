@@ -207,7 +207,13 @@ When providing immediate values which are not of type string, i.e. numbers and b
 >{e}"
 ```
 
-which will display a value of `343`. Next to expressions, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
+which will display a value of `343`. If bindings containing literal strings are to be created, simply employ the literal intrinsic attribute prefix `+` instead of its expression counterpart `*`, as follows:
+
+```component-markup
+<container +let-my_string="Hello, world!">{my_string}
+```
+
+Next to expressions and literals, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
 
 ```component-markup
 <container
@@ -227,11 +233,39 @@ which will display a value of `343`. Next to expressions, markup-values may also
 
 <img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
 
-If bindings containing literal strings are to be created, simply employ the literal intrinsic attribute prefix `+` instead of its expression counterpart `*`, as follows:
+In order to parameterize these reusable components in a flexible manner, any placeholders within them will be fed with the data available at their usage-site.
 
 ```component-markup
-<container +let-my_string="Hello, world!">{my_string}
+<container
+  *let-my_component={
+    <aqua>I am a {type}!
+  }
+>
+  <gray +let-type="Cat">First use: {my_component}</>
+  <br/>
+  <gray +let-type="Dog">Second use: {my_component}
 ```
+
+<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup_placeholders.png')} />
+
+While scoped let-bindings may suffice for most use-cases, components can be partially or even fully pre-parameterised in a safe way by using a capture, which will snapshot all variables existing at its place of residence, providing the guarantee of them not becoming shadowed later down the road. A capture is signalled by enclosing the let-binding's variable-name by matching parentheses `()`. Its value need not necessarily be a direct markup-value, but it may also refer to other components, in order to clone them as a pre-parameterized version.
+
+```component-markup
+<container
+  *let-a={<&b>first}
+  *let-my_template={ {a} and <&d>{b} }
+  *let-(my_captured_template)="my_template"
+>
+  <container
+    *let-a={<&c>third}
+    +let-b="second"
+  >
+    <gray>{my_template}</>
+    <br/>
+    <gray>{my_captured_template}
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup_capture.png')} />
 
 ### Immediate Attribute-Values
 

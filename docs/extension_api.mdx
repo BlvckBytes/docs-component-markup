@@ -337,6 +337,18 @@ public interface TemporaryMemberEnvironment extends InterpretationEnvironment {
 }
 ```
 
+When introducing variable-values which are modified by reference later on, as is the case with the `loop`-variable
+which the intrinsic `*for` attribute introduces, they should implement the following interface, as to allow the
+system to create a static copy to be used when snapshotting the environment for deferred components or captures.
+
+```java
+public interface InternalCopyable {
+
+  Object copy();
+
+}
+```
+
 ### Creating/Modifying Components
 
 Components, as created by invoking the `OutputBuilder` with AST-nodes, may be modified to any degree using the

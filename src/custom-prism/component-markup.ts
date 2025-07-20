@@ -79,6 +79,14 @@ class OutputBuilder {
       this.tokens.push(new Prism.Token('keyword', 'let'));
       this.punctuation('-');
       value = value.substring(4);
+
+      if (value.startsWith('(') && value.endsWith(')')) {
+        this.punctuation('(');
+        value = value.substring(1, value.length - 1);
+        this.tokens.push(new Prism.Token('keyword', value));
+        this.punctuation(')');
+        return;
+      }
     }
 
     this.tokens.push(new Prism.Token('keyword', value));
