@@ -34,7 +34,7 @@ public abstract class TagDefinition {
     @NotNull String tagNameLower,
     @NotNull CursorPosition position,
     @NotNull AttributeMap attributes,
-    @Nullable List<LetBinding> letBindings,
+    @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
   );
 }
@@ -98,12 +98,12 @@ public abstract class MarkupNode {
   public CursorPosition position;
 
   public @Nullable List<MarkupNode> children;
-  public @Nullable List<LetBinding> letBindings;
+  public @Nullable LinkedHashSet<LetBinding> letBindings;
 
   public MarkupNode(
     CursorPosition position,
     @Nullable List<MarkupNode> children,
-    @Nullable List<LetBinding> letBindings
+    @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
     this.position = position;
     this.children = children;
@@ -406,7 +406,7 @@ the closure, as well as to render the deferred placeholder as concrete and tailo
 ```java
 public abstract class DeferredNode<Parameter extends RendererParameter> extends UnitNode implements DeferredRenderer<Parameter> {
 
-  public DeferredNode(CursorPosition position, @Nullable List<LetBinding> letBindings) {
+  public DeferredNode(CursorPosition position, @Nullable LinkedHashSet<LetBinding> letBindings) {
     super(position, letBindings);
   }
 
@@ -485,7 +485,7 @@ public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
     @Nullable ExpressionNode displayName,
     @Nullable MarkupNode representation,
     CursorPosition position,
-    @Nullable List<LetBinding> letBindings
+    @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
     super(position, letBindings);
 
@@ -550,7 +550,7 @@ public class PlayerNameTag extends TagDefinition {
     @NotNull String tagNameLower,
     @NotNull CursorPosition position,
     @NotNull AttributeMap attributes,
-    @Nullable List<LetBinding> letBindings,
+    @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
   ) {
     return new PlayerNameNode(
