@@ -135,20 +135,3 @@ Displays a tooltip containing information about an entity within the player's wo
 ```
 
 <img className='rendered-image' src={useBaseUrl('/img/hover_show_entity.png')} />
-
-## Show Achievement
-
-Displays a tooltip containing information about the specified achievement; this action has been
-discontinued on all versions past (including) `1.12` and is now to be simulated via `hover-text`.
-
-| Attribute | Type   | Mandatory | Description            |
-|-----------|--------|-----------|------------------------|
-| value     | Scalar | yes       | Key of the achievement |
-
-```component-markup
-<hover-achievement
-  value="achievement.openInventory"
-><aqua>My text</>
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/hover_show_achievement.png')} />
