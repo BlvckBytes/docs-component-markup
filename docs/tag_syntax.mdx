@@ -33,33 +33,25 @@ once processed.
 Literal curly-brackets are **always** to be marked by a leading backslash in order to avoid them erroneously being interpreted as the premature end of a tag-attribute's markup-value or the beginning of a placeholder:
 
 ```component-markup
-<my-tag
-  my-attribute={
-    <red>This curly bracket \} does not close the attribute's input!
+<hover-text
+  value={
+    <red>This curly bracket \} does not close the attribute's markup!
   }
-/>
+>
 ```
 
-The value of `my-attribute` will become
+The same holds true for opening curly-brackets:
 
 ```component-markup
-<red>This curly bracket } does not close the attribute's input!
+<hover-text
+  value={
+    <red>This curly bracket \{ does not mark a placeholder!
+  }
+>
 ```
 
-once processed. Also
-
-```
-This \{ curly-bracket does not mark a placeholder!
-```
-
-will become
-
-```
-This { curly-bracket does not mark a placeholder!
-```
-
-once processed. It's best to, in general, think of curly-brackets as special and reserved tokens
-within this templating-language, because that's what they are; if to be used literally, do so with care.
+It's best to, in general, think of curly-brackets as special and reserved tokens within this
+templating-language, because that's what they are; if to be used literally, do so with care.
 
 ### Newlines And Whitespace
 
@@ -175,7 +167,7 @@ strongly advised to handle this special feature with great care.
 Tags which bear no content, as they simply insert data retrieved externally or mark special instructions, self-close by adding a slash right before the closing pointy-bracket `l-cm: <name/>`.
 
 ```component-markup
-The tag <my-tag/> self-closes and thus needs no corresponding closing-tag!
+The tag <space/> self-closes and thus needs no corresponding closing-tag!
 ```
 
 ### Intrinsic Attributes
@@ -282,7 +274,7 @@ All opening-tags, including the self-closing kind, may support a variety of attr
   g={
     <red>Hello, world!
   }
-/>
+>
 ```
 
 In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type floating-point number, `d` and `e` of type boolean, `f` also of type boolean (flag-style `l-me: true`-value) and `g` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, boolean), where the latter will never cause a type-mismatch and simply be interpreted as required.
@@ -304,8 +296,8 @@ In the above example, the two values of `with` will be matched with the two plac
 Attributes also support dynamic values, meaning values which are not specified immediately but rather are to be retrieved by evaluating an expression; to indicate this behaviour, simply enclose the attribute-name by a pair of square-brackets `[]`.
 
 ```component-markup
-<my-tag
-  [my-attribute]="user.name"
+<translate
+  [key]="user.name"
 />
 ```
 

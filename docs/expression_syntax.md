@@ -131,9 +131,9 @@ Items may also once again be lists themselves, allowing for a tuple-style datase
 And thereby give rise to more advanced concepts of templating.
 
 ```component-markup
-<color
+<style
   *for-word="[['apple', 'red'], ['banana', 'yellow']]"
-  [value]="word[1]"
+  [color]="word[1]"
 >Hello, {word[0]}!
 ```
 
@@ -476,162 +476,162 @@ Associativity regards the order of operations on chains of operators of same pre
   <tbody>
     <tr>
       <td>Branching</td>
-      <td>`l-me: ?`</td>
+      <td>`?`</td>
       <td>1</td>
       <td rowSpan={16}>left-to-right</td>
     </tr>
     <tr>
       <td>Disjunction</td>
-      <td>`l-me: ||`</td>
+      <td>`||`</td>
       <td>2</td>
     </tr>
     <tr>
       <td>Conjunction</td>
-      <td>`l-me: &&`</td>
+      <td>`&&`</td>
       <td>3</td>
     </tr>
     <tr>
       <td>Equal To</td>
-      <td>`l-me: ==`</td>
+      <td>`==`</td>
       <td rowSpan={2}>4</td>
     </tr>
     <tr>
       <td>Not Equal To</td>
-      <td>`l-me: !=`</td>
+      <td>`!=`</td>
     </tr>
     <tr>
       <td>Greater Than</td>
-      <td>`l-me: >`</td>
+      <td>`>`</td>
       <td rowSpan={4}>5</td>
     </tr>
     <tr>
       <td>Greater Than Or Equal</td>
-      <td>`l-me: >=`</td>
+      <td>`>=`</td>
     </tr>
     <tr>
       <td>Less Than</td>
-      <td>`l-me: <`</td>
+      <td>`<`</td>
     </tr>
     <tr>
       <td>Less Than Or Equal</td>
-      <td>`l-me: <=`</td>
+      <td>`<=`</td>
     </tr>
     <tr>
       <td>Concatenation</td>
-      <td>`l-me: &`</td>
+      <td>`&`</td>
       <td>6</td>
     </tr>
     <tr>
       <td>Range</td>
-      <td>`l-me: ..`</td>
+      <td>`..`</td>
       <td>7</td>
     </tr>
     <tr>
       <td>Addition</td>
-      <td>`l-me: +`</td>
+      <td>`+`</td>
       <td rowSpan={2}>8</td>
     </tr>
     <tr>
       <td>Subtraction</td>
-      <td>`l-me: -`</td>
+      <td>`-`</td>
     </tr>
     <tr>
       <td>Multiplication</td>
-      <td>`l-me: *`</td>
+      <td>`*`</td>
       <td rowSpan={3}>9</td>
     </tr>
     <tr>
       <td>Division</td>
-      <td>`l-me: /`</td>
+      <td>`/`</td>
     </tr>
     <tr>
       <td>Modulo</td>
-      <td>`l-me: %`</td>
+      <td>`%`</td>
     </tr>
     <tr>
       <td>Exponentiation</td>
-      <td>`l-me: ^`</td>
+      <td>`^`</td>
       <td>10</td>
       <td>right-to-left</td>
     </tr>
     <tr>
       <td>String-Explode Literal</td>
-      <td>`l-me: @`</td>
+      <td>`@`</td>
       <td rowSpan={3}>11</td>
       <td rowSpan={4}>left-to-right</td>
     </tr>
     <tr>
       <td>String-Explode Regex</td>
-      <td>`l-me: @@`</td>
+      <td>`@@`</td>
     </tr>
     <tr>
       <td>Repeat</td>
-      <td>`l-me: **`</td>
+      <td>`**`</td>
     </tr>
     <tr>
       <td>Fallback</td>
-      <td>`l-me: ??`</td>
+      <td>`??`</td>
       <td>12</td>
     </tr>
     <tr>
       <td>Negation</td>
-      <td>`l-me: !`</td>
+      <td>`!`</td>
       <td rowSpan={10}>13</td>
       <td rowSpan={10}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
-      <td>`l-me: -`</td>
+      <td>`-`</td>
     </tr>
     <tr>
       <td>Uppercase</td>
-      <td>`l-me: ~^`</td>
+      <td>`~^`</td>
     </tr>
     <tr>
       <td>Lowercase</td>
-      <td>`l-me: ~_`</td>
+      <td>`~_`</td>
     </tr>
     <tr>
       <td>Titlecase</td>
-      <td>`l-me: ~#`</td>
+      <td>`~#`</td>
     </tr>
     <tr>
       <td>Toggle Casing</td>
-      <td>`l-me: ~!`</td>
+      <td>`~!`</td>
     </tr>
     <tr>
       <td>Slugify</td>
-      <td>`l-me: ~-`</td>
+      <td>`~-`</td>
     </tr>
     <tr>
       <td>Asciify</td>
-      <td>`l-me: ~?`</td>
+      <td>`~?`</td>
     </tr>
     <tr>
       <td>Trim</td>
-      <td>`l-me: ~|`</td>
+      <td>`~|`</td>
     </tr>
     <tr>
       <td>Reverse</td>
-      <td>`l-me: ~<`</td>
+      <td>`~<`</td>
     </tr>
     <tr>
       <td>Subscripting</td>
-      <td>`l-me: []`</td>
+      <td>`[]`</td>
       <td rowSpan={3}>14</td>
       <td rowSpan={4}>left-to-right</td>
     </tr>
     <tr>
       <td>Substring</td>
-      <td>`l-me: [:]`</td>
+      <td>`[:]`</td>
     </tr>
     <tr>
       <td>Member</td>
-      <td>`l-me: .`</td>
+      <td>`.`</td>
     </tr>
     <tr>
       <td>Parentheses</td>
-      <td>`l-me: ()`</td>
+      <td>`()`</td>
       <td>15</td>
     </tr>
   </tbody>
