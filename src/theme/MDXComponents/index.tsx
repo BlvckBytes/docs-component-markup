@@ -19,12 +19,12 @@ export const InPreContext = createContext(false);
 
 function SmartCode(props: { children: React.ReactNode; className?: string }) {
   const isBrowser = useIsBrowser();
+  const inPre = useContext(InPreContext);
 
   if (!isBrowser)
-    return <p>Code-Blocks are only available within the browser</p>
+    return <>Code-Blocks are only available within the browser</>
 
   const { children, className } = props;
-  const inPre = useContext(InPreContext);
 
   if (className || inPre) {
     const classPrefix = "language-";

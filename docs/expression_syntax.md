@@ -10,7 +10,7 @@ Whenever specifying placeholders, binding variables, using intrinsic expression-
 
 ## String Literals
 
-A string represents a sequence of characters as-is, to be used in expressions; their contents are delimited by single-quotes (`l-me: '`) or, alternatively, double-quotes (`l-me: "`).
+A string represents a sequence of characters as-is, to be used in expressions; their contents are delimited by single-quotes (`'`) or, alternatively, double-quotes (`"`).
 
 ```markup-expression
 'this is a string-literal'
@@ -32,7 +32,7 @@ When specifying string-literals inside of attribute-values which themselves use 
 
 ## Numbers
 
-Numeric values are always expressed using the decimal system, i.e. digits `l-me: 0` through `l-me: 9`.
+Numeric values are always expressed using the decimal system, i.e. digits `0` through `9`.
 
 ```markup-expression
 8912
@@ -50,7 +50,7 @@ Where the leading zero can be dropped entirely:
 .5
 ```
 
-Additionally, numbers may become negative simply by prepending a minus-sign (`l-me: -`).
+Additionally, numbers may become negative simply by prepending a minus-sign (`-`).
 
 ```markup-expression
 -512
@@ -63,7 +63,7 @@ Additionally, numbers may become negative simply by prepending a minus-sign (`l-
 
 ## Concatenation Operator
 
-Due to this syntax being dynamically typed, the addition-operator (`l-me: +`) cannot reliably be overloaded to concatenate values back-to-back into a resulting string; thus, the ampersand (`l-me: &`) is used to denote this intent.
+Due to this syntax being dynamically typed, the addition-operator (`+`) cannot reliably be overloaded to concatenate values back-to-back into a resulting string; thus, the ampersand (`&`) is used to denote this intent.
 
 
 Assuming that `l-me: a` holds `l-me: 'Hello'` and `l-me: b` holds `l-me: 'World'`, the expression
@@ -106,11 +106,11 @@ The following transformations may come in handy when dealing with strings of cha
 | Trim          | `l-me: ~\|value` | `l-me: 'Hellö WöRLd'`   |
 | Reverse       | `l-me: ~<value`  | `l-me: 'dLRöW ölleH'`   |
 
-In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(?-(~|value))`, resulting in `l-me: 'hello-world'`.
+In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(~-(~|value))`, resulting in `l-me: 'hello-world'`.
 
 ## Immediate List
 
-Whenever static lists of items are to be instantiated for further use, simply specify the desired items in a comma-separated (`l-me: ,`) list, enclosed by square brackets (`l-me: []`).
+Whenever static lists of items are to be instantiated for further use, simply specify the desired items in a comma-separated (`,`) list, enclosed by square brackets (`l-me: []`).
 
 ```markup-expression
 ['first', 'second', 'third']
@@ -346,7 +346,7 @@ Assuming that `l-me: my_object` is a Java-object containing a few members, say
 { effect: 'Regeneration', duration_ticks: 900, amplitude: 2 }
 ```
 
-the value of each member may be accessed by appending a dot (`l-me: .`), followed by its name.
+the value of each member may be accessed by appending a dot (`.`), followed by its name.
 
 ```markup-expression
 my_object.my_member
@@ -380,7 +380,7 @@ When programming in Java, the established naming-convention regarding properties
 
 ### Not (Invert)
 
-By prepending an expression with a bang (`l-me: !`), it's value is interpreted as a boolean and will be inverted, meaning that `l-me: true` will become `l-me: false` and vice-versa.
+By prepending an expression with a bang (`!`), it's value is interpreted as a boolean and will be inverted, meaning that `l-me: true` will become `l-me: false` and vice-versa.
 
 ```markup-expression
 !value
@@ -393,7 +393,7 @@ By prepending an expression with a bang (`l-me: !`), it's value is interpreted a
 
 ### Or (Disjunction)
 
-By stringing two expressions together using a double-pipe (`l-me: ||`), both the left- and the right hand side will be interpreted as boolean values; given that any one of them is `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
+By stringing two expressions together using a double-pipe (`||`), both the left- and the right hand side will be interpreted as boolean values; given that any one of them is `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
 
 ```markup-expression
 lhs || rhs
@@ -408,7 +408,7 @@ lhs || rhs
 
 ### And (Conjunction)
 
-By stringing two expressions together using a double-ampersand (`l-me: &&`), both the left- and the right hand side will be interpreted as boolean values; given that both are `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
+By stringing two expressions together using a double-ampersand (`&&`), both the left- and the right hand side will be interpreted as boolean values; given that both are `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
 
 ```markup-expression
 lhs && rhs
@@ -447,7 +447,7 @@ input ? branch_true : branch_false
 
 ## Fallback Values
 
-If a variable or an expression in general may return a `l-me: null`-value, a fallback can be provided by appending it with a double-questionmark (`l-me: ??`), followed by the actual value.
+If a variable or an expression in general may return a `l-me: null`-value, a fallback can be provided by appending it with a double-questionmark (`??`), followed by the actual value.
 
 ```markup-expression
 input ?? fallback_variable
