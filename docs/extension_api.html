@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Extension API | ComponentMarkup</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://blvckbytes.github.io/docs-component-markup/docs/extension_api"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Extension API | ComponentMarkup"><meta data-rh="true" name="description" content="This system has been designed with flexibility as well as extensibility in mind from the very get-go. On this"><meta data-rh="true" property="og:description" content="This system has been designed with flexibility as well as extensibility in mind from the very get-go. On this"><link data-rh="true" rel="icon" href="/docs-component-markup/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api" hreflang="en"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Extension API","item":"https://blvckbytes.github.io/docs-component-markup/docs/extension_api"}]}</script><link rel="stylesheet" href="/docs-component-markup/assets/css/styles.62fb4004.css">
-<script src="/docs-component-markup/assets/js/runtime~main.6e48bd96.js" defer="defer"></script>
-<script src="/docs-component-markup/assets/js/main.f08e996a.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/runtime~main.9f13d0ad.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/main.ee42699f.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -19,14 +19,14 @@ runtime will be documented. Let&#x27;s look at an abstract overview-diagram rega
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="defining-tags">Defining Tags<a href="#defining-tags" class="hash-link" aria-label="Direct link to Defining Tags" title="Direct link to Defining Tags">​</a></h2>
 <p>While a tag-definition may look deceptively simple at first glance, the possibilities it brings to the table
 cannot be overstated.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>The above represents the template provided in order to define a new tag, to be registered
-in and used with an instance of the </p><p>Code-Blocks are only available within the browser</p>. Immediately within the <p>Code-Blocks are only available within the browser</p>-constructor,
-the tag closing-type<p></p>
-<p>Code-Blocks are only available within the browser</p>
+in and used with an instance of the <!-- -->Code-Blocks are only available within the browser<!-- -->. Immediately within the <!-- -->Code-Blocks are only available within the browser<!-- -->-constructor,
+the tag closing-type</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>is to be defined, where self-closing tags may not bear any content and thereby will always
-receive a </p><p>Code-Blocks are only available within the browser</p>-list of <p>Code-Blocks are only available within the browser</p>; next up, a tag-priority<p></p>
-<p>Code-Blocks are only available within the browser</p>
+receive a <!-- -->Code-Blocks are only available within the browser<!-- -->-list of <!-- -->Code-Blocks are only available within the browser<!-- -->; next up, a tag-priority</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>will signal which definition to pick if a tag&#x27;s name matched on multiple registered definitions,
 allowing the user to override built-in behavior (although not necessarily recommended) to any
 granularity. These already are the only properties required upfront, where name- and attribute-
@@ -34,93 +34,93 @@ matching remain completely dynamic.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="matching-names">Matching Names<a href="#matching-names" class="hash-link" aria-label="Direct link to Matching Names" title="Direct link to Matching Names">​</a></h2>
 <p>Due to the fact that names are not to be specified ahead of time, a tag-definition may handle
 patterns of arbitrary complexity, as is the case with <a href="/docs-component-markup/docs/built_in/style#color-shorthands">Color Shorthands</a>. Also, in general, tag- as well as attribute-names are case-insensitive.
-Once </p><p>Code-Blocks are only available within the browser</p> returned <p>Code-Blocks are only available within the browser</p> for one such given name, the tag-definition becomes a candidate
-within the list of possible handlers, from which the one of highest priority will prevail.<p></p>
+Once <!-- -->Code-Blocks are only available within the browser<!-- --> returned <!-- -->Code-Blocks are only available within the browser<!-- --> for one such given name, the tag-definition becomes a candidate
+within the list of possible handlers, from which the one of highest priority will prevail.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="creating-nodes">Creating Nodes<a href="#creating-nodes" class="hash-link" aria-label="Direct link to Creating Nodes" title="Direct link to Creating Nodes">​</a></h2>
 <p>As soon as the system completed parsing the a tag in its entirety, including attributes as
-well as possibly some content, </p><p>Code-Blocks are only available within the browser</p> will be invoked (with the very same name matched
+well as possibly some content, <!-- -->Code-Blocks are only available within the browser<!-- --> will be invoked (with the very same name matched
 upon earlier, for reference), whose responsibility it is to instantiate an AST-node,
-being a derivative of a <p>Code-Blocks are only available within the browser</p>:<p></p>
-<p>Code-Blocks are only available within the browser</p>
-<p>The base class already takes care of holding the </p><p>Code-Blocks are only available within the browser</p>, as well as optional lists of <p>Code-Blocks are only available within the browser</p> and
-<p>Code-Blocks are only available within the browser</p> (see <a href="/docs-component-markup/docs/tag_syntax#let-bindings">Let-Bindings</a>). This immediately implies that tags may
+being a derivative of a <!-- -->Code-Blocks are only available within the browser<!-- -->:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>The base class already takes care of holding the <!-- -->Code-Blocks are only available within the browser<!-- -->, as well as optional lists of <!-- -->Code-Blocks are only available within the browser<!-- --> and
+<!-- -->Code-Blocks are only available within the browser<!-- --> (see <a href="/docs-component-markup/docs/tag_syntax#let-bindings">Let-Bindings</a>). This immediately implies that tags may
 implicitly define bindings or modify child-entries. While there are many pre-defined node-types available,
-users may also always define their own, handled via <a href="#interpreter-interception">Interpreter-Interception</a>.<p></p>
+users may also always define their own, handled via <a href="#interpreter-interception">Interpreter-Interception</a>.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="retrieving-attributes">Retrieving Attributes<a href="#retrieving-attributes" class="hash-link" aria-label="Direct link to Retrieving Attributes" title="Direct link to Retrieving Attributes">​</a></h2>
 <p>The astute reader might have noticed that up until this point, no attributes have ever been defined
-anywhere - and for good reason: keeping a single source of truth, paired with flexibility. The </p><p>Code-Blocks are only available within the browser</p>,
-as passed into <p>Code-Blocks are only available within the browser</p>, handles access in a somewhat unusual, yet beautifully simplistic manner; let&#x27;s
-take a look at its API first:<p></p>
-<p>Code-Blocks are only available within the browser</p>
+anywhere - and for good reason: keeping a single source of truth, paired with flexibility. The <!-- -->Code-Blocks are only available within the browser<!-- -->,
+as passed into <!-- -->Code-Blocks are only available within the browser<!-- -->, handles access in a somewhat unusual, yet beautifully simplistic manner; let&#x27;s
+take a look at its API first:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>There are two different types of attributes - <a href="/docs-component-markup/docs/expression_syntax">Expressions</a> as well as a sub-tree of
-<a href="/docs-component-markup/docs/tag_syntax">Markup</a>, both bound to an identifying </p><p>Code-Blocks are only available within the browser</p>, where a name can only ever depict one and the
+<a href="/docs-component-markup/docs/tag_syntax">Markup</a>, both bound to an identifying <!-- -->Code-Blocks are only available within the browser<!-- -->, where a name can only ever depict one and the
 same type used as an internal representation of the data associated with it. Optional attributes are not required
 to be present in order for the construction of the corresponding tag to succeed, while their mandatory
 counterparts certainly are, failing parsing if absent; single values (nodes) may be null if omitted, while lists
 are always non-null, for convenience. When requiring an attribute as a list, this simply means that it may be
-specified more than once, and could possibly be bound using the spread-operator <p>Code-Blocks are only available within the browser</p>.<p></p>
+specified more than once, and could possibly be bound using the spread-operator <!-- -->Code-Blocks are only available within the browser<!-- -->.</p>
 <p>The above instantly implies the possibility of dynamic attributes like:
-</p><p>Code-Blocks are only available within the browser</p>, as follows:<p></p>
-<p>Code-Blocks are only available within the browser</p>
-<p>After </p><p>Code-Blocks are only available within the browser</p> responded with a result, the <p>Code-Blocks are only available within the browser</p> is internally checked for any unused
+<!-- -->Code-Blocks are only available within the browser<!-- -->, as follows:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>After <!-- -->Code-Blocks are only available within the browser<!-- --> responded with a result, the <!-- -->Code-Blocks are only available within the browser<!-- --> is internally checked for any unused
 attributes and, if any, will fail parsing, telling the user that they&#x27;ve specified unsupported (at
 least in their current attribute-constellation) names. This way, a tag can access attributes of exact
 types and names as desired, not having to take the burden of validation, without compromising on clarity
-when it comes to user-facing error-screens.<p></p>
+when it comes to user-facing error-screens.</p>
 <p>Lists of attributes are intentionally represented as an internal wrapper, due to the fact that they may be
-dynamically bound, using the spread-operator </p><p>Code-Blocks are only available within the browser</p>, which entails that the elements may not be known at
+dynamically bound, using the spread-operator <!-- -->Code-Blocks are only available within the browser<!-- -->, which entails that the elements may not be known at
 parse-time; such a list is supposed to be stored inside the constructed node as-is, to be evaluated later
 during interpretation, using the concept of <a href="#interpreter-interception">Interpreter-Interception</a>; they are
-accessed by providing a reference to the interpreter, as follows:<p></p>
-<p>Code-Blocks are only available within the browser</p>
+accessed by providing a reference to the interpreter, as follows:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>and</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="interpreter-interception">Interpreter Interception<a href="#interpreter-interception" class="hash-link" aria-label="Direct link to Interpreter Interception" title="Direct link to Interpreter Interception">​</a></h2>
 <p>Many features require interception at the time of interpretation in order to be implemented; in fact, that&#x27;s
 exactly how - for example - the <a href="/docs-component-markup/docs/built_in/rainbow">Rainbow-Tag</a> operates, by cancelling default processing
 of the elements it targets, while emitting its own colorized members into the final output.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="interception-lifecycle">Interception Lifecycle<a href="#interception-lifecycle" class="hash-link" aria-label="Direct link to Interception Lifecycle" title="Direct link to Interception Lifecycle">​</a></h3>
 <p>Registering to be called for interception is again as simple as it gets: once the node as constructed by
-</p><p>Code-Blocks are only available within the browser</p> implements the following interface, it will be called when it itself is encountered, as well
-as for every of its children:<p></p>
-<p>Code-Blocks are only available within the browser</p>
-<p>The main point of control, </p><p>Code-Blocks are only available within the browser</p>, may result in one of the following signals:<p></p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- --> implements the following interface, it will be called when it itself is encountered, as well
+as for every of its children:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>The main point of control, <!-- -->Code-Blocks are only available within the browser<!-- -->, may result in one of the following signals:</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>When instructing the interpreter to not process the current node, it will be skipped over in its entirety -
 including whichever children it may have contained. In order to only render said members partially, make use
 of the provided reference to the interpreter as to emit nodes manually; in most cases, processing will only
 be inhibited for terminal nodes though, which are then overridden by custom instances, emitted once again
-manually, while </p><p>Code-Blocks are only available within the browser</p> makes for a perfect way to keep a <p>Code-Blocks are only available within the browser</p> stack within the
-AST-node itself, handling state of the feature which leverages interception.<p></p>
+manually, while <!-- -->Code-Blocks are only available within the browser<!-- --> makes for a perfect way to keep a <!-- -->Code-Blocks are only available within the browser<!-- --> stack within the
+AST-node itself, handling state of the feature which leverages interception.</p>
 <p>Let&#x27;s look at an example of concurrent interceptors; even though per tag and thus per node, only at most a
 single interceptor may be registered at a time, there may be multiple interceptors in charge at any given
 depth. Due to this naturally arising mechanism, interceptors are kept on a stack, from which they are popped
 as soon as the scope of their corresponding tag ends; also, interceptors who registered first (outermost tags)
 always take precedence by being invoked first. A parent may skip a child&#x27;s possibility of interception, such
 that it is not even called into; also, a child may skip a node which a parent did allow to process:</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <ul>
-<li><p>Code-Blocks are only available within the browser</p>:<!-- -->
+<li>Code-Blocks are only available within the browser<!-- -->:<!-- -->
 <ul>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Registers interceptor <p>Code-Blocks are only available within the browser</p></li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Registers interceptor <!-- -->Code-Blocks are only available within the browser</li>
 </ul>
 </li>
-<li><p>Code-Blocks are only available within the browser</p>:<!-- -->
+<li>Code-Blocks are only available within the browser<!-- -->:<!-- -->
 <ul>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Registers interceptor <p>Code-Blocks are only available within the browser</p></li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Registers interceptor <!-- -->Code-Blocks are only available within the browser</li>
 </ul>
 </li>
-<li><p>Code-Blocks are only available within the browser</p>:<!-- -->
+<li>Code-Blocks are only available within the browser<!-- -->:<!-- -->
 <ul>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Calls interceptor <p>Code-Blocks are only available within the browser</p>: <p>Code-Blocks are only available within the browser</p></li>
-<li>Calls <p>Code-Blocks are only available within the browser</p> of <p>Code-Blocks are only available within the browser</p> with <p>Code-Blocks are only available within the browser</p></li>
-<li>Calls <p>Code-Blocks are only available within the browser</p> of <p>Code-Blocks are only available within the browser</p> with <p>Code-Blocks are only available within the browser</p></li>
-<li>Does not register <p>Code-Blocks are only available within the browser</p> (as it skipped itself)</li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Calls interceptor <!-- -->Code-Blocks are only available within the browser<!-- -->: <!-- -->Code-Blocks are only available within the browser</li>
+<li>Calls <!-- -->Code-Blocks are only available within the browser<!-- --> of <!-- -->Code-Blocks are only available within the browser<!-- --> with <!-- -->Code-Blocks are only available within the browser</li>
+<li>Calls <!-- -->Code-Blocks are only available within the browser<!-- --> of <!-- -->Code-Blocks are only available within the browser<!-- --> with <!-- -->Code-Blocks are only available within the browser</li>
+<li>Does not register <!-- -->Code-Blocks are only available within the browser<!-- --> (as it skipped itself)</li>
 </ul>
 </li>
 </ul>
@@ -128,24 +128,24 @@ that it is not even called into; also, a child may skip a node which a parent di
 <p>With the lifecycle as described above in mind, an interceptor is now fully enabled to interpret expressions,
 introduce temporary variables, interpret markup subtrees, construct platform-specific components and emit to
 the output, all thanks to the provided interpreter-reference:</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="temporary-variables">Temporary Variables<a href="#temporary-variables" class="hash-link" aria-label="Direct link to Temporary Variables" title="Direct link to Temporary Variables">​</a></h3>
 <p>In order to introduce temporary variables, update- and remove them again, there&#x27;s an environment-accessor
 within the interpreter, providing a way to modify the temporary-variable-stack:</p>
-<p>Code-Blocks are only available within the browser</p>
-<p>When introducing variable-values which are modified by reference later on, as is the case with the </p><p>Code-Blocks are only available within the browser</p>-variable
-which the intrinsic <p>Code-Blocks are only available within the browser</p> attribute introduces, they should implement the following interface, as to allow the
-system to create a static copy to be used when snapshotting the environment for deferred components or captures.<p></p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>When introducing variable-values which are modified by reference later on, as is the case with the <!-- -->Code-Blocks are only available within the browser<!-- -->-variable
+which the intrinsic <!-- -->Code-Blocks are only available within the browser<!-- --> attribute introduces, they should implement the following interface, as to allow the
+system to create a static copy to be used when snapshotting the environment for deferred components or captures.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="creatingmodifying-components">Creating/Modifying Components<a href="#creatingmodifying-components" class="hash-link" aria-label="Direct link to Creating/Modifying Components" title="Direct link to Creating/Modifying Components">​</a></h3>
-<p>Components, as created by invoking the </p><p>Code-Blocks are only available within the browser</p> with AST-nodes, may be modified to any degree using the
-platform-specific <p>Code-Blocks are only available within the browser</p>; next to modifying existing components, custom components may also be
+<p>Components, as created by invoking the <!-- -->Code-Blocks are only available within the browser<!-- --> with AST-nodes, may be modified to any degree using the
+platform-specific <!-- -->Code-Blocks are only available within the browser<!-- -->; next to modifying existing components, custom components may also be
 constructed from the ground up using nothing but their parameters, to be emitted directly later on. Learn more
-about this class over at the <a href="/docs-component-markup/docs/platform_api">Platform-API</a>.<p></p>
+about this class over at the <a href="/docs-component-markup/docs/platform_api">Platform-API</a>.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="emitting-to-output">Emitting To Output<a href="#emitting-to-output" class="hash-link" aria-label="Direct link to Emitting To Output" title="Direct link to Emitting To Output">​</a></h3>
 <p>When it comes to emitting intercepted or even custom elements to the final output, the following
 reference, as provided by the interpreter, allows for much flexibility:</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="deferred-content">Deferred Content<a href="#deferred-content" class="hash-link" aria-label="Direct link to Deferred Content" title="Direct link to Deferred Content">​</a></h2>
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Deferred content is still not entirely nailed down and thus considered experimental.</p></div></div>
 <p>The concept of deferred components represents another stage of templating: tayloring content
@@ -172,48 +172,48 @@ the immutable template untouched.</p>
 <p>How does a tag register itself as being deferred? It simply emits a partial tree which either is- or
 contains a deferred node, where such a node has to be able to create a parameter to be stored within
 the closure, as well as to render the deferred placeholder as concrete and tailored components.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>While the parameter may be of whatever desired type, it is considered good practise to implement a proper
 plain-text representation which is substituted whenever raw (non-substituted) results are applied/sent such
 that the API-user knows that they forgot to pass a receiver-reference before applying said result;
 this may also be rather handy when debugging one&#x27;s template and while developing the system in general.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>The deferred renderer receives the parameter constructed prior, a reference to the component-constructor, the
 context of the slot which it is rendered into, as to simply pass on to the interpreter (if required) to ensure
 proper reset-behavior, as well as a snapshot of the environment containing the state at the point in time of the
 corresponding tag within the cycle of interpretation. All of this information allows for seamless integration.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="example">Example<a href="#example" class="hash-link" aria-label="Direct link to Example" title="Direct link to Example">​</a></h3>
-<p>Let&#x27;s implement a very simple tag called </p><p>Code-Blocks are only available within the browser</p>, starting out by defining a parameter
-which just captures whether to use the display-name or the plain account-name.<p></p>
-<p>Code-Blocks are only available within the browser</p>
-<p>Next up, by deriving the </p><p>Code-Blocks are only available within the browser</p>, we prepare for defining the corresponding tag - its attributes
+<p>Let&#x27;s implement a very simple tag called <!-- -->Code-Blocks are only available within the browser<!-- -->, starting out by defining a parameter
+which just captures whether to use the display-name or the plain account-name.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>Next up, by deriving the <!-- -->Code-Blocks are only available within the browser<!-- -->, we prepare for defining the corresponding tag - its attributes
 will feed into the constructor of this class, allowing for not only the aforementioned display-name
-flag, but also to provide a custom markup-representation.<p></p>
-<p>Code-Blocks are only available within the browser</p>
+flag, but also to provide a custom markup-representation.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>Last but not least, the tag can be defined, which now constructs the node above, thereby
 registering deferred content.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>When rendering the tag, it works as expected - especially with monochrome color.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <img class="rendered-image" src="/docs-component-markup/img/deferred_example_monochrome.png">
 <p>If gradients or rainbows are to be applied, they will not be able to take effect as expected,
 since the deferred node is represented by a single component at the time of interpretation,
 which does not yet know the content and thus its length - making it be an atomic unit.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <img class="rendered-image" src="/docs-component-markup/img/deferred_example_rainbow_outer.png">
 <p>For this exact reason, the representation allows to interpret custom markup at the time of
 substituting deferred content - now, rainbows apply properly. This style of implementation
 allows for much flexibility, like to provide custom representations for retrieved data. As
-can be seen in the implementation of the corresponding node above, the variable </p><p>Code-Blocks are only available within the browser</p>
-is introduced, containing the resolved value to be visualised however desired.<p></p>
-<p>Code-Blocks are only available within the browser</p>
+can be seen in the implementation of the corresponding node above, the variable <!-- -->Code-Blocks are only available within the browser<!-- -->
+is introduced, containing the resolved value to be visualised however desired.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <img class="rendered-image" src="/docs-component-markup/img/deferred_example_rainbow_inner.png">
 <p>The environment (which includes all temporary variables) is captured at the
 point in time during interpretation at which the corresponding deferred tag resides, which is
 also passed down into the render-method - thus, &quot;outer&quot; variables are easily accessible. This
 combination allows for flexible and uniform markup across multiple stages of evaluation.</p>
-<p>Code-Blocks are only available within the browser</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
 <img class="rendered-image" src="/docs-component-markup/img/deferred_example_environment_snapshot.png"></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs-component-markup/docs/expression_syntax"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Expression Syntax</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs-component-markup/docs/platform_api"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Platform API</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#defining-tags" class="table-of-contents__link toc-highlight">Defining Tags</a></li><li><a href="#matching-names" class="table-of-contents__link toc-highlight">Matching Names</a></li><li><a href="#creating-nodes" class="table-of-contents__link toc-highlight">Creating Nodes</a></li><li><a href="#retrieving-attributes" class="table-of-contents__link toc-highlight">Retrieving Attributes</a></li><li><a href="#interpreter-interception" class="table-of-contents__link toc-highlight">Interpreter Interception</a><ul><li><a href="#interception-lifecycle" class="table-of-contents__link toc-highlight">Interception Lifecycle</a></li><li><a href="#interpreter-reference" class="table-of-contents__link toc-highlight">Interpreter Reference</a></li><li><a href="#temporary-variables" class="table-of-contents__link toc-highlight">Temporary Variables</a></li><li><a href="#creatingmodifying-components" class="table-of-contents__link toc-highlight">Creating/Modifying Components</a></li><li><a href="#emitting-to-output" class="table-of-contents__link toc-highlight">Emitting To Output</a></li></ul></li><li><a href="#deferred-content" class="table-of-contents__link toc-highlight">Deferred Content</a><ul><li><a href="#advantages" class="table-of-contents__link toc-highlight">Advantages</a></li><li><a href="#the-deferred-node" class="table-of-contents__link toc-highlight">The Deferred Node</a></li><li><a href="#example" class="table-of-contents__link toc-highlight">Example</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"></div></footer></div>
 </body>
 </html>
