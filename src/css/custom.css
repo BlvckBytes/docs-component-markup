@@ -37,26 +37,21 @@ td .theme-code-block:last-child {
   margin: 0;
 }
 
-.token.tag-punctuation {
-  filter: saturate(30%);
-}
-
-.token.tab {
-  /* Because I simply despise tabs. */
-  background: red;
-}
-
-.token.whitespace {
+.token.whitespace, .tk-whitespace {
   position: relative;
 }
 
-.token.whitespace::after {
+.token.whitespace::after, .tk-whitespace::after {
   content: '·';
   opacity: .25;
   font-weight: bolder;
   position: absolute;
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
+}
+
+.tk-error {
+  background-color: rgba(255, 0, 0, .20);
 }
 
 .rendered-image {
@@ -68,4 +63,8 @@ td .theme-code-block:last-child {
 
 .prism-code.language-java .token.annotation {
   color: rgb(186, 181, 70) !important;
+}
+
+.prism-code {
+  font-size: 16px;
 }

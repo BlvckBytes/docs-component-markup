@@ -1,4 +1,4 @@
-import React, {type ComponentProps, createContext, useContext} from 'react';
+import React, {type ComponentProps, createContext, useContext } from 'react';
 import Head from '@docusaurus/Head';
 import Admonition from '@theme/Admonition';
 import Mermaid from '@theme/Mermaid';
@@ -12,15 +12,34 @@ import Heading from '@theme/Heading';
 import Img from '@theme/MDXComponents/Img';
 import InlineCode from '@site/src/components/InlineCode';
 import type {MDXComponentsObject} from '@theme/MDXComponents';
+import ExtendedCodeMirror from '@site/src/pages/extended-code-mirror';
+import useIsBrowser from '@docusaurus/useIsBrowser';
 
 export const InPreContext = createContext(false);
 
 function SmartCode(props: { children: React.ReactNode; className?: string }) {
+  const isBrowser = useIsBrowser();
+
+  if (!isBrowser)
+    return <p>Code-Blocks are only available within the browser</p>
+
   const { children, className } = props;
   const inPre = useContext(InPreContext);
 
-  if (className || inPre)
-    return <CodeBlock {...props} />;
+  if (className || inPre) {
+    const classPrefix = "language-";
+
+    if (typeof children === 'string' && className.startsWith(classPrefix)) {
+      const language = className.substring(classPrefix.length);
+
+      if (language == "java")
+        return <CodeBlock {...props} />;
+
+      return <ExtendedCodeMirror language={language} lenient={true} value={children.trim()} />
+    }
+
+    return <CodeBlock {...props} />
+  }
 
   const raw = String(children).trim();
   const match = raw.match(/^([a-z]+(-[a-z]+)*):\s+(.+)/);
@@ -34,10 +53,10 @@ function SmartCode(props: { children: React.ReactNode; className?: string }) {
     else if (lang == 'l-cm')
       lang = 'component-markup';
 
-    return <InlineCode language={lang}>{code}</InlineCode>;
+    return <InlineCode language={lang}>{code}</InlineCode>
   }
 
-  return <InlineCode>{raw}</InlineCode>;
+  return <InlineCode>{raw}</InlineCode>
 }
 
 export function WrappedPre(props: any) {
