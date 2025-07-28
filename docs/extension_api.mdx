@@ -28,11 +28,10 @@ public abstract class TagDefinition {
     this.tagPriority = tagPriority;
   }
 
-  public abstract boolean matchName(String tagNameLower);
+  public abstract boolean matchName(StringView tagNameLower);
 
   public abstract @NotNull MarkupNode createNode(
-    @NotNull String tagNameLower,
-    @NotNull CursorPosition position,
+    @NotNull StringView tagNameLower,
     @NotNull AttributeMap attributes,
     @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
@@ -49,7 +48,9 @@ public enum TagClosing {
   // <my-tag>Content</>
   OPEN_CLOSE,
   // <my-tag/>
-  SELF_CLOSE
+  SELF_CLOSE,
+  // Either or - supporting both
+  INVARIANT,
 }
 ```
 
@@ -95,13 +96,13 @@ public abstract class MarkupNode {
   public @Nullable ExpressionNode ifCondition;
   public @Nullable ExpressionNode useCondition;
 
-  public CursorPosition position;
+  public int position;
 
   public @Nullable List<MarkupNode> children;
   public @Nullable LinkedHashSet<LetBinding> letBindings;
 
   public MarkupNode(
-    CursorPosition position,
+    int position,
     @Nullable List<MarkupNode> children,
     @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
@@ -334,6 +335,11 @@ public interface TemporaryMemberEnvironment extends InterpretationEnvironment {
   void updateVariable(String name, Object value);
 
   void popVariable(String name);
+
+  InterpretationEnvironment snapshot();
+
+  void forEachKnownName(Consumer<String> handler);
+
 }
 ```
 
@@ -364,7 +370,7 @@ reference, as provided by the interpreter, allows for much flexibility:
 ```java
 public interface OutputBuilder {
 
-  void onBreak(BreakNode node);
+  void onBreak();
 
   void onNonTerminalBegin(MarkupNode nonTerminal);
 
@@ -418,7 +424,7 @@ the closure, as well as to render the deferred placeholder as concrete and tailo
 ```java
 public abstract class DeferredNode<Parameter extends RendererParameter> extends UnitNode implements DeferredRenderer<Parameter> {
 
-  public DeferredNode(CursorPosition position, @Nullable LinkedHashSet<LetBinding> letBindings) {
+  public DeferredNode(int position, @Nullable LinkedHashSet<LetBinding> letBindings) {
     super(position, letBindings);
   }
 
@@ -496,7 +502,7 @@ public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
   public PlayerNameNode(
     @Nullable ExpressionNode displayName,
     @Nullable MarkupNode representation,
-    CursorPosition position,
+    int position,
     @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
     super(position, letBindings);
@@ -553,14 +559,13 @@ public class PlayerNameTag extends TagDefinition {
   }
 
   @Override
-  public boolean matchName(String tagNameLower) {
-    return tagNameLower.equals("player-name");
+  public boolean matchName(StringView tagName) {
+    return tagName.contentEquals("player-name", true);
   }
 
   @Override
   public @NotNull MarkupNode createNode(
-    @NotNull String tagNameLower,
-    @NotNull CursorPosition position,
+    @NotNull StringView tagName,
     @NotNull AttributeMap attributes,
     @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
@@ -568,7 +573,7 @@ public class PlayerNameTag extends TagDefinition {
     return new PlayerNameNode(
       attributes.getOptionalExpressionNode("display-name"),
       attributes.getOptionalMarkupNode("representation"),
-      position, letBindings
+      tagName.startInclusive, letBindings
     );
   }
 }
