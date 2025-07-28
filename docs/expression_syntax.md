@@ -436,14 +436,16 @@ input ? branch_true : branch_false
 
 ### Comparison Operators
 
-| Comparison            | Operator       | True when                                       |
-|:---------------------:|:--------------:|:-----------------------------------------------:|
-| Greater Than          | `l-me: a > b`  | `l-me: a` is greater than `l-me: b`             |
-| Greater Than Or Equal | `l-me: a >= b` | `l-me: a` is greater than or equal to `l-me: b` |
-| Less Than             | `l-me: a < b`  | `l-me: a` is less than `l-me: b`                |
-| Less Than Or Equal    | `l-me: a <= b` | `l-me: a` is less than or equal to `l-me: b`    |
-| Equal To              | `l-me: a == b` | `l-me: a` is equal to `l-me: b`                 |
-| Not Equal To          | `l-me: a != b` | `l-me: a` is not equal to `l-me: b`             |
+| Comparison            | Operator        | True when                                       |
+|:---------------------:|:---------------:|:-----------------------------------------------:|
+| Equal To              | `l-me: a == b`  | `l-me: a` is equal to `l-me: b`                 |
+| Not Equal To          | `l-me: a != b`  | `l-me: a` is not equal to `l-me: b`             |
+| Contains String       | `l-me: a :: b`  | `l-me: a` contains `l-me: b`                    |
+| Regex Matches         | `l-me: a ::: b` | `l-me: a` matches regex `l-me: b`               |
+| Greater Than          | `l-me: a > b`   | `l-me: a` is greater than `l-me: b`             |
+| Greater Than Or Equal | `l-me: a >= b`  | `l-me: a` is greater than or equal to `l-me: b` |
+| Less Than             | `l-me: a < b`   | `l-me: a` is less than `l-me: b`                |
+| Less Than Or Equal    | `l-me: a <= b`  | `l-me: a` is less than or equal to `l-me: b`    |
 
 ## Fallback Values
 
@@ -478,7 +480,7 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>Branching</td>
       <td>`?`</td>
       <td>1</td>
-      <td rowSpan={16}>left-to-right</td>
+      <td rowSpan={18}>left-to-right</td>
     </tr>
     <tr>
       <td>Disjunction</td>
@@ -493,11 +495,19 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Equal To</td>
       <td>`==`</td>
-      <td rowSpan={2}>4</td>
+      <td rowSpan={4}>4</td>
     </tr>
     <tr>
       <td>Not Equal To</td>
       <td>`!=`</td>
+    </tr>
+    <tr>
+      <td>Contains String</td>
+      <td>`::`</td>
+    </tr>
+    <tr>
+      <td>Matches Regex</td>
+      <td>`:::`</td>
     </tr>
     <tr>
       <td>Greater Than</td>
