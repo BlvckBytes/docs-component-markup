@@ -268,12 +268,12 @@ controlled.
 
 | Attribute           | Default        | Description                            |
 |:-------------------:|:--------------:|:--------------------------------------:|
-| bold                | `l-me: false`  | Whether to render text bold            |
-| italic              | `l-me: false`  | Whether to render text italic          |
-| underlined          | `l-me: false`  | Whether to underline text              |
-| strikethrough       | `l-me: false`  | Whether to strikethrough text          |
-| obfuscated          | `l-me: false`  | Whether to apply the obfuscated effect |
-| reset               | `l-me: false`  | Whether to apply a [Reset](#reset)     |
+| bold, b             | `l-me: false`  | Whether to render text bold            |
+| italic, i           | `l-me: false`  | Whether to render text italic          |
+| underlined, u       | `l-me: false`  | Whether to underline text              |
+| strikethrough, st   | `l-me: false`  | Whether to strikethrough text          |
+| obfuscated, obf     | `l-me: false`  | Whether to apply the obfuscated effect |
+| reset, r            | `l-me: false`  | Whether to apply a [Reset](#reset)     |
 | font                | `l-me: null`   | Key of the font to render the text in  |
 | color               | `l-me: null`   | Color to apply to the text             |
 | shadow              | `l-me: null`   | Color of the text's shadow             |
@@ -299,7 +299,7 @@ multiple styles dynamically, by leveraging the intrinsic `*use`-attribute:
 
 ```component-markup
 The following<space/>
-<style *use="enable_warning" color="red" bold italic underlined>WARNING</><space/>
+<style *use="enable_warning" color="red" b i u>WARNING</><space/>
 is really important!
 ```
 

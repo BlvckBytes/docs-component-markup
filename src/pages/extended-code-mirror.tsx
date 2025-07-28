@@ -80,7 +80,6 @@ const decideClassName = (type: string, value: string): string | undefined => {
       return "tk-content";
     case "MARKUP__PUNCTUATION__TAG":
       return "tk-class-name-alt";
-    case "MARKUP__LITERAL__ANY":
     case "EXPRESSION__LITERAL":
       return "tk-keyword";
     case "EXPRESSION__STRING":
@@ -103,6 +102,7 @@ const decideClassName = (type: string, value: string): string | undefined => {
     case "MARKUP__PUNCTUATION__EQUALS":
     case "EXPRESSION__PUNCTUATION__ANY":
     case "MARKUP__OPERATOR__SPREAD":
+    case "MARKUP__OPERATOR__NEGATE":
     case "MARKUP__OPERATOR__INTRINSIC_LITERAL":
     case "MARKUP__OPERATOR__INTRINSIC_EXPRESSION":
     case "MARKUP__OPERATOR__DYNAMIC_ATTRIBUTE":

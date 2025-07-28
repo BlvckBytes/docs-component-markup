@@ -71,7 +71,7 @@ passages may now be dynamically defined by the environment.
 When the merge-attribute is enabled, inner rainbows will be joined in order to allow for visual continuity.
 
 ```component-markup
-<rainbow merge-inner=true>
+<rainbow merge-inner>
   <rainbow
     *for-word="'hellohello-worldworld-testtest' @ '-'"
     *for-separator={<gray>-}
@@ -88,7 +88,7 @@ render, animations may be created.
 
 ```component-markup
 <rainbow
-  merge-inner=true
+  merge-inner
   [phase]="current_phase"
 >
   <rainbow

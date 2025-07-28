@@ -268,16 +268,15 @@ All opening-tags, including the self-closing kind, may support a variety of attr
   a="my value"
   b=5
   c=3.42
-  d=true
-  e=false
-  f
-  g={
+  d
+  !e
+  f={
     <red>Hello, world!
   }
 >
 ```
 
-In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type floating-point number, `d` and `e` of type boolean, `f` also of type boolean (flag-style `l-me: true`-value) and `g` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, boolean), where the latter will never cause a type-mismatch and simply be interpreted as required.
+In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type floating-point number, `d` of type flag-style boolean (`l-me: true`-value), `e` of type negated flag-style boolean (`l-me: false`-value) and `f` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, flag), where the latter will never cause a type-mismatch and simply be interpreted as required.
 
 Attributes which support multiple values may be assigned more than once - each occurrence will be collected and passed to the tag as a list when executing it, maintaining the top-down order of assignment.
 

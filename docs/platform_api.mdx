@@ -108,7 +108,6 @@ public interface ComponentConstructor {
    * @return Non-null value (component; either equal to input or clone if that was necessary
    * or more efficient to swap out the members via) iif the slot was valid on this component
    */
-  @SuppressWarnings("BooleanMethodIsAlwaysInverted")
   @Nullable Object setMembers(Object component, MembersSlot slot, @Nullable List<Object> children);
 
   /**
