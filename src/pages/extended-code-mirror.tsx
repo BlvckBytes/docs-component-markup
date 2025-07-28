@@ -97,7 +97,7 @@ const decideClassName = (type: string, value: string): string | undefined => {
     case "MARKUP__IDENTIFIER__ATTRIBUTE_USER":
     case "MARKUP__IDENTIFIER__ATTRIBUTE_INTRINSIC":
       return "tk-keyword";
-    case "MARKUP__PUNCTUATION__INTERPOLATION":
+    case "MARKUP__INTERPOLATION":
     case "MARKUP__PUNCTUATION__SUBTREE":
     case "MARKUP__PUNCTUATION__BINDING_SEPARATOR":
     case "MARKUP__PUNCTUATION__EQUALS":
@@ -352,7 +352,7 @@ export default function ExtendedCodeMirror({
     );
   }
 
-  if (language == "component-markup" || language == "markup-expression") {
+  if (tokenizerFunction != null) {
     extensions.push(
       errorLinterExtension,
       errorTooltipExtension

@@ -29,7 +29,7 @@ function SmartCode(props: { children: React.ReactNode; className?: string }) {
   if (className || inPre) {
     const classPrefix = "language-";
 
-    if (typeof children === 'string' && className.startsWith(classPrefix)) {
+    if (typeof children === 'string' && className != null && className.startsWith(classPrefix)) {
       const language = className.substring(classPrefix.length);
 
       if (language == "java")
