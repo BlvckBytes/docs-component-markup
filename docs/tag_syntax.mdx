@@ -600,3 +600,42 @@ extend to any arbitrary depth; e.g. a separator which again displays `hover-text
 <img className='rendered-image' src={useBaseUrl('/img/nested_markup_element.png')} />
 
 <img className='rendered-image' src={useBaseUrl('/img/nested_markup_separator.png')} />
+
+## Comments
+
+The insertion of comments makes sense whenever passages are either to be documented, or quickly disabled, without having to delete the underlying markup. Comments are not processed by the system, but are to be thought of as mere sticky-notes, available for additional aid in human understanding. They start with `<!--` and end in `-->` - whatever comes inbetween is regarded as content of this comment and thus ignored.
+
+As for documenting markup, the use-case should be rather straightforward:
+
+```component-markup
+<!-- My personal note -->
+<red>Hello, world!
+```
+
+When it comes to quickly disabling passages of code, simply wrap the desired passage in comment-markers.
+
+```component-markup
+<red>First line</>
+<red>Second line</>
+<!--
+<red>Third line</>
+<red>Fourth line</>
+-->
+<red>Fifth line</>
+<red>Sixth line</>
+```
+
+In order to guarantee convenience whenever passages including commented-out markup are to be themselves commented out, nested comments are fully supported.
+
+```component-markup
+<red>First line</>
+<!--
+<red>Second line</>
+<!--
+<red>Third line</>
+<red>Fourth line</>
+-->
+<red>Fifth line</>
+-->
+<red>Sixth line</>
+```
