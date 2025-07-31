@@ -68,3 +68,14 @@ td .theme-code-block:last-child {
 .prism-code {
   font-size: 16px;
 }
+
+a.unstyled-anchor,
+a.unstyled-anchor:visited,
+a.unstyled-anchor:link,
+a.unstyled-anchor:hover,
+a.unstyled-anchor:active
+{
+  text-decoration: none !important;
+  text-decoration-color: unset !important;
+  color: unset !important;
+}

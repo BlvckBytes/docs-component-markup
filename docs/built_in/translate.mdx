@@ -1,0 +1,51 @@
+---
+sidebar_position: 11
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Translate
+
+## Overview
+
+Substitutes the translation corresponding to the given key using the currently selected
+client-language while allowing to set placeholders in retrieved values as well as to provide
+a fallback if there was no value with the given key; this tag acts as a placeholder and
+must thereby be self-closing (does not accept content).
+
+<TagDocRender tag={{
+  name: 'translate',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'key',
+      aliases: [],
+      description: 'Path of the value to render',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'fallback',
+      aliases: [],
+      description: 'Fallback value to use if key is absent',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'with',
+      aliases: [],
+      description: 'Components rendered into placeholders',
+      fallback: 'null',
+      multiValue: true,
+      type: AttributeType.MARKUP,
+    },
+  ]
+}} />
+
+## Example
+
+TODO: Add example

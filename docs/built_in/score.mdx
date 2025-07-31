@@ -1,0 +1,73 @@
+---
+sidebar_position: 10
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Score
+
+## Overview
+
+Substitutes the Scoreboard-value of a given objective for a provided score-holder; this tag
+acts as a placeholder and must thereby be self-closing (does not accept content).
+
+<TagDocRender tag={{
+  name: 'score',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'holder',
+      aliases: [],
+      description: 'Selector to decide score-holders with',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.SELECTOR,
+    },
+    {
+      name: 'objective',
+      aliases: [],
+      description: 'Name of the target-objective',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'override',
+      aliases: [],
+      description: 'Value to use as an override',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'fallback',
+      aliases: [],
+      description: 'Value to use as a fallback',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'separator',
+      aliases: [],
+      description: 'Separator injected in-between list-items',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'representation',
+      aliases: [],
+      description: 'Representation of each item; introduces the {value} placeholder',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+  ]
+}} />
+
+## Example
+
+TODO: Add example

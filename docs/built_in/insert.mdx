@@ -1,0 +1,32 @@
+---
+sidebar_position: 9
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Insert
+
+## Overview
+
+Inserts text into the player's chat-prompt at the position of the cursor when shift-clicking.
+
+<TagDocRender tag={{
+  name: 'insert',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Text to insert when shift-clicking',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+## Example
+
+TODO: Add example

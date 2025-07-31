@@ -3,6 +3,8 @@ sidebar_position: 2
 ---
 
 import ColorSquare from '@site/src/components/ColorSquare';
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Style
@@ -262,24 +264,101 @@ tag will suffice.
 
 ## Explicit Tag
 
+### Overview
+
 While there are shorthand-tags for formats and colors, the explicit `<style>`-tag comes in handy whenever
 style is to be driven by data dynamically, or special properties like the `font` or the `shadow` are to be
 controlled.
 
-| Attribute           | Default        | Description                            |
-|:-------------------:|:--------------:|:--------------------------------------:|
-| bold, b             | `l-me: false`  | Whether to render text bold            |
-| italic, i           | `l-me: false`  | Whether to render text italic          |
-| underlined, u       | `l-me: false`  | Whether to underline text              |
-| strikethrough, st   | `l-me: false`  | Whether to strikethrough text          |
-| obfuscated, obf     | `l-me: false`  | Whether to apply the obfuscated effect |
-| reset, r            | `l-me: false`  | Whether to apply a [Reset](#reset)     |
-| font                | `l-me: null`   | Key of the font to render the text in  |
-| color               | `l-me: null`   | Color to apply to the text             |
-| shadow              | `l-me: null`   | Color of the text's shadow             |
-| shadow-opacity      | `l-me: 50`     | Opacity of the text's shadow; 0-100%   |
+<TagDocRender tag={{
+  name: "style",
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: "bold",
+      description: "Whether to render contained text bold",
+      aliases: ["b"],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "italic",
+      description: "Whether to render contained text italic",
+      aliases: ["i"],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "underlined",
+      description: "Whether to underline contained text",
+      aliases: ["u"],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "strikethrough",
+      description: "Whether to strike contained text through",
+      aliases: ["st"],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "obfuscated",
+      description: "Whether to obfuscate contained text",
+      aliases: ["obf"],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "reset",
+      description: "Whether to apply a reset, back to the slot's default-style",
+      aliases: ["r"],
+      fallback: "false",
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: "font",
+      description: "Namespaced-key of the font to render contained text in",
+      aliases: [],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: "color",
+      description: "Color to apply to contained text",
+      aliases: [],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.COLOR,
+    },
+    {
+      name: "shadow",
+      description: "Shadow-color to apply to contained text",
+      aliases: [],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.COLOR,
+    },
+    {
+      name: "shadow-opacity",
+      description: "Opacity of the applied shadow-color, if any",
+      aliases: [],
+      fallback: "null",
+      multiValue: false,
+      type: AttributeType.NUMBER
+    },
+  ]
+}} />
 
-## Examples
+### Examples
 
 To set a font, simply assign the corresponding attribute to the desired string:
 

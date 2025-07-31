@@ -12,7 +12,7 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 // Token Style-Classes
 // ================================================================================
 
-const injectTokenStyle = () => {
+export const injectTokenStyle = () => {
   const { prism } = useThemeConfig();
 
   const syntaxStylesClass = "syntax-highlighting-styles";
@@ -67,7 +67,7 @@ interface HighlightToken {
   className: string;
 }
 
-const decideClassName = (type: string, value: string): string | undefined => {
+export const decideClassName = (type: string, value: string | null = null): string | undefined => {
   switch (type) {
     case "ANY__WHITESPACE":
       if (value == '\n')
@@ -186,7 +186,8 @@ const customizedEditorTheme = EditorView.theme(
     "&.cm-editor": {
       fontSize: "16px",
       borderRadius: ".4rem",
-      overflow: "hidden"
+      overflow: "hidden",
+      border: "var(--ifm-table-border-width) solid var(--ifm-table-border-color)"
     },
     ".cm-content": {
       padding: "1rem"
@@ -198,7 +199,7 @@ const customizedEditorTheme = EditorView.theme(
       padding: "0 .3rem"
     },
     ".cm-gutters": {
-      borderRight: "1px solid rgba(255, 255, 255, .15) !important",
+      borderRight: "1px solid var(--ifm-table-border-color) !important",
     },
     "&.cm-focused": {
       outline: "none !important"

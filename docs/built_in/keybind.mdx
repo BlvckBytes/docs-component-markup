@@ -1,0 +1,33 @@
+---
+sidebar_position: 6
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Keybind
+
+## Overview
+
+Substitutes the configured keybind corresponding to the given action; this tag acts as
+a placeholder and must thereby be self-closing (does not accept content).
+
+<TagDocRender tag={{
+  name: 'key',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'key',
+      aliases: [],
+      description: 'Path of the key to render',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+## Example
+
+TODO: Add example

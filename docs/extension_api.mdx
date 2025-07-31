@@ -79,7 +79,7 @@ matching remain completely dynamic.
 ## Matching Names
 
 Due to the fact that names are not to be specified ahead of time, a tag-definition may handle
-patterns of arbitrary complexity, as is the case with [Color Shorthands](./built_in/style.mdx#color-shorthands). Also, in general, tag- as well as attribute-names are case-insensitive.
+patterns of arbitrary complexity, as is the case with [Color Shorthands](./built_in/style#color-shorthands). Also, in general, tag- as well as attribute-names are case-insensitive.
 Once `matchName` returned `true` for one such given name, the tag-definition becomes a candidate
 within the list of possible handlers, from which the one of highest priority will prevail.
 
@@ -114,7 +114,7 @@ public abstract class MarkupNode {
 ```
 
 The base class already takes care of holding the `position`, as well as optional lists of `children` and
-`letBindings` (see [Let-Bindings](./tag_syntax.mdx#let-bindings)). This immediately implies that tags may
+`letBindings` (see [Let-Bindings](./tag_syntax#let-bindings)). This immediately implies that tags may
 implicitly define bindings or modify child-entries. While there are many pre-defined node-types available,
 users may also always define their own, handled via [Interpreter-Interception](#interpreter-interception).
 
@@ -151,8 +151,8 @@ public interface AttributeMap {
 }
 ```
 
-There are two different types of attributes - [Expressions](./expression_syntax.md) as well as a sub-tree of
-[Markup](./tag_syntax.mdx), both bound to an identifying `name`, where a name can only ever depict one and the
+There are two different types of attributes - [Expressions](./expression_syntax) as well as a sub-tree of
+[Markup](./tag_syntax), both bound to an identifying `name`, where a name can only ever depict one and the
 same type used as an internal representation of the data associated with it. Optional attributes are not required
 to be present in order for the construction of the corresponding tag to succeed, while their mandatory
 counterparts certainly are, failing parsing if absent; single values (nodes) may be null if omitted, while lists
@@ -212,7 +212,7 @@ public interface ExpressionList {
 ## Interpreter Interception
 
 Many features require interception at the time of interpretation in order to be implemented; in fact, that's
-exactly how - for example - the [Rainbow-Tag](./built_in/rainbow.mdx) operates, by cancelling default processing
+exactly how - for example - the [Rainbow-Tag](./built_in/rainbow) operates, by cancelling default processing
 of the elements it targets, while emitting its own colorized members into the final output.
 
 ### Interception Lifecycle
@@ -360,7 +360,7 @@ public interface InternalCopyable {
 Components, as created by invoking the `OutputBuilder` with AST-nodes, may be modified to any degree using the
 platform-specific `ComponentConstructor`; next to modifying existing components, custom components may also be
 constructed from the ground up using nothing but their parameters, to be emitted directly later on. Learn more
-about this class over at the [Platform-API](./platform_api.mdx).
+about this class over at the [Platform-API](./platform_api).
 
 ### Emitting To Output
 
@@ -470,7 +470,7 @@ public interface DeferredRenderer<Parameter extends RendererParameter> {
 
 ### Example
 
-Let's implement a very simple tag called `l-me: <player-name/>`, starting out by defining a parameter
+Let's implement a very simple tag called `l-cm: <player-name/>`, starting out by defining a parameter
 which just captures whether to use the display-name or the plain account-name.
 
 ```java

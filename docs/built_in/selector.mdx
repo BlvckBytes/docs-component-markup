@@ -1,0 +1,48 @@
+---
+sidebar_position: 12
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Selector
+
+## Overview
+
+Substitutes the name of one or more entities as retrieved by a target-selector; this tag acts as a placeholder and must thereby be self-closing (does not accept content).
+
+<TagDocRender tag={{
+  name: 'selector',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'selector',
+      aliases: [],
+      description: 'Selector to decide entities with',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.SELECTOR,
+    },
+    {
+      name: 'separator',
+      aliases: [],
+      description: 'Separator injected in-between list-items',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'representation',
+      aliases: [],
+      description: 'Representation of each item; introduces the {value} placeholder',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+  ]
+}} />
+
+## Example
+
+TODO: Add example

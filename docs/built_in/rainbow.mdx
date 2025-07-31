@@ -2,22 +2,73 @@
 sidebar_position: 13
 ---
 
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Rainbow
 
+## Overview
+
 Colorizes enclosed content with one continuous rainbow char-by-char, where client-rendered content
-like the [Keybind](./keybind.md)-Tag and its companions cannot, due to inherent limitations, be
+like the [Keybind](./keybind)-Tag and its companions cannot, due to inherent limitations, be
 split up and will just be considered as an atomic unit.
 
-| Attribute           | Type   | Mandatory | Default         | Description                                       |
-|:-------------------:|:------:|:---------:|:---------------:|:-------------------------------------------------:|
-| override-colors     | Scalar | no        | `l-me: false`   | Whether to override already colorized members     |
-| skip-whitespace     | Scalar | no        | `l-me: true`    | Whether to skip whitespace when coloring          |
-| skip-non-text       | Scalar | no        | `l-me: false`   | Whether to skip atomic units like `l-cm: <key/>`  |
-| merge-inner         | Scalar | no        | `l-me: false`   | Whether to merge inner rainbows for continuity    |
-| deep                | Scalar | no        | `l-me: false`   | Whether to dive into children's markup-attributes |
-| phase               | Scalar | no        | `l-me: 0.0`     | Phase-offset of the transition; 0-100%            |
+<TagDocRender tag={{
+  name: 'rainbow',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'phase',
+      aliases: [],
+      description: 'Phase-offset of the transition; 0-100%',
+      fallback: '0',
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: 'override-colors',
+      aliases: [],
+      description: 'Whether to override already colorized members',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'skip-whitespace',
+      aliases: [],
+      description: 'Whether to skip whitespace when coloring',
+      fallback: 'true',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'skip-non-text',
+      aliases: [],
+      description: 'Whether to skip atomic units like <key/>',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'merge-inner',
+      aliases: [],
+      description: 'Whether to merge inner rainbows for continuity',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'deep',
+      aliases: [],
+      description: 'Whether to dive into children\'s markup-attributes',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+  ]
+}} />
 
 ## Examples
 

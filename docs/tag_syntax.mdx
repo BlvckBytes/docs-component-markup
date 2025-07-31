@@ -57,8 +57,8 @@ templating-language, because that's what they are; if to be used literally, do s
 
 All newlines and surrounding spaces, which includes indentation as well as trailing whitespace, will
 be removed and thus do not end up in the rendered result; this fact allows the user to format their markup
-in any way that is visually appealing to work with. In order to inject [Linebreaks](./built_in/linebreak.md)
-or surrounding [Spaces](./built_in/space.md), please check out the corresponding tags as linked to learn
+in any way that is visually appealing to work with. In order to inject [Linebreaks](./built_in/linebreak)
+or surrounding [Spaces](./built_in/space), please check out the corresponding tags as linked to learn
 more about the details.
 
 ## Placeholders
@@ -130,7 +130,7 @@ burden caused by reusable partial templates in comparison to defining the whole 
 
 ## Tags
 
-Tags represent calls to internally existing functionality, which then can modify and or generate content dynamically; see [Built-In Tags](./category/built-in-tags) to discover predefined features and check out the [Extension API](./extension_api.mdx) as to learn about creating your own. There are two types of notation: one being comprised of an opening- and a (optional) closing-tag, while the other self-closes within the opening-tag and thereby does not bear any content.
+Tags represent calls to internally existing functionality, which then can modify and or generate content dynamically; see [Built-In Tags](./category/built-in-tags) to discover predefined features and check out the [Extension API](./extension_api) as to learn about creating your own. There are two types of notation: one being comprised of an opening- and a (optional) closing-tag, while the other self-closes within the opening-tag and thereby does not bear any content.
 
 ### Opening And Closing
 
@@ -308,7 +308,7 @@ Whenever attributes support multiple values **and** are enclosed by square-brack
 <my-tag [...my-attribute]="['hello', 'world', 'test']">
 ```
 
-In the above example, the attribute `my-attribute` of the tag `my-tag` will be instantiated once for each item of the [Immediate List](./expression_syntax.md#immediate-list) `l-me: ['hello', 'world', 'test']`, such that the resulting meaning effectively becomes:
+In the above example, the attribute `my-attribute` of the tag `my-tag` will be instantiated once for each item of the [Immediate List](./expression_syntax#immediate-list) `l-me: ['hello', 'world', 'test']`, such that the resulting meaning effectively becomes:
 
 ```component-markup
 <my-tag
@@ -498,7 +498,7 @@ Once employed, the additional attributes become available:
 - `*for-empty`, accepting an optional markup-value to be injected if there are no items to iterate
 - `*for-reversed`, accepting an optional boolean marking whether to iterate in reverse order
 
-When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax.md#range-operator) (the `l-me: loop` context is discussed further below).
+When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax#range-operator) (the `l-me: loop` context is discussed further below).
 
 ```component-markup
 <red *for="1..10">The #{loop.index + 1} occurrence of this line!

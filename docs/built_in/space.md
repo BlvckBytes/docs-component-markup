@@ -45,7 +45,7 @@ this text is newline-separated
 ```
 
 The `<space/>` tag acts as a mere placeholder and does not bear any content - it must be self-closing. Should
-the case ever arise that more than one space are to be inserted, consider using the [Repeat Operator](../expression_syntax.md#repeat-operator), as follows:
+the case ever arise that more than one space are to be inserted, consider using the [Repeat Operator](../expression_syntax#repeat-operator), as follows:
 
 ```component-markup
 this text{" " ** 5}

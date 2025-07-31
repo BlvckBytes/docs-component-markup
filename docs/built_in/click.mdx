@@ -1,0 +1,168 @@
+---
+sidebar_position: 3
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Click
+
+Specifies what action to run once the enclosed content has been clicked on; please note that
+not all actions are supported on all Minecraft versions.
+
+## Open URL
+
+### Overview
+
+Opens the specified URL when clicking.
+
+<TagDocRender tag={{
+  name: 'open-url',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Valid URL to open when clicking',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example
+
+## Suggest Command
+
+### Overview
+
+Suggests the specified command within the player's chat-prompt.
+
+<TagDocRender tag={{
+  name: 'suggest-command',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Command to suggest when clicking',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example
+
+## Run Command
+
+### Overview
+
+Executes the specified command using the player's client; some vanilla-commands block this action!
+
+<TagDocRender tag={{
+  name: 'run-command',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Command to execute when clicking',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example
+
+## Copy To Clipboard
+
+### Overview
+
+Copies the specified text to the player's system-clipboard.
+
+<TagDocRender tag={{
+  name: 'to-clipboard',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Text to copy when clicking',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example
+
+## Change Page
+
+### Overview
+
+Changes the page of a book to the specified number; only works within books.
+
+<TagDocRender tag={{
+  name: 'change-page',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Number of the page to navigate to',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example
+
+## Open File
+
+### Overview
+
+Opens a local file on the player's computer; this action has been discontinued and should
+not be used on modern versions of Minecraft (will be omitted as to avoid errors)!
+
+<TagDocRender tag={{
+  name: 'open-file',
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Absolute system-path of the file',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    }
+  ]
+}} />
+
+### Example
+
+TODO: Add example

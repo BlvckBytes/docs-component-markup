@@ -1,0 +1,40 @@
+---
+sidebar_position: 6
+---
+
+import { TypeRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+
+# Types
+
+In general, tags only statically differentiate between two types: expression and markup. If an expression is assigned to a markup-attribute or vice-versa, parsing will fail as to protect the user from errors during interpretation. All expression-values are interpreted however the tag at hand see fit, with proper fallbacks and console-logs, such that no functionality-inhibitative error may ever occur.
+
+TODO: Properly document the following types.
+
+## Markup
+
+The <TypeRender type={AttributeType.MARKUP} /> type...
+
+## String
+
+The <TypeRender type={AttributeType.STRING} /> type...
+
+## Color
+
+The <TypeRender type={AttributeType.COLOR} /> type...
+
+## Boolean
+
+The <TypeRender type={AttributeType.BOOLEAN} /> type...
+
+## Number
+
+The <TypeRender type={AttributeType.NUMBER} /> type...
+
+## Coordinates
+
+The <TypeRender type={AttributeType.COORDINATES} /> type...
+
+## Selector
+
+The <TypeRender type={AttributeType.SELECTOR} /> type...

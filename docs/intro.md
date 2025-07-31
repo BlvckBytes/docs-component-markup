@@ -27,11 +27,11 @@ As for readability and maintainability, we employ proper XML-syntax with named a
 
 ## Extensibility
 
-Power-users may define their own tags with ease, being able to generate content and rewrite tag-members by working with the AST; learn about the details over at the [Extension API](./extension_api.mdx).
+Power-users may define their own tags with ease, being able to generate content and rewrite tag-members by working with the AST; learn about the details over at the [Extension API](./extension_api).
 
 ## Expressive Power
 
-With the majority of existing systems, templating seems to be an afterthought and is usually solved by substituting variables at the level of the input-string before parsing the final expression. This language supports not only the evaluation of flexible [Expressions](./expression_syntax.md) at runtime, but also comes with conditionals, loops and variable-binding; the sky is the limit!
+With the majority of existing systems, templating seems to be an afterthought and is usually solved by substituting variables at the level of the input-string before parsing the final expression. This language supports not only the evaluation of flexible [Expressions](./expression_syntax) at runtime, but also comes with conditionals, loops and variable-binding; the sky is the limit!
 
 ```component-markup
 <gray>
@@ -49,7 +49,7 @@ With the majority of existing systems, templating seems to be an afterthought an
 </>
 ```
 
-Make sure to check out the [Tag Syntax](./tag_syntax.mdx) as to ensure effective and frictionless use of this language!
+Make sure to check out the [Tag Syntax](./tag_syntax) as to ensure effective and frictionless use of this language!
 
 ## Performance
 
