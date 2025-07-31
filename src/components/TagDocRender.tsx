@@ -34,7 +34,7 @@ const AttributeLineRender: React.FC<{ tag: TagDoc, attribute: TagAttribute }> = 
   return (
     <div>
       <Tooltip id="attribute-tooltip" />
-      <p style={{margin: 0}}>
+      <p style={{margin: 0, width: 'max-content'}}>
         &nbsp;&nbsp;<span style={{marginRight: '.4rem'}}>
           <span
             data-tooltip-id="attribute-tooltip"
@@ -82,7 +82,7 @@ const AttributeLineRender: React.FC<{ tag: TagDoc, attribute: TagAttribute }> = 
       </p>
       {
         (Array.isArray(attribute.description) ? attribute.description : [attribute.description]).map((line, index) => (
-          <p key={index} style={{margin: 0, paddingLeft: '.5rem', fontSize: '.9rem', color: 'gray', fontStyle: 'italic'}}>
+          <p key={index} style={{margin: 0, paddingLeft: '.5rem', fontSize: '.9rem', color: 'gray', fontStyle: 'italic', width: 'max-content'}}>
             &nbsp;&nbsp;↪ {line}
           </p>
         ))
@@ -112,7 +112,7 @@ export const TagDocRender: React.FC<{ tag: TagDoc }> = ({ tag }) => {
       maxWidth: 'max-content',
       margin: '1rem 0',
     }}>
-      <p style={{margin: 0}}>
+      <p style={{margin: 0, width: 'max-content'}}>
         <span className={cMPunct}>{'<'}</span>
         <span className={cName}>{tag.name}</span>
         {tag.aliases.map((alias, index) => (
