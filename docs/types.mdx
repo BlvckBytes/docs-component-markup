@@ -9,32 +9,181 @@ import { AttributeType } from '@site/src/components/AttributeType.class';
 
 In general, tags only statically differentiate between two types: expression and markup. If an expression is assigned to a markup-attribute or vice-versa, parsing will fail as to protect the user from errors during interpretation. All expression-values are interpreted however the tag at hand see fit, with proper fallbacks and console-logs, such that no functionality-inhibitative error may ever occur.
 
-TODO: Properly document the following types.
-
 ## Markup
 
-The <TypeRender type={AttributeType.MARKUP} /> type...
+The <TypeRender type={AttributeType.MARKUP} /> type refers to the main language of this system, namely [Tag Syntax](./tag_syntax) - i.e. an arbitrarily complex construction of tags and attributes.
+
+```component-markup
+<bold>
+  <red>This text is red!</><br/>
+  <aqua>This text is aqua!</><br/>
+  <blue>This text is blue!</><br/>
+```
+
+This exact, full and unrestricted markup may not just be either at the top level, or at the contents of another tag, but also be an attribute-value, as follows:
+
+```component-markup
+<hover-text
+  value={
+    <bold>
+      <red>This text is red!</><br/>
+      <aqua>This text is aqua!</><br/>
+      <blue>This text is blue!</><br/>
+  }
+><aqua>My text
+```
+
+Which, of course, also includes let-bindings, as to create reusable components.
+
+```component-markup
+<container
+  *let-my_component={
+    <bold>
+      <red>This text is red!</><br/>
+      <aqua>This text is aqua!</><br/>
+      <blue>This text is blue!</><br/>
+  }
+>{my_component}
+```
 
 ## String
 
-The <TypeRender type={AttributeType.STRING} /> type...
+The <TypeRender type={AttributeType.STRING} /> type simply represents a sequence of characters, which can either be a direct and static attribute-value
+
+```component-markup
+<translate key="I am a static string!"/>
+```
+
+or the result of an expression interpreted as a string, where expression-strings are equivalent to markup-strings
+
+```component-markup
+<translate [key]="'I am a static string!'"/>
+```
+
+allowing for dynamic construction of arbitrary complexity
+
+```component-markup
+<translate [key]="'Prefix ' & my_variable & ' suffix'"/>
+```
+
+Whenever markup-numbers or booleans are specified, their values are stringified if the underlying attribute requires a string-value, such that
+
+```component-markup
+<translate key=512/>
+```
+
+becomes `l-me: "512"` and
+
+```component-markup
+<translate key/>
+```
+
+becomes `l-me: "true"`, while its counterpart
+
+```component-markup
+<translate !key/>
+```
+
+becomes `l-me: "false"`.
 
 ## Color
 
-The <TypeRender type={AttributeType.COLOR} /> type...
+The <TypeRender type={AttributeType.COLOR} /> type operates on the <TypeRender type={AttributeType.STRING} /> type by stringifying whatever value is provided, to then interpret that result as a color-value. There are multiple accepted color-formats, as follows.
+
+### Ampersand Sequences
+
+So-called legacy colors, of format `&` followed by `a-f` or `0-9`, can directly be provided as colors, just like they are supported as [Color-Shorthands](./built_in/style#color-shorthands) on tags.
+
+### Ansi Colors
+
+Every ampersand-sequence corresponds to an Ansi-Color name, e.g. `&b` being named `aqua`; these names may also be provided as a color, and are again documented at the shorthands-reference above.
+
+### Hex Colors
+
+Last but not least, the full range of colors is made available via what is known as a hexadecimal color sequence - namely a hashtag `#` followed up by two hexadecimal (`0-9` and `A-F`) digits for each red, green and blue component, making for a final scheme of `#RRGGBB`. Whenever an alpha-channel, meaning translucency, is supported, two more digits representing said alpha-value may be appended, i.e. `#RRGGBBAA`.
 
 ## Boolean
 
-The <TypeRender type={AttributeType.BOOLEAN} /> type...
+The <TypeRender type={AttributeType.BOOLEAN} /> type may either be directly supplied via markup flag-style attributes, i.e.
+
+```component-markup
+<my-tag boolean-attribute />
+```
+
+or
+
+```component-markup
+<my-tag !boolean-attribute />
+```
+
+or expression-literals, i.e.
+
+```component-markup
+<my-tag [boolean-attribute]="true" />
+```
+
+or
+
+```component-markup
+<my-tag [boolean-attribute]="false" />
+```
+
+When providing a <TypeRender type={AttributeType.STRING} /> type, it becomes `l-me: true` when equaling to `l-me: 'true'`, `l-me: false` when equaling to `l-me: 'false'` and in all other cases, `l-me: true` if non-empty. When providing a <TypeRender type={AttributeType.NUMBER} />, `l-me: true` is only achieved for values not equal to `l-me: 0`. Also, `l-me: null`-values always result in `l-me: false`.
 
 ## Number
 
-The <TypeRender type={AttributeType.NUMBER} /> type...
+The <TypeRender type={AttributeType.NUMBER} /> type accepts either whole numbers (longs)
+
+```component-markup
+<my-tag numeric-attribute=512/>
+```
+
+or fractional numbers (doubles)
+
+```component-markup
+<my-tag numeric-attribute=3.141592/>
+```
+
+where if an attribute operates on whole numbers only, decimal digits will be truncated.
+
+When providing a <TypeRender type={AttributeType.BOOLEAN} />, `l-me: true` yields `l-me: 1` and `l-me: false` yields `l-me: 0`. When providing a <TypeRender type={AttributeType.STRING} />, the system tries to parse it as a number, meaning that `l-me: '512'` will become `l-me: 512`; malformed numbers result in `l-me: 0`.
 
 ## Coordinates
+
+TODO: Write this part of the documentation
+
+(https://minecraft.fandom.com/wiki/Coordinates#Commands)
 
 The <TypeRender type={AttributeType.COORDINATES} /> type...
 
 ## Selector
 
+TODO: Write this part of the documentation
+
+(https://minecraft.fandom.com/wiki/Target_selectors)
+
 The <TypeRender type={AttributeType.SELECTOR} /> type...
+
+## The ValueInterpreter
+
+The behavior of interpreting one type as another is defined by the `ValueInterpreter`:
+
+```java
+public interface ValueInterpreter {
+
+  long asLong(@Nullable Object value);
+
+  double asDouble(@Nullable Object value);
+
+  @NotNull Number asLongOrDouble(@Nullable Object value);
+
+  boolean asBoolean(@Nullable Object value);
+
+  @NotNull String asString(@Nullable Object value);
+
+  @NotNull List<Object> asList(@Nullable Object value);
+
+}
+```
+
+There's a default implementation provided with every instance of the `InterpretationEnvironment`, which can be overridden by a custom version using the environment's builder-functions; this is not recommended, since users should be able to predict interpretation as to reduce mental overhead - yet, this feature is kept for power-users.
