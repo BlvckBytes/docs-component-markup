@@ -1,0 +1,121 @@
+---
+sidebar_position: 16
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Number
+
+## Overview
+
+Formats a given number based on various additional hints, such that its appearance becomes aligned with the desired scheme.
+
+<TagDocRender tag={{
+  name: 'number',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Numeric value to format',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: 'absolute',
+      aliases: ['abs'],
+      description: 'Whether to disregard the negative sign',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'integer',
+      aliases: ['int'],
+      description: 'Whether to disregard the fractional part',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+    {
+      name: 'format',
+      aliases: [],
+      description: [
+        'Pattern to format the number with',
+        'See: https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'rounding',
+      aliases: [],
+      description: [
+        'Rounding-mode to use when truncating decimal-digits',
+        'See: https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'locale',
+      aliases: [],
+      description: [
+        'Dictates separators, grouping-symbols and currencies',
+        'E.g. de_AT, en_GB, etc.'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+  ]
+}} />
+
+## Examples
+
+### Fixed Decimals
+
+Formatting a fractional value of arbitrary complexity to a visually appealing two-decimals number.
+
+```component-markup
+This item costs <&b><number value=512.4582831 format="0.00"/> Coins
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/number_format.png')} />
+
+### Absolute Values
+
+Removing the negative-sign `-`, if any.
+
+```component-markup
+My absolute value: <&b><number value=-212 abs/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/number_absolute.png')} />
+
+### Whole Numbers
+
+Dropping all decimal digits, if any.
+
+```component-markup
+My whole number: <&b><number value=3.1415926 int/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/number_integer.png')} />
+
+### Padding
+
+Adding additional leading zeroes, as to ensure a fixed width.
+
+```component-markup
+<container *for-place="7..11" *for-separator={<br/>}>
+  <&7>#<number [value]="place" format="00"/></> - <&b>Name
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/number_padding.png')} />
