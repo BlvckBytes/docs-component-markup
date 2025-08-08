@@ -434,6 +434,12 @@ input ? branch_true : branch_false
 | `l-me: false` | `l-me: branch_false`  |
 | `l-me: true`  | `l-me: branch_true`   |
 
+If the false-branch is not required, it may simply be omitted (becomes `l-me: null`), resulting in the terse syntax of:
+
+```markup-expression
+input ? branch_true
+```
+
 ### Comparison Operators
 
 | Comparison            | Operator        | True when                                       |
