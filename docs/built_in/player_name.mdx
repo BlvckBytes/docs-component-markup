@@ -1,0 +1,62 @@
+---
+sidebar_position: 20
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Player-Name
+
+## Overview
+
+Accesses the player's account- or display-name and provides a way to format it in a custom manner.
+
+<TagDocRender tag={{
+  name: 'player-name',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'renderer',
+      aliases: [],
+      description: [
+        'Renderer called to format the name; introduces:',
+        '- player_name: String',
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'display-name',
+      aliases: [],
+      description: 'Whether to use the display-name instead of the account-name',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.BOOLEAN,
+    },
+  ]
+}} />
+
+## Examples
+
+### Default Appearance
+
+The default appearance suffices as long as one simply wishes to style the name as a unit - meaning homogeneously.
+
+```component-markup
+Your name is: <&b><player-name/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/player-name_default.png')} />
+
+### Custom Appearance
+
+As soon as the name itself is supposed to be styled in a granular manner, employ the renderer as to inject a custom markup-value.
+
+```component-markup
+Your name is: <player-name renderer={ <rainbow>{player_name} }/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/player-name_custom.png')} />
