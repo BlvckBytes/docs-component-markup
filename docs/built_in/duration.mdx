@@ -1,0 +1,109 @@
+---
+sidebar_position: 18
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Duration
+
+## Overview
+
+Formats a given duration in milliseconds based on various additional hints, such that its appearance becomes aligned with the desired scheme.
+
+<TagDocRender tag={{
+  name: 'duration',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Duration in milliseconds',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: 'units',
+      aliases: [],
+      description: [
+        'Units to format the duration into; available units:',
+        'i: milliseconds',
+        's: seconds',
+        'm: minutes',
+        'h: hours',
+        'd: days',
+        'M: months',
+        'y: years',
+      ],
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'unit-renderer',
+      aliases: [],
+      description: [
+        'Renderer called for each displayed unit; introduces:',
+        '- value: Long',
+        '- unit: String (e.g. "i", "s", etc.)',
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'separator',
+      aliases: [],
+      description: 'Separator in-between units',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'zeroes',
+      aliases: [],
+      description: 'Whether to show units of value zero',
+      fallback: 'false',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+  ]
+}} />
+
+## Examples
+
+### Default Style
+
+When just supplying a value as well as some units to format into, the default style will be plain but efficient:
+
+```component-markup
+My duration: <&b><duration
+  [value]="(31 + 60*3 + 60*60*8) * 1000"
+  units="hms"
+/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/duration_default.png')} />
+
+### Custom Style
+
+As to really show what's possible, let's not just render different unit-suffixes, but also account for singular/plural differentiation, color groups based on their unit and add a colored separator.
+
+```component-markup
+My duration: <duration
+  [value]="(38 + 60 + 60*60*2) * 1000"
+  units="smh"
+  separator={<&8>,<space/>}
+  unit-renderer={
+    <container *when="unit">
+      <&c +is="h">{value} hour{value != 1 ? 's'}</>
+      <&a +is="m">{value} minute{value != 1 ? 's'}</>
+      <&b +is="s">{value} second{value != 1 ? 's'}</>
+  }
+/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/duration_styled.png')} />
