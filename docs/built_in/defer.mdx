@@ -1,0 +1,44 @@
+---
+sidebar_position: 19
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Defer
+
+## Overview
+
+This tag itself does not add any contents or styles, nor does it affect appearance - it simply marks its value to be rendered in a deferred manner, meaning that it will be wrapped in a closure-component and emitted to the output, such that it can later be evaluated when needed.
+
+By doing so, one can avoid having to re-interpret the whole markup only because parts of it are changing over time. As of now, this tag is mostly a tool for developers, such that they can enable the aforementioned re-use optimisation as well as to explore the system and its possibilities.
+
+
+<TagDocRender tag={{
+  name: 'defer',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Markup to be rendered in a deferred manner',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    }
+  ]
+}} />
+
+## Examples
+
+### Live Date
+
+In the following example, the rainbow does not have to be re-interpreted or re-generated and remains cached, while the date is deferred and thus interpreted and generated for each update.
+
+```component-markup
+<rainbow>The current time is: <&b><deferred content={<date format="HH:mm:ss"/>}/>
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/defered_live_date.gif')} />
