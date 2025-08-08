@@ -75,7 +75,11 @@ becomes
 <red>Hello, Steve!
 ```
 
-once processed. Placeholders must not span across multiple lines as to enforce readability and simplicity; expressions will always remain terse if employed as intended, in conjunction with intrinsic attributes and bindings.
+once processed.
+
+If the value of a placeholder-expression evaluates to `l-me: null`, no value will be substituted, allowing for convenient conditional displaying.
+
+Placeholders must not span across multiple lines as to enforce readability and simplicity; expressions will always remain terse if employed as intended, in conjunction with intrinsic attributes and bindings.
 
 Whenever the result of an expression, no matter its complexity, is an instance of a `MarkupNode`, said
 markup is immediately interpreted and thereby injected into its designated placeholder.
