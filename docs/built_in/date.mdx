@@ -1,0 +1,76 @@
+---
+sidebar_position: 17
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Date
+
+## Overview
+
+Formats a given timestamp, or the current time (for `l-me: null`-values), based on various additional hints, such that its appearance becomes aligned with the desired scheme.
+
+<TagDocRender tag={{
+  name: 'date',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: [
+        'Timestamp as UNIX milliseconds',
+        '(since January 1st, 1970 at UTC)'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: 'format',
+      aliases: [],
+      description: [
+        'Pattern to format the date with',
+        'See: https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'zone',
+      aliases: [],
+      description: [
+        'Zone-Id to offset the timestamp with',
+        'See: https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+  ]
+}} />
+
+## Examples
+
+### Current Time
+
+When not supplying a value, or the value evaluates to null, the current time will automatically be used.
+
+```component-markup
+The time is: <&b><date format="HH:mm:ss" />
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/date_current.png')} />
+
+### Custom Stamp
+
+To render a supplied value, simply provide it as a UNIX timestamp; this time, we're also going to employ the default format - but with a custom zone.
+
+```component-markup
+The time is: <&b><date value=1753970603812 zone="CET" />
+```
+
+<img className='rendered-image' src={useBaseUrl('/img/date_custom.png')} />
