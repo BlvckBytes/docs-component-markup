@@ -74,6 +74,8 @@ export const decideClassName = (type: string, value: string | null = null): stri
         return undefined;
 
       return "tk-whitespace";
+    case "ANY__ESCAPE_SEQUENCE":
+      return "tk-char";
     case "MARKUP__COMMENT":
       return "tk-comment";
     case "MARKUP__PLAIN_TEXT":
@@ -96,7 +98,7 @@ export const decideClassName = (type: string, value: string | null = null): stri
     case "MARKUP__IDENTIFIER__ATTRIBUTE_USER":
     case "MARKUP__IDENTIFIER__ATTRIBUTE_INTRINSIC":
       return "tk-keyword";
-    case "MARKUP__INTERPOLATION":
+    case "ANY__INTERPOLATION":
     case "MARKUP__PUNCTUATION__SUBTREE":
     case "MARKUP__PUNCTUATION__BINDING_SEPARATOR":
     case "MARKUP__PUNCTUATION__EQUALS":
