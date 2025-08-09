@@ -63,7 +63,7 @@ or the result of an expression interpreted as a string, where expression-strings
 allowing for dynamic construction of arbitrary complexity
 
 ```component-markup
-<translate [key]="'Prefix ' & my_variable & ' suffix'"/>
+<translate [key]="`Prefix {my_variable} suffix`"/>
 ```
 
 Whenever markup-numbers or booleans are specified, their values are stringified if the underlying attribute requires a string-value, such that

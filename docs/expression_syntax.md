@@ -78,6 +78,34 @@ will result in
 'Hello, World!'
 ```
 
+## String-Interpolation
+
+As the concatenation-operator `&` tends to clutter the expression whenever multi-part strings are built, string-interpolation poses an elegant alternative, increasing readability.
+
+Instead of writing
+
+```markup-expression
+'a ' & b & ' c ' & d & ' e'
+```
+
+one may simply employ the template-literal, which works analogous to strings, just that it uses backticks (`` ` ``) as quotes and enables interpolation-syntax analogous to how it can be used all throughout markup plain-text:
+
+```markup-expression
+`a {b} c {d} e`
+```
+
+Interpolations may be nested to any arbitrary depth, whenever necessary (the following example is just for shows and would never make sense in the field):
+
+```markup-expression
+`a {b} c {`hello {d} world`} e`
+```
+
+In order to have literal curly-brackets be contained in a template-literal, simply prepend them by a backslash, as follows:
+
+```markup-expression
+`a \{ {b} c {d} \} e`
+```
+
 ## Mathematical Operators
 
 The following mathematical operators are available when formulae are to be expressed. The operator of highest precedence will be evaluated first - use parentheses when necessary.

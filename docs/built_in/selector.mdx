@@ -63,7 +63,7 @@ The results are: <selector
     <hover-text
       *for-entity="selector_result"
       *for-separator={ <gray>,<space/> }
-      *let-command="'/tp ' & entity.x & ' ' & entity.y & ' ' & entity.z"
+      *let-command="`/tp {entity.x} {entity.y} {entity.z}`"
       value={ <gray>{command} }
     >
       <run-command [value]="command">
