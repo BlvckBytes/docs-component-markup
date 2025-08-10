@@ -30,12 +30,18 @@ function SmartCode(props: { children: React.ReactNode; className?: string }) {
     const classPrefix = "language-";
 
     if (typeof children === 'string' && className != null && className.startsWith(classPrefix)) {
-      const language = className.substring(classPrefix.length);
+      let language = className.substring(classPrefix.length);
+      let interpret = false;
+
+      if (language.charAt(0) == '!') {
+        language = language.substring(1);
+        interpret = true;
+      }
 
       if (language == "java")
         return <CodeBlock {...props} />;
 
-      return <ExtendedCodeMirror language={language} lenient={true} value={children.trim()} />
+      return <ExtendedCodeMirror interpret={interpret} language={language} lenient={true} value={children.trim()} />
     }
 
     return <CodeBlock {...props} />
