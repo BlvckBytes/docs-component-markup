@@ -76,36 +76,29 @@ split up and will just be considered as an atomic unit.
 
 The simplest form of a rainbow, using all standard attribute-values.
 
-```component-markup
+```!component-markup
 <rainbow>All of the fancy rainbow colors!</>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/static_continuous_rainbow.png')} />
-
 
 ### Injected Color
 
 By default, colorized members will keep their style and the transition will just skip over them.
 
-```component-markup
+```!component-markup
 <rainbow>All of the <red>fancy</> rainbow colors!</>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/static_injected_rainbow.png')} />
 
 ### Split Individual Rainbows
 
 In the following example, the text `l-me: 'hellohello-worldworld-testtest'` is to be colorized
 with individual rainbows per word, having the hyphens shaded in a mere grey-tone.
 
-```component-markup
+```!component-markup
 <rainbow
   *for-word="'hellohello-worldworld-testtest' @ '-'"
   *for-separator={<gray>-}
 >{word}</>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/static_split_rainbow.png')} />
 
 The above could also be specified without making use of advanced features like loops and the
 explode-operator, just like the following example portrays:
@@ -121,7 +114,7 @@ passages may now be dynamically defined by the environment.
 
 When the merge-attribute is enabled, inner rainbows will be joined in order to allow for visual continuity.
 
-```component-markup
+```!component-markup
 <rainbow merge-inner>
   <rainbow
     *for-word="'hellohello-worldworld-testtest' @ '-'"
@@ -129,8 +122,6 @@ When the merge-attribute is enabled, inner rainbows will be joined in order to a
   >{word}</>
 </>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/static_split_continuous_rainbow.png')} />
 
 ### Animated Split Continuous Rainbow
 

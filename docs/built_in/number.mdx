@@ -4,7 +4,6 @@ sidebar_position: 16
 
 import { TagDocRender } from '@site/src/components/TagDocRender';
 import { AttributeType } from '@site/src/components/AttributeType.class';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Number
 
@@ -83,39 +82,31 @@ Formats a given number based on various additional hints, such that its appearan
 
 Formatting a fractional value of arbitrary complexity to a visually appealing two-decimals number.
 
-```component-markup
+```!component-markup
 This item costs <&b><number value=512.4582831 format="0.00"/> Coins
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/number_format.png')} />
 
 ### Absolute Values
 
 Removing the negative-sign `-`, if any.
 
-```component-markup
+```!component-markup
 My absolute value: <&b><number value=-212 abs/>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/number_absolute.png')} />
 
 ### Whole Numbers
 
 Dropping all decimal digits, if any.
 
-```component-markup
+```!component-markup
 My whole number: <&b><number value=3.1415926 int/>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/number_integer.png')} />
 
 ### Padding
 
 Adding additional leading zeroes, as to ensure a fixed width.
 
-```component-markup
+```!component-markup
 <container *for-place="7..11" *for-separator={<br/>}>
   <&7>#<number [value]="place" format="00"/></> - <&b>Name
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/number_padding.png')} />

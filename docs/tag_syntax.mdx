@@ -211,7 +211,7 @@ which will display a value of `343`. If bindings containing literal strings are 
 
 Next to expressions and literals, markup-values may also be bound to temporary variables, effectively allowing to define reusable components.
 
-```component-markup
+```!component-markup
 <container
   *let-spacer={
     <dark_gray><st>{ ' ' ** 15 }
@@ -227,11 +227,9 @@ Next to expressions and literals, markup-values may also be bound to temporary v
 </>
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup.png')} />
-
 In order to parameterize these reusable components in a flexible manner, any placeholders within them will be fed with the data available at their usage-site.
 
-```component-markup
+```!component-markup
 <container
   *let-my_component={
     <aqua>I am a {type}!
@@ -242,11 +240,9 @@ In order to parameterize these reusable components in a flexible manner, any pla
   <gray +let-type="Dog">Second use: {my_component}
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup_placeholders.png')} />
-
 While scoped let-bindings may suffice for most use-cases, components can be partially or even fully pre-parameterised in a safe way by using a capture, which will snapshot all variables existing at its place of residence, providing the guarantee of them not becoming shadowed later down the road. A capture is signalled by enclosing the let-binding's variable-name by matching parentheses `()`. Its value need not necessarily be a direct markup-value, but it may also refer to other components, in order to clone them as a pre-parameterized version.
 
-```component-markup
+```!component-markup
 <container
   *let-a={<&b>first}
   *let-my_template={ {a} and <&d>{b} }
@@ -260,8 +256,6 @@ While scoped let-bindings may suffice for most use-cases, components can be part
     <br/>
     <gray>{my_captured_template}
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/let_binding_markup_capture.png')} />
 
 ### Immediate Attribute-Values
 

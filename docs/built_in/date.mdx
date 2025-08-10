@@ -59,18 +59,14 @@ Formats a given timestamp, or the current time (for `l-me: null`-values), based 
 
 When not supplying a value, or the value evaluates to null, the current time will automatically be used.
 
-```component-markup
+```!component-markup
 The time is: <&b><date format="HH:mm:ss" />
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/date_current.png')} />
 
 ### Custom Stamp
 
 To render a supplied value, simply provide it as a UNIX timestamp; this time, we're also going to employ the default format - but with a custom zone.
 
-```component-markup
+```!component-markup
 The time is: <&b><date value=1753970603812 zone="CET" />
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/date_custom.png')} />

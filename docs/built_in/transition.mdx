@@ -4,7 +4,6 @@ sidebar_position: 15
 
 import { TagDocRender } from '@site/src/components/TagDocRender';
 import { AttributeType } from '@site/src/components/AttributeType.class';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Transition
 
@@ -102,42 +101,39 @@ aforementioned Gradient-Tag, as they behave exactly the same and their documenta
 
 The simplest form of a transition is that between two colors.
 
-```component-markup
+```!component-markup
 <transition
-  [phase]="current_phase"
+  *for-i="0..10"
+  [phase]="i/10.0 * 100"
   color="red"
   color="blue"
->All of the fancy transition colors!</>
+>All of the fancy transition colors!<br/>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/two_color_transition.png')} />
 
 ### Three Color Transition
 
 By adding another color, the offsets along the transition will be automatically balanced if not specified otherwise.
 
-```component-markup
+```!component-markup
 <transition
-  [phase]="current_phase"
+  *for-i="0..10"
+  [phase]="i/10.0 * 100"
   color="red"
   color="green"
   color="blue"
->All of the fancy transition colors!</>
+>All of the fancy transition colors!<br/>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/three_color_transition.png')} />
 
 ### Injected Static Color
 
 If not specified otherwise, existing colors won't be overridden, allowing the user to set
 certain statically tinted highlights.
 
-```component-markup
+```!component-markup
 <transition
-  [phase]="current_phase"
+  *for-i="0..10"
+  [phase]="i/10.0 * 100"
   color="red"
   color="blue"
->All of the fancy <gold>transition</> colors!</>
+>All of the fancy <gold>transition</> colors!<br/>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/injected_static_transition.png')} />

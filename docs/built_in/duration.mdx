@@ -79,20 +79,18 @@ Formats a given duration in milliseconds based on various additional hints, such
 
 When just supplying a value as well as some units to format into, the default style will be plain but efficient:
 
-```component-markup
+```!component-markup
 My duration: <&b><duration
   [value]="(31 + 60*3 + 60*60*8) * 1000"
   units="hms"
 />
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/duration_default.png')} />
-
 ### Custom Style
 
 As to really show what's possible, let's not just render different unit-suffixes, but also account for singular/plural differentiation, color groups based on their unit and add a colored separator.
 
-```component-markup
+```!component-markup
 My duration: <duration
   [value]="(38 + 60 + 60*60*2) * 1000"
   units="smh"
@@ -105,5 +103,3 @@ My duration: <duration
   }
 />
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/duration_styled.png')} />
