@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { useThemeConfig } from '@docusaurus/theme-common';
 import { EditorState, Extension, RangeSet, RangeSetBuilder, StateField, Transaction } from '@codemirror/state';
 import { tokenize } from '../custom-prism/component-markup';
@@ -122,13 +122,24 @@ export interface TokenizerResult {
   tokens: HighlightToken[] | null;
   errorMessage: string | null;
   errorBeginIndex: number;
+  renderResult: HTMLElement[] | null;
 };
 
-export const getTokenizerResult = (input: string, lenient: boolean, expression: boolean): TokenizerResult => {
+export const getTokenizerResult = (input: string, lenient: boolean, expression: boolean, interpret: boolean): TokenizerResult => {
+  let renderResult: HTMLElement[] | null = null;
+
   try {
     let tokens: HighlightToken[] = [];
 
     // By convention with the TeeVM script; most efficient way to pass token-data
+
+    window["onEmitComponents"] = (components: HTMLElement[]) => {
+      for (const component of components)
+        component.className += " rendered-component-line";
+
+      renderResult = components;
+    };
+
     window["onEmitToken"] = (type: string, beginIndexInclusive: number, endIndexExclusive: number, value: string) => {
       tokens.push({
         from: beginIndexInclusive,
@@ -138,7 +149,7 @@ export const getTokenizerResult = (input: string, lenient: boolean, expression: 
       });
     };
 
-    const { errorMessage, errorCharIndex } = tokenize(input, lenient, expression);
+    const { errorMessage, errorCharIndex } = tokenize(input, lenient, expression, interpret);
 
     if (errorMessage != null) {
       return {
@@ -149,14 +160,16 @@ export const getTokenizerResult = (input: string, lenient: boolean, expression: 
           className: undefined
         }],
         errorMessage,
-        errorBeginIndex: errorCharIndex
+        errorBeginIndex: errorCharIndex,
+        renderResult
       };
     }
 
     return {
       tokens,
       errorMessage,
-      errorBeginIndex: errorCharIndex
+      errorBeginIndex: errorCharIndex,
+      renderResult
     };
   } catch(e) {
     let message: string;
@@ -174,7 +187,8 @@ export const getTokenizerResult = (input: string, lenient: boolean, expression: 
         className: undefined
       }],
       errorMessage: 'threw: ' + message,
-      errorBeginIndex: 1
+      errorBeginIndex: 1,
+      renderResult
     }
   }
 };
@@ -213,13 +227,14 @@ const customizedEditorTheme = EditorView.theme(
 );
 
 export default function ExtendedCodeMirror({
-  value, language, editable = false, activeLine = false, lenient = false 
+  value, language, editable = false, activeLine = false, lenient = false, interpret = false
 } : {
   value: string,
   language: string,
   editable?: boolean,
   activeLine?: boolean,
   lenient?: boolean,
+  interpret?: boolean,
 }): ReactNode {
   const isBrowser = useIsBrowser();
 
@@ -229,16 +244,18 @@ export default function ExtendedCodeMirror({
   type TokenizerFunction = (input: string) => TokenizerResult;
   let tokenizerFunction: TokenizerFunction = null;
 
+  const wrapperReference = useRef<HTMLDivElement>(null);
+
   const extensions: Extension[] = [
     customizedEditorTheme,
   ];
 
   if (isBrowser) {
     if (language == "component-markup")
-      tokenizerFunction = input => getTokenizerResult(input, lenient, false);
+      tokenizerFunction = input => getTokenizerResult(input, lenient, false, interpret);
 
     else if (language == "markup-expression")
-      tokenizerFunction = input => getTokenizerResult(input, false, true);
+      tokenizerFunction = input => getTokenizerResult(input, false, true, false);
   }
 
   // ================================================================================
@@ -248,7 +265,7 @@ export default function ExtendedCodeMirror({
   const tokenizerResultState = StateField.define<TokenizerResult>({
     create: function (state: EditorState): TokenizerResult {
       if (tokenizerFunction == null)
-        return { tokens: [], errorMessage: null, errorBeginIndex: -1 };
+        return { tokens: [], errorMessage: null, errorBeginIndex: -1, renderResult: null };
 
       return tokenizerFunction(state.doc.toString());
     },
@@ -286,6 +303,92 @@ export default function ExtendedCodeMirror({
       }
     },
     { decorations: plugin => plugin.decorations, }
+  );
+
+  const renderResultInjectorExtension = ViewPlugin.fromClass(
+    class RenderResultInjector {
+
+      private obfuscatedTerminals: Element[] = [];
+      private charPool: string;
+
+      constructor(view: EditorView) {
+        // All chars which have been omitted from the printable ASCII-range are not of equal width
+        this.charPool = 'ABCDEFGHJKLMNOPQRSTUVWXYZ0123456789abcdeghjmnopqrsuvwxyz§$%&=?^/\\-#_';
+        this.inject(view);
+
+        setInterval(() => this.updateObfuscatedTerminals(), 50);
+      }
+
+      private randomObfuscationChar() {
+        return this.charPool.charAt(Math.floor(Math.random() * this.charPool.length));
+      }
+
+      update(update: ViewUpdate) {
+        if (update.docChanged)
+          this.inject(update.view);
+      }
+
+      updateObfuscatedTerminals() {
+        for (const obfuscatedTerminal of this.obfuscatedTerminals) {
+          const contents = (obfuscatedTerminal as HTMLElement).innerText;
+          let newValue = "";
+
+          for (let char of contents) {
+            if (char == ' ' || char == '\t') {
+              newValue += char;
+              continue;
+            }
+
+            newValue += this.randomObfuscationChar();
+          }
+
+          (obfuscatedTerminal as HTMLElement).innerText = newValue;
+        }
+      }
+
+      attachToObfuscatedTerminals(components: HTMLElement[]) {
+        this.obfuscatedTerminals = [];
+
+        for (const component of components)
+          this.collectObfuscatedTerminals(component, this.obfuscatedTerminals);
+      }
+
+      collectObfuscatedTerminals(element: Element, bucket: Element[], isActive: boolean = false) {
+        isActive ||= element.classList.contains('rendered-component--obfuscated');
+
+        let childCount = element.children.length;
+
+        if (isActive && childCount == 0) {
+          bucket.push(element);
+          return;
+        }
+
+        for (let childIndex = 0; childIndex < childCount; ++childIndex)
+          this.collectObfuscatedTerminals(element.children[childIndex], bucket, isActive);
+      }
+
+      inject(view: EditorView) {
+        const { renderResult } = view.state.field(tokenizerResultState);
+
+        if (renderResult == null)
+          return;
+
+        const wrapper = wrapperReference.current;
+
+        const resultClass = 'component-render-result';
+        let resultContainer = wrapper.querySelector('.' + resultClass);
+
+        if (!resultContainer) {
+          resultContainer = document.createElement("div");
+          resultContainer.classList = resultClass;
+          wrapper.appendChild(resultContainer);
+        }
+
+        this.attachToObfuscatedTerminals(renderResult);
+
+        resultContainer.replaceChildren(...renderResult);
+      }
+    }
   );
 
   // ================================================================================
@@ -351,12 +454,8 @@ export default function ExtendedCodeMirror({
   if (tokenizerFunction != null) {
     extensions.push(
       tokenizerResultState,
-      tokenHighlightExtension
-    );
-  }
-
-  if (tokenizerFunction != null) {
-    extensions.push(
+      tokenHighlightExtension,
+      renderResultInjectorExtension,
       errorLinterExtension,
       errorTooltipExtension
     );
@@ -365,7 +464,7 @@ export default function ExtendedCodeMirror({
   }
 
   return (
-    <div style={{textAlign: 'left', marginBottom: '1rem'}}>
+    <div style={{textAlign: 'left', marginBottom: '1rem'}} ref={wrapperReference}>
       <CodeMirror
         value={value}
         extensions={extensions}

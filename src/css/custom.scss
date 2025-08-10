@@ -79,3 +79,89 @@ a.unstyled-anchor:active
   text-decoration-color: unset !important;
   color: unset !important;
 }
+
+.component-render-result {
+  background: #ddd;
+  margin-top: .5rem;
+  padding: 1rem;
+  border-radius: .5rem;
+  margin-bottom: 500px;
+}
+
+.rendered-component-line {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  color: white;
+  display: block;
+  --shadow-color: rgba(0, 0, 0, .25);
+
+  &:not(:first-child) {
+    margin-top: .15rem;
+  }
+}
+
+.rendered-component {
+  font-family: var(--font, '?'), 'minecraft';
+  text-shadow: var(--shadow-color) .15rem .15rem;
+
+  &--bold {
+    font-weight: bold;
+  }
+
+  &--italic {
+    font-style: italic;
+  }
+
+  &--underlined {
+    &, & .rendered-component {
+      border-bottom: .15rem solid currentColor;
+    }
+  }
+
+  &--strikethrough {
+    &, & .rendered-component {
+      position: relative;
+      text-decoration: line-through;
+      text-decoration-thickness: .15rem;
+    }
+  }
+
+  &--obfuscated {
+    // Avoids a lot of jitter when breaking obfuscated text, as it can now be broken anywhere
+    word-break: break-all;
+  }
+}
+
+.cf-underlined {
+  color: white;
+  border-bottom: .125rem solid currentcolor;
+}
+
+@font-face {
+  font-family: 'minecraft';
+  src: url('/font/MinecraftRegular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'minecraft';
+  src: url('/font/MinecraftItalic.otf');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'minecraft';
+  src: url('/font/MinecraftBold.otf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'minecraft';
+  src: url('/font/MinecraftBoldItalic.otf');
+  font-weight: bold;
+  font-style: italic;
+}
