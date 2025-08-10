@@ -119,6 +119,60 @@ The following mathematical operators are available when formulae are to be expre
 | Modulo         | `l-me: a % b` | 2          |
 | Exponentiation | `l-me: a ^ b` | 3          |
 
+## Numeric Operators
+
+Due to the fact that the precision of numbers is widened as required, multiplying a long (whole number) by a double (fractional number) will convert the former to the latter and thus result in a fractional value. When working with literal values, like `l-me: 5` and `l-me: 2`, one can always force fractional evaluation by adding a simple `.0` to one of the two operands, as in `l-me: 5 / 2.0` - now, the result will become `l-me: 2.5` instead of `l-me: 2`. If both operands are represented by variables or other complex expressions though, this little trick will not be applicable: that's when one must employ the following numeric operators.
+
+### To Long
+
+Converts a fractional number to a whole number by disregarding its fractional part, while passing whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.3`, then
+
+```markup-expression
+long(x)
+```
+
+will result in `l-me: 5`.
+
+### To Double
+
+Converts a whole number to a fractional number by introducing a zero-valued fractional part, while passing fractional numbers through untouched; let's assume that `l-me: x` holds `l-me: 5`, then
+
+```markup-expression
+double(x)
+```
+
+will result in `l-me: 5.0`.
+
+### Round
+
+Rounds any given number to the nearest whole value, meaning that a fractional part of greater than or equal to one-half will round up, while everything else will round down; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.4`, then
+
+```markup-expression
+round(x)
+```
+
+will result in `l-me: 5.0`, while a value of `l-me: 5.5` would result in `l-me: 6.0`.
+
+### Floor
+
+Sets the fractional part of any number to zero, effectively disregarding it; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.5`, then
+
+```markup-expression
+floor(x)
+```
+
+will result in `l-me: 5.0`.
+
+### Ceil
+
+Sets the fractional part of any number to zero, effectively disregarding it, and increments its whole part by one if the fractional part was non-zero; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.1`, then
+
+```markup-expression
+ceil(x)
+```
+
+will result in `l-me: 6.0`.
+
 ## String Transformation
 
 The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
@@ -620,8 +674,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Negation</td>
       <td>`!`</td>
-      <td rowSpan={10}>13</td>
-      <td rowSpan={10}>right-to-left</td>
+      <td rowSpan={15}>13</td>
+      <td rowSpan={15}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
@@ -658,6 +712,26 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Reverse</td>
       <td>`reverse()`</td>
+    </tr>
+    <tr>
+      <td>To Long</td>
+      <td>`long()`</td>
+    </tr>
+    <tr>
+      <td>To Double</td>
+      <td>`double()`</td>
+    </tr>
+    <tr>
+      <td>Round</td>
+      <td>`round()`</td>
+    </tr>
+    <tr>
+      <td>Floor</td>
+      <td>`floor()`</td>
+    </tr>
+    <tr>
+      <td>Ceil</td>
+      <td>`ceil()`</td>
     </tr>
     <tr>
       <td>Subscripting</td>
