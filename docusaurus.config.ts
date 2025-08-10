@@ -46,7 +46,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.scss'),
         },
       } satisfies Preset.Options,
     ],
@@ -87,6 +87,9 @@ const config: Config = {
       additionalLanguages: ['Java'],
     },
   } satisfies Preset.ThemeConfig,
+  plugins: [
+    'docusaurus-plugin-sass',
+  ]
 };
 
 export default config;
