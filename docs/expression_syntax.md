@@ -123,18 +123,18 @@ The following mathematical operators are available when formulae are to be expre
 
 The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
 
-| Operation     | Operator         | Result                  |
-|:-------------:|:----------------:|:-----------------------:|
-| Uppercase     | `l-me: ~^value`  | `l-me: ' HELLÖ WÖRLD '` |
-| Lowercase     | `l-me: ~_value`  | `l-me: ' hellö wörld '` |
-| Titlecase     | `l-me: ~#value`  | `l-me: ' Hellö Wörld '` |
-| Toggle Casing | `l-me: ~!value`  | `l-me: ' hELLÖ WÖrlD '` |
-| Slugify       | `l-me: ~-value`  | `l-me: ' hellö-wörld '` |
-| Asciify       | `l-me: ~?value`  | `l-me: ' Hello woRLd '` |
-| Trim          | `l-me: ~\|value` | `l-me: 'Hellö WöRLd'`   |
-| Reverse       | `l-me: ~<value`  | `l-me: 'dLRöW ölleH'`   |
+| Operation     | Operator               | Result                  |
+|:-------------:|:----------------------:|:-----------------------:|
+| Uppercase     | `l-me: upper(value)`   | `l-me: ' HELLÖ WÖRLD '` |
+| Lowercase     | `l-me: lower(value)`   | `l-me: ' hellö wörld '` |
+| Titlecase     | `l-me: title(value)`   | `l-me: ' Hellö Wörld '` |
+| Toggle Casing | `l-me: toggle(value)`  | `l-me: ' hELLÖ WÖrlD '` |
+| Slugify       | `l-me: slugify(value)` | `l-me: ' hellö-wörld '` |
+| Asciify       | `l-me: asciify(value)` | `l-me: ' Hello woRLd '` |
+| Trim          | `l-me: trim(value)`    | `l-me: 'Hellö WöRLd'`   |
+| Reverse       | `l-me: reverse(value)` | `l-me: 'dLRöW ölleH'`   |
 
-In order to asciify, slugify and trim, use `l-me: ~?~-~|value`, which is equivalent to `l-me: ~?(~-(~|value))`, resulting in `l-me: 'hello-world'`.
+In order to asciify, slugify and trim, use `l-me: asciify(slugify(trim(value)))`, which is resulting in `l-me: 'hello-world'`.
 
 ## Immediate List
 
@@ -629,35 +629,35 @@ Associativity regards the order of operations on chains of operators of same pre
     </tr>
     <tr>
       <td>Uppercase</td>
-      <td>`~^`</td>
+      <td>`upper()`</td>
     </tr>
     <tr>
       <td>Lowercase</td>
-      <td>`~_`</td>
+      <td>`lower()`</td>
     </tr>
     <tr>
       <td>Titlecase</td>
-      <td>`~#`</td>
+      <td>`title()`</td>
     </tr>
     <tr>
       <td>Toggle Casing</td>
-      <td>`~!`</td>
+      <td>`toggle()`</td>
     </tr>
     <tr>
       <td>Slugify</td>
-      <td>`~-`</td>
+      <td>`slugify()`</td>
     </tr>
     <tr>
       <td>Asciify</td>
-      <td>`~?`</td>
+      <td>`asciify()`</td>
     </tr>
     <tr>
       <td>Trim</td>
-      <td>`~|`</td>
+      <td>`trim()`</td>
     </tr>
     <tr>
       <td>Reverse</td>
-      <td>`~<`</td>
+      <td>`reverse()`</td>
     </tr>
     <tr>
       <td>Subscripting</td>
