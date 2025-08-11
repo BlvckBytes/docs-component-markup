@@ -173,6 +173,26 @@ ceil(x)
 
 will result in `l-me: 6.0`.
 
+### Min
+
+Yields the smallest value of a number of provided inputs, where individual values are comma-separated.
+
+```markup-expression
+min(4, -2, 5, 3, -1)
+```
+
+The above will result in `l-me: -2`.
+
+### Max
+
+Yields the largest value of a number of provided inputs, where individual values are comma-separated.
+
+```markup-expression
+max(4, -2, 5, 3, -1)
+```
+
+The above will result in `l-me: 5`.
+
 ## String Transformation
 
 The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
