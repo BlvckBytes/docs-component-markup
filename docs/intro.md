@@ -40,7 +40,7 @@ With the majority of existing systems, templating seems to be an afterthought an
   Online players:<space/>
   <red
     *for-player_name="player_names"
-    *if="player_name != 'Steve'"
+    *if="player_name neq 'Steve'"
     *let-position_number="loop.index + 1"
     *for-separator={<gray>, }
   >

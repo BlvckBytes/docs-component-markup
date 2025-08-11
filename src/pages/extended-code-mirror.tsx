@@ -112,6 +112,7 @@ export const decideClassName = (type: string, value: string | null = null): stri
     case "EXPRESSION__SYMBOLIC_OPERATOR__ANY":
       return "tk-operator";
     case "EXPRESSION__NAMED_PREFIX_OPERATOR":
+    case "EXPRESSION__NAMED_INFIX_OPERATOR":
       return "tk-builtin";
   }
 };

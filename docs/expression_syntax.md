@@ -462,10 +462,10 @@ When programming in Java, the established naming-convention regarding properties
 
 ### Not (Invert)
 
-By prepending an expression with a bang (`!`), it's value is interpreted as a boolean and will be inverted, meaning that `l-me: true` will become `l-me: false` and vice-versa.
+By prepending an expression with the `not` operator, it's value is interpreted as a boolean and will be inverted, meaning that `l-me: true` will become `l-me: false` and vice-versa.
 
 ```markup-expression
-!value
+not value
 ```
 
 | value         | Result        |
@@ -475,10 +475,10 @@ By prepending an expression with a bang (`!`), it's value is interpreted as a bo
 
 ### Or (Disjunction)
 
-By stringing two expressions together using a double-pipe (`||`), both the left- and the right hand side will be interpreted as boolean values; given that any one of them is `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
+By stringing two expressions together using the `or` operator, both the left- and the right hand side will be interpreted as boolean values; given that any one of them is `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
 
 ```markup-expression
-lhs || rhs
+lhs or rhs
 ```
 
 | lhs           | rhs           | Result         |
@@ -490,10 +490,10 @@ lhs || rhs
 
 ### And (Conjunction)
 
-By stringing two expressions together using a double-ampersand (`&&`), both the left- and the right hand side will be interpreted as boolean values; given that both are `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
+By stringing two expressions together using the `and` operator, both the left- and the right hand side will be interpreted as boolean values; given that both are `l-me: true`, the result will be also - otherwise, `l-me: false` will be the result.
 
 ```markup-expression
-lhs && rhs
+lhs and rhs
 ```
 
 | lhs     | rhs     | Result  |
@@ -505,10 +505,10 @@ lhs && rhs
 
 ### Branching
 
-If an expression is to be selected out of two branches, one for `l-me: true` and one for `l-me: false`, given a boolean input, this will be the operator of choice.
+If an expression is to be selected out of two branches, one for `l-me: true` and one for `l-me: false`, given a boolean input, `then`/`else` will be the operators of choice.
 
 ```markup-expression
-input ? branch_true : branch_false
+input then branch_true else branch_false
 ```
 
 | input   | Result          |
@@ -519,21 +519,21 @@ input ? branch_true : branch_false
 If the false-branch is not required, it may simply be omitted (becomes `l-me: null`), resulting in the terse syntax of:
 
 ```markup-expression
-input ? branch_true
+input then branch_true
 ```
 
 ### Comparison Operators
 
-| Comparison            | Operator        | True when                                       |
-|:---------------------:|:---------------:|:-----------------------------------------------:|
-| Equal To              | `l-me: a == b`  | `l-me: a` is equal to `l-me: b`                 |
-| Not Equal To          | `l-me: a != b`  | `l-me: a` is not equal to `l-me: b`             |
-| Contains String       | `l-me: a :: b`  | `l-me: a` contains `l-me: b`                    |
-| Regex Matches         | `l-me: a ::: b` | `l-me: a` matches regex `l-me: b`               |
-| Greater Than          | `l-me: a > b`   | `l-me: a` is greater than `l-me: b`             |
-| Greater Than Or Equal | `l-me: a >= b`  | `l-me: a` is greater than or equal to `l-me: b` |
-| Less Than             | `l-me: a < b`   | `l-me: a` is less than `l-me: b`                |
-| Less Than Or Equal    | `l-me: a <= b`  | `l-me: a` is less than or equal to `l-me: b`    |
+| Comparison            | Operator            | True when                                       |
+|:---------------------:|:-------------------:|:-----------------------------------------------:|
+| Equal To              | `l-me: a eq b`      | `l-me: a` is equal to `l-me: b`                 |
+| Not Equal To          | `l-me: a neq b`     | `l-me: a` is not equal to `l-me: b`             |
+| Is String Contained   | `l-me: a in b`      | `l-me: a` is contained in `l-me: b`             |
+| Regex Matches         | `l-me: a matches b` | `l-me: a` matches regex `l-me: b`               |
+| Greater Than          | `l-me: a > b`       | `l-me: a` is greater than `l-me: b`             |
+| Greater Than Or Equal | `l-me: a >= b`      | `l-me: a` is greater than or equal to `l-me: b` |
+| Less Than             | `l-me: a < b`       | `l-me: a` is less than `l-me: b`                |
+| Less Than Or Equal    | `l-me: a <= b`      | `l-me: a` is less than or equal to `l-me: b`    |
 
 ## Fallback Values
 
@@ -566,36 +566,36 @@ Associativity regards the order of operations on chains of operators of same pre
   <tbody>
     <tr>
       <td>Branching</td>
-      <td>`?`</td>
+      <td>`then`</td>
       <td>1</td>
       <td rowSpan={18}>left-to-right</td>
     </tr>
     <tr>
       <td>Disjunction</td>
-      <td>`||`</td>
+      <td>`or`</td>
       <td>2</td>
     </tr>
     <tr>
       <td>Conjunction</td>
-      <td>`&&`</td>
+      <td>`and`</td>
       <td>3</td>
     </tr>
     <tr>
       <td>Equal To</td>
-      <td>`==`</td>
+      <td>`eq`</td>
       <td rowSpan={4}>4</td>
     </tr>
     <tr>
       <td>Not Equal To</td>
-      <td>`!=`</td>
+      <td>`neq`</td>
     </tr>
     <tr>
-      <td>Contains String</td>
-      <td>`::`</td>
+      <td>String Contained</td>
+      <td>`in`</td>
     </tr>
     <tr>
       <td>Matches Regex</td>
-      <td>`:::`</td>
+      <td>`matches`</td>
     </tr>
     <tr>
       <td>Greater Than</td>
@@ -673,7 +673,7 @@ Associativity regards the order of operations on chains of operators of same pre
     </tr>
     <tr>
       <td>Negation</td>
-      <td>`!`</td>
+      <td>`not`</td>
       <td rowSpan={15}>13</td>
       <td rowSpan={15}>right-to-left</td>
     </tr>

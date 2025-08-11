@@ -395,9 +395,9 @@ The simplest form of a conditional is represented by the intrinsic `*if` intrins
 Once a conditional has been declared as can be seen above, the intrinsic attributes `*else-if` as well as `*else` are now available to its direct siblings, meaning elements which succeed it on the same level of nesting.
 
 ```component-markup
-<red *if="my_number == 1">Shown if the value is one!</>
-<red *else-if="my_number == 2">Shown if the value is two!</>
-<red *else-if="my_number == 3">Shown if the value is three!</>
+<red *if="my_number eq 1">Shown if the value is one!</>
+<red *else-if="my_number eq 2">Shown if the value is two!</>
+<red *else-if="my_number eq 3">Shown if the value is three!</>
 <red *else>Shown if the value is anything else!</>
 ```
 
@@ -444,9 +444,9 @@ will be rendered. The above is functionally (but not computationally!) equivalen
 which is *absolutely advised against*:
 
 ```component-markup
-<red *if="my.input.expression == 'A'">First case</>
-<green *else-if="my.input.expression == 'B'">Second case</>
-<blue *else-if="my.input.expression == 'C'">Third case</>
+<red *if="my.input.expression eq 'A'">First case</>
+<green *else-if="my.input.expression eq 'B'">Second case</>
+<blue *else-if="my.input.expression eq 'C'">Third case</>
 <gray *else>Fallback case</>
 ```
 
@@ -523,7 +523,7 @@ Let's skip names equal to `Steve`:
   Online players:<space/>
   <red
     *for-player_name="player_names"
-    *if="player_name != 'Steve'"
+    *if="player_name neq 'Steve'"
     *for-separator={<gray>, }
   >{player_name}</>
 </>
@@ -539,7 +539,7 @@ Let's render an alternate name for `Steve`:
     *for-player_name="player_names"
     *for-separator={<gray>, }
   >
-    <green *if="player_name == 'Steve'">Alternate Name Here</>
+    <green *if="player_name eq 'Steve'">Alternate Name Here</>
     <red *else>{player_name}</>
   </>
 </>
@@ -561,7 +561,7 @@ For single loops, accessing this variable directly marks the most straight-forwa
   Online players:<space/>
   <red
     *for-player_name="player_names"
-    *if="player_name != 'Steve'"
+    *if="player_name neq 'Steve'"
     *for-separator={<gray>, }
   >#{loop.index + 1} {player_name}</>
 </>
