@@ -305,9 +305,9 @@ Let's look at some example-operations:
 | `l-me: input[:'E']` | `l-me: 'ABCDE'` |
 | `l-me: input[-4:'I']` | `l-me: 'GHI'` |
 
-## String-Explode Operator
+## String-Split Operator
 
-Whenever a sequence of characters is to be split up into sub-sequences based on a pattern of delimiters, the string-explode operator can be used to do so. Let's assume an `l-me: input` of `l-me: 'hello_world test1-test2'` and firstly focus on separators that are either `l-me: null` or empty - they split each single character up, such that `l-me: input @ null` and `l-me: input @ ''` both yield:
+Whenever a sequence of characters is to be split up into sub-sequences based on a pattern of delimiters, the string-split operator can be used to do so. Let's assume an `l-me: input` of `l-me: 'hello_world test1-test2'` and firstly focus on separators that are either `l-me: null` or empty - they split each single character up, such that `l-me: input split null` and `l-me: input split ''` both yield:
 
 ```markup-expression
 [
@@ -319,14 +319,14 @@ Specifying delimiters will yield the according sub-sequences:
 
 | Operation           | Result                                 |
 |:-------------------:|:--------------------------------------:|
-| `l-me: input @ '_'` | `l-me: ['hello', 'world test1-test2']` |
-| `l-me: input @ '-'` | `l-me: ['hello_world test1', 'test2']` |
-| `l-me: input @ ' '` | `l-me: ['hello_world', 'test1-test2']` |
+| `l-me: input split '_'` | `l-me: ['hello', 'world test1-test2']` |
+| `l-me: input split '-'` | `l-me: ['hello_world test1', 'test2']` |
+| `l-me: input split ' '` | `l-me: ['hello_world', 'test1-test2']` |
 
-In order to make use of regular expressions to split on a pattern of delimiters, simply specify the operator twice back-to-back:
+In order to make use of regular expressions to split on a pattern of delimiters, simply specify the operator `rsplit` (regex-split) instead:
 
 ```markup-expression
-input @@ '[-_ ]'
+input rsplit '[-_ ]'
 ```
 
 will yield
@@ -345,9 +345,9 @@ Whenever a sequence of characters is to be repeated a certain number of times by
 | `l-me: input ** 2` | `l-me: 'abcabc'`          |
 | `l-me: input ** 5` | `l-me: 'abcabcabcabcabc'` |
 
-## Keywords
+## Literals
 
-Keywords are reserved names, not able to be used as variables, holding a static value:
+Literals are reserved names, not able to be used as variables, holding a static value:
 
 * Boolean value of 1, i.e. "yes": `l-me: true`
 * Boolean value of 0, i.e. "no": `l-me: false`
@@ -653,14 +653,14 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>right-to-left</td>
     </tr>
     <tr>
-      <td>String-Explode Literal</td>
-      <td>`@`</td>
+      <td>String-Split Literal</td>
+      <td>`split`</td>
       <td rowSpan={3}>11</td>
       <td rowSpan={4}>left-to-right</td>
     </tr>
     <tr>
-      <td>String-Explode Regex</td>
-      <td>`@@`</td>
+      <td>String-Split Regex</td>
+      <td>`rsplit`</td>
     </tr>
     <tr>
       <td>Repeat</td>

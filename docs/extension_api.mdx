@@ -491,24 +491,24 @@ public class PlayerNameParameter implements RendererParameter {
 
 Next up, by deriving the `DeferredNode`, we prepare for defining the corresponding tag - its attributes
 will feed into the constructor of this class, allowing for not only the aforementioned display-name
-flag, but also to provide a custom markup-representation.
+flag, but also to provide a custom markup-renderer.
 
 ```java
 public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
 
   public final @Nullable ExpressionNode displayName;
-  public final @Nullable MarkupNode representation;
+  public final @Nullable MarkupNode renderer;
 
   public PlayerNameNode(
     @Nullable ExpressionNode displayName,
-    @Nullable MarkupNode representation,
+    @Nullable MarkupNode renderer,
     int position,
     @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
     super(position, letBindings);
 
     this.displayName = displayName;
-    this.representation = representation;
+    this.renderer = renderer;
   }
 
   @Override
@@ -525,7 +525,7 @@ public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
     DeferredDataProvider provider = componentConstructor.getDataProvider();
     String name = parameter.displayName ? provider.getDisplayName(recipient) : provider.getName(recipient);
 
-    if (representation == null)
+    if (renderer == null)
       return Collections.singletonList(componentConstructor.createTextComponent(name));
 
     // v- Do not modify the component of the closure, as it may be reused!
@@ -537,7 +537,7 @@ public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
     //    any more closures - because all information is available right now anyways. This
     // v- allows for a great deal of reusable and context-insensitive templating.
     return MarkupInterpreter.interpret(
-      componentConstructor, environment, recipient, slotContext, representation
+      componentConstructor, environment, recipient, slotContext, renderer
     ).unprocessedComponents;
   }
 
@@ -572,7 +572,7 @@ public class PlayerNameTag extends TagDefinition {
   ) {
     return new PlayerNameNode(
       attributes.getOptionalExpressionNode("display-name"),
-      attributes.getOptionalMarkupNode("representation"),
+      attributes.getOptionalMarkupNode("renderer"),
       tagName.startInclusive, letBindings
     );
   }
@@ -597,14 +597,14 @@ which does not yet know the content and thus its length - making it be an atomic
 
 <img className='rendered-image' src={useBaseUrl('/img/deferred_example_rainbow_outer.png')} />
 
-For this exact reason, the representation allows to interpret custom markup at the time of
+For this exact reason, the renderer allows to interpret custom markup at the time of
 substituting deferred content - now, rainbows apply properly. This style of implementation
 allows for much flexibility, like to provide custom representations for retrieved data. As
 can be seen in the implementation of the corresponding node above, the variable `player_name`
 is introduced, containing the resolved value to be visualised however desired.
 
 ```component-markup
-<gray>Hello, <player-name representation={ <rainbow>{player_name} } />! :)
+<gray>Hello, <player-name renderer={ <rainbow>{player_name} } />! :)
 ```
 
 <img className='rendered-image' src={useBaseUrl('/img/deferred_example_rainbow_inner.png')} />
@@ -617,7 +617,7 @@ combination allows for flexible and uniform markup across multiple stages of eva
 ```component-markup
 <gray *let-my_var="'test'">Hello,<space/>
   <player-name
-    representation={ <rainbow>{player_name}</>, <red>{my_var} }
+    renderer={ <rainbow>{player_name}</>, <red>{my_var} }
   />! :)
 ```
 

@@ -82,6 +82,7 @@ export const decideClassName = (type: string, value: string | null = null): stri
       return "tk-content";
     case "MARKUP__PUNCTUATION__TAG":
       return "tk-class-name-alt";
+    case "MARKUP__LITERAL":
     case "EXPRESSION__LITERAL":
       return "tk-keyword";
     case "EXPRESSION__STRING":

@@ -95,7 +95,7 @@ with individual rainbows per word, having the hyphens shaded in a mere grey-tone
 
 ```!component-markup
 <rainbow
-  *for-word="'hellohello-worldworld-testtest' @ '-'"
+  *for-word="'hellohello-worldworld-testtest' split '-'"
   *for-separator={<gray>-}
 >{word}</>
 ```
@@ -117,7 +117,7 @@ When the merge-attribute is enabled, inner rainbows will be joined in order to a
 ```!component-markup
 <rainbow merge-inner>
   <rainbow
-    *for-word="'hellohello-worldworld-testtest' @ '-'"
+    *for-word="'hellohello-worldworld-testtest' split '-'"
     *for-separator={<gray>-}
   >{word}</>
 </>
@@ -134,7 +134,7 @@ render, animations may be created.
   [phase]="current_phase"
 >
   <rainbow
-    *for-word="'hellohello-worldworld-testtest' @ '-'"
+    *for-word="'hellohello-worldworld-testtest' split '-'"
     *for-separator={<gray>-}
   >{word}</>
 </>

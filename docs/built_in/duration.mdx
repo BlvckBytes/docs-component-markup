@@ -97,9 +97,9 @@ My duration: <duration
   separator={<&8>,<space/>}
   unit-renderer={
     <container *when="unit">
-      <&c +is="h">{value} hour{value != 1 ? 's'}</>
-      <&a +is="m">{value} minute{value != 1 ? 's'}</>
-      <&b +is="s">{value} second{value != 1 ? 's'}</>
+      <&c +is="h">{value} hour{value neq 1 then 's'}</>
+      <&a +is="m">{value} minute{value neq 1 then 's'}</>
+      <&b +is="s">{value} second{value neq 1 then 's'}</>
   }
 />
 ```

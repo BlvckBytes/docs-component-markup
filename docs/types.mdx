@@ -81,7 +81,7 @@ becomes `l-me: "512"` and
 becomes `l-me: "true"`, while its counterpart
 
 ```component-markup
-<translate !key/>
+<translate key=false/>
 ```
 
 becomes `l-me: "false"`.
@@ -104,7 +104,7 @@ Last but not least, the full range of colors is made available via what is known
 
 ## Boolean
 
-The <TypeRender type={AttributeType.BOOLEAN} /> type may either be directly supplied via markup flag-style attributes, i.e.
+The <TypeRender type={AttributeType.BOOLEAN} /> type may either be directly supplied via markup (flag-style) attribute-values, i.e.
 
 ```component-markup
 <my-tag boolean-attribute />
@@ -113,7 +113,7 @@ The <TypeRender type={AttributeType.BOOLEAN} /> type may either be directly supp
 or
 
 ```component-markup
-<my-tag !boolean-attribute />
+<my-tag boolean-attribute=false />
 ```
 
 or expression-literals, i.e.
