@@ -210,18 +210,21 @@ The following transformations may come in handy when dealing with strings of cha
 
 In order to asciify, slugify and trim, use `l-me: asciify(slugify(trim(value)))`, which is resulting in `l-me: 'hello-world'`.
 
-## Immediate List
+## Immediate Array
 
-Whenever static lists of items are to be instantiated for further use, simply specify the desired items in a comma-separated (`,`) list, enclosed by square brackets (`l-me: []`).
+Whenever static array of items are to be instantiated for further use, simply specify the desired items in a comma-separated (`,`) list, enclosed by square brackets (`l-me: []`).
 
 ```markup-expression
 ['first', 'second', 'third']
 ```
 
-This notation may especially come in handy when combined with the intrinsic `*for-` attribute:
+This notation may especially come in handy when combined with the intrinsic `*for`-attribute:
 
-```component-markup
-<red *for-word="['first', 'second', 'third']">Hello, {word}!
+```!component-markup
+<red
+  *for-word="['first', 'second', 'third']"
+  *for-separator={<br/>}
+>Hello, {word}!
 ```
 
 Items may also once again be lists themselves, allowing for a tuple-style dataset.
@@ -232,12 +235,33 @@ Items may also once again be lists themselves, allowing for a tuple-style datase
 
 And thereby give rise to more advanced concepts of templating.
 
-```component-markup
+```!component-markup
 <style
-  *for-word="[['apple', 'red'], ['banana', 'yellow']]"
-  [color]="word[1]"
->Hello, {word[0]}!
+  *for-item="[['apple', 'red'], ['banana', 'yellow'], ['berry', 'blue']]"
+  *for-separator={<br/>}
+  [color]="item[1]"
+>Hello, {item[0]}!
 ```
+
+## Immediate Map
+
+Whenever static maps of key-value pairs are to be instantiated for further use, simply specify the desired items in a comma-separated (`,`) list, enclosed by curly brackets (`l-me: {}`). If the value of a key is to be equal the value of a variable of the same name, said value may be omitted.
+
+```markup-expression
+{ first: 5, second: "hello", third }
+```
+
+Analogous to immediate arrays, immediate maps may also be combined with the intrinsic `*for`-attribute, where loops will always iterate the keys of maps, as follows:
+
+```!component-markup
+<style
+  *let-veggies="{carrot: 'gold', celery: 'green', tomato: 'red'}"
+  *for-veggy="veggies"
+  *for-separator={<br/>}
+  [color]="veggies[veggy]"
+>Hello, {veggy}!
+```
+
 
 ## Range Operator
 
@@ -255,8 +279,11 @@ is thereby equivalent to
 
 This operator may especially come in handy when combined with the intrinsic `*for-` attribute.
 
-```component-markup
-<red *for-number="1..10">Hello, {number}!
+```!component-markup
+<aqua
+  *for-number="1..3"
+  *for-separator={<br/>}
+>Hello, {number}!
 ```
 
 ## Substring Operator
@@ -364,6 +391,14 @@ Whenever a sequence of characters is to be repeated a certain number of times by
 | `l-me: input ** 1` | `l-me: 'abc'`             |
 | `l-me: input ** 2` | `l-me: 'abcabc'`          |
 | `l-me: input ** 5` | `l-me: 'abcabcabcabcabc'` |
+
+This operator may especially come in handy when generating spacers.
+
+```!component-markup
+<st><&8>{' ' ** 15}</st><br/>
+<&b>Hello, world!<br/>
+<st><&8>{' ' ** 15}
+```
 
 ## Literals
 
