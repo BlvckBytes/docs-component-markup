@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Extension API | ComponentMarkup</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://blvckbytes.github.io/docs-component-markup/docs/extension_api"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Extension API | ComponentMarkup"><meta data-rh="true" name="description" content="This system has been designed with flexibility as well as extensibility in mind from the very get-go. On this"><meta data-rh="true" property="og:description" content="This system has been designed with flexibility as well as extensibility in mind from the very get-go. On this"><link data-rh="true" rel="icon" href="/docs-component-markup/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api" hreflang="en"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/extension_api" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Extension API","item":"https://blvckbytes.github.io/docs-component-markup/docs/extension_api"}]}</script><link rel="stylesheet" href="/docs-component-markup/assets/css/styles.c9b36448.css">
-<script src="/docs-component-markup/assets/js/runtime~main.70fdeae2.js" defer="defer"></script>
-<script src="/docs-component-markup/assets/js/main.32701ecb.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/runtime~main.3464bb9a.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/main.1afd0aea.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -189,7 +189,7 @@ which just captures whether to use the display-name or the plain account-name.</
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>Next up, by deriving the <!-- -->Code-Blocks are only available within the browser<!-- -->, we prepare for defining the corresponding tag - its attributes
 will feed into the constructor of this class, allowing for not only the aforementioned display-name
-flag, but also to provide a custom markup-representation.</p>
+flag, but also to provide a custom markup-renderer.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>Last but not least, the tag can be defined, which now constructs the node above, thereby
 registering deferred content.</p>
@@ -202,7 +202,7 @@ since the deferred node is represented by a single component at the time of inte
 which does not yet know the content and thus its length - making it be an atomic unit.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <img class="rendered-image" src="/docs-component-markup/img/deferred_example_rainbow_outer.png">
-<p>For this exact reason, the representation allows to interpret custom markup at the time of
+<p>For this exact reason, the renderer allows to interpret custom markup at the time of
 substituting deferred content - now, rainbows apply properly. This style of implementation
 allows for much flexibility, like to provide custom representations for retrieved data. As
 can be seen in the implementation of the corresponding node above, the variable <!-- -->Code-Blocks are only available within the browser<!-- -->
