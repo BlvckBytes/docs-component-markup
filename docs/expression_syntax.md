@@ -143,7 +143,9 @@ double(x)
 
 will result in `l-me: 5.0`.
 
-### Round
+### Utilities
+
+#### Round
 
 Rounds any given number to the nearest whole value, meaning that a fractional part of greater than or equal to one-half will round up, while everything else will round down; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.4`, then
 
@@ -153,7 +155,7 @@ round(x)
 
 will result in `l-me: 5.0`, while a value of `l-me: 5.5` would result in `l-me: 6.0`.
 
-### Floor
+#### Floor
 
 Sets the fractional part of any number to zero, effectively disregarding it; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.5`, then
 
@@ -163,7 +165,7 @@ floor(x)
 
 will result in `l-me: 5.0`.
 
-### Ceil
+#### Ceil
 
 Sets the fractional part of any number to zero, effectively disregarding it, and increments its whole part by one if the fractional part was non-zero; passes whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.1`, then
 
@@ -173,7 +175,7 @@ ceil(x)
 
 will result in `l-me: 6.0`.
 
-### Min
+#### Min
 
 Yields the smallest value of a number of provided inputs, where individual values are comma-separated.
 
@@ -183,7 +185,7 @@ min(4, -2, 5, 3, -1)
 
 The above will result in `l-me: -2`.
 
-### Max
+#### Max
 
 Yields the largest value of a number of provided inputs, where individual values are comma-separated.
 
@@ -192,6 +194,26 @@ max(4, -2, 5, 3, -1)
 ```
 
 The above will result in `l-me: 5`.
+
+#### Sum
+
+Sums up all provided inputs, where individual values are comma-separated.
+
+```markup-expression
+sum(8, 21, 4, 3, 3, 5, 8, 2)
+```
+
+The above will result in `l-me: 54.0`.
+
+#### Avg
+
+Calculates the level term, also known as average, of all provided inputs, where individual values are comma-separated.
+
+```markup-expression
+avg(8, 21, 4, 3, 3, 5, 8, 2)
+```
+
+The above will result in `l-me: 6.75`.
 
 ## String Transformation
 
