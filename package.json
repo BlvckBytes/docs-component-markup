@@ -25,6 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
     "@mdx-js/react": "^3.0.0",
+    "@replit/codemirror-vim": "^6.3.0",
     "@uiw/codemirror-theme-vscode": "^4.24.1",
     "@uiw/react-codemirror": "^4.24.1",
     "clsx": "^2.0.0",

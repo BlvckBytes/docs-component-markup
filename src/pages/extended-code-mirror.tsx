@@ -5,6 +5,7 @@ import { tokenize } from '../custom-prism/component-markup';
 import { Decoration, EditorView, Tooltip, ViewPlugin, ViewUpdate, showTooltip } from '@codemirror/view';
 import { linter, Diagnostic } from "@codemirror/lint";
 import CodeMirror from '@uiw/react-codemirror';
+import { vim } from "@replit/codemirror-vim"
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 
@@ -231,11 +232,18 @@ const customizedEditorTheme = EditorView.theme(
 );
 
 export default function ExtendedCodeMirror({
-  value, language, editable = false, activeLine = false, lenient = false, interpret = false
+  value,
+  language,
+  editable = false,
+  vimMode = false,
+  activeLine = false,
+  lenient = false,
+  interpret = false
 } : {
   value: string,
   language: string,
   editable?: boolean,
+  vimMode?: boolean,
   activeLine?: boolean,
   lenient?: boolean,
   interpret?: boolean,
@@ -463,6 +471,9 @@ export default function ExtendedCodeMirror({
       errorLinterExtension,
       errorTooltipExtension
     );
+
+    if (editable && vimMode)
+      extensions.push(vim());
 
     language = undefined;
   }
