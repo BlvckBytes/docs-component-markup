@@ -264,18 +264,32 @@ All opening-tags, including the self-closing kind, may support a variety of attr
 ```component-markup
 <my-tag
   a="my value"
-  b=5
-  c=3.42
-  d
-  e=false
-  f=null
-  g={
+  b='my value'
+  c=`hello {player_name}!`
+  d=5
+  e=3.42
+  f
+  g=false
+  h=null
+  i={
     <red>Hello, world!
   }
 >
 ```
 
-In the example above, `a` is of type string (sequence of characters), `b` of type whole number, `c` of type fractional number, `d` of type flag-style boolean (implicit `l-me: true`-value), `e` also of type boolean (`l-me: false`-value), `f` a `l-me: null`-value and `g` being a markup-value, delimited by curly-brackets. In general, the only differentiation occurs between markup-values and scalar-values (string, number, flag), where the latter will never cause a type-mismatch and simply be interpreted as required.
+In the example above,
+
+- `a` is of type string (sequence of characters) with double-quotes
+- `b` is also a string, this time with single-quotes (use as needed, e.g. to avoid having to escape quotes)
+- `c` is a so-called template-literal using string-interpolation
+- `d` of type whole number
+- `e` of type fractional number
+- `f` of type flag-style boolean (implicit `l-me: true`-value)
+- `g` also of type boolean (`l-me: false`-value)
+- `h` a `l-me: null`-value and
+- `i` being a markup-value, delimited by curly-brackets.
+
+In general, the only differentiation occurs between markup-values and scalar-values (string, number, flag), where the latter will never cause a type-mismatch and simply be interpreted as required.
 
 Attributes which support multiple values may be assigned more than once - each occurrence will be collected and passed to the tag as a list when executing it, maintaining the top-down order of assignment.
 
