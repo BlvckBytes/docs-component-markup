@@ -289,7 +289,7 @@ In the example above,
 - `h` a `l-me: null`-value and
 - `i` being a markup-value, delimited by curly-brackets.
 
-In general, the only differentiation occurs between markup-values and scalar-values (string, number, flag), where the latter will never cause a type-mismatch and simply be interpreted as required.
+Differentiation occurs between markup- and scalar-values: markup-attributes accept any value, which will be automatically converted to a plain-text component if needed, while markup cannot be assigned to attributes expecting scalar-values, since there is no sensible way of conversion.
 
 Attributes which support multiple values may be assigned more than once - each occurrence will be collected and passed to the tag as a list when executing it, maintaining the top-down order of assignment.
 
@@ -401,7 +401,7 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
 
 ### If-Conditionals
 
-The simplest form of a conditional is represented by the intrinsic `*if` intrinsic attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
+The simplest form of a conditional is represented by the intrinsic `*if` attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
 
 ```component-markup
 <red *if="my_condition">Shown if the condition matches!</>
