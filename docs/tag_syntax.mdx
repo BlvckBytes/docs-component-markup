@@ -593,7 +593,7 @@ To generate multiple elements per iteration, make use of the invisible `containe
 Whenever attribute-values are of type markup, as is the case with the `*for-separator`, nesting may
 extend to any arbitrary depth; e.g. a separator which again displays `hover-text`:
 
-```component-markup
+```!component-markup
 <container
   *for-word="['first', 'second', 'third']"
   *for-separator={
@@ -603,10 +603,6 @@ extend to any arbitrary depth; e.g. a separator which again displays `hover-text
   <hover-text value={<red>I am an element!}>
     <gray>#{loop.index + 1} <red>{word}
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/nested_markup_element.png')} />
-
-<img className='rendered-image' src={useBaseUrl('/img/nested_markup_separator.png')} />
 
 ## Comments
 

@@ -81,17 +81,19 @@ a.unstyled-anchor:active
 }
 
 .component-render-result {
+  overflow-y: scroll;
   background: rgb(18, 18, 18);
   margin-top: 1rem;
   padding: 1rem;
   border-radius: .4rem;
-  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color)
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
 }
 
 .rendered-component-line {
   margin: 0;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
   color: white;
   display: block;
   --shadow-color: rgba(0, 0, 0, .25);
@@ -131,6 +133,43 @@ a.unstyled-anchor:active
   &--obfuscated {
     // Avoids a lot of jitter when breaking obfuscated text, as it can now be broken anywhere
     word-break: break-all;
+  }
+
+  &__hover-text {
+    &::before {
+      content: '';
+      position: absolute;
+      top: .125rem;
+      right: -.125rem;
+      bottom: .125rem;
+      left: -.125rem;
+      border-style: none solid;
+      border-color: rgba(16, 0, 16, .94);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: .125rem;
+      right: 0;
+      bottom: .125rem;
+      left: 0;
+      border: .125rem solid #2D0A63;
+      border-image: linear-gradient(rgba(80,0,255,0.31),rgba(40,0,127,0.31)) 1;
+    }
+
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    background: rgba(16, 0, 16, .94);
+    padding: .375rem;
+    margin: .125rem .25rem;
+
+    &--active {
+      display: block;
+    }
   }
 }
 

@@ -331,10 +331,16 @@ export default function ExtendedCodeMirror({
     { decorations: plugin => plugin.decorations, }
   );
 
+  interface HoverNode {
+    container: Element,
+    tooltip: HTMLElement
+  }
+
   const renderResultInjectorExtension = ViewPlugin.fromClass(
     class RenderResultInjector {
 
       private obfuscatedTerminals: Element[] = [];
+      private hoverNodes: HoverNode[] = [];
       private charPool: string;
 
       constructor(view: EditorView) {
@@ -343,9 +349,57 @@ export default function ExtendedCodeMirror({
         this.inject(view);
 
         setInterval(() => this.updateObfuscatedTerminals(), 50);
+
+        window.addEventListener('pointermove', event => this.handlePointerMove(event.clientX, event.clientY));
       }
 
-      private randomObfuscationChar() {
+      handlePointerMove(clientX: number, clientY: number) {
+        if (this.hoverNodes.length == 0)
+          return;
+
+        const hoveredElements = document.elementsFromPoint(clientX, clientY);
+
+        for (let hoverIndex = 0; hoverIndex < this.hoverNodes.length; ++hoverIndex) {
+          const hoverNode = this.hoverNodes[hoverIndex];
+
+          let isActive = false;
+
+          for (let elementIndex = hoveredElements.length - 1; elementIndex >= 0; --elementIndex) {
+            const hoveredElement = hoveredElements[elementIndex];
+
+            if (hoveredElement == hoverNode.container)
+              continue;
+
+            if (hoverNode.tooltip.contains(hoveredElement))
+              continue;
+
+            if (!hoverNode.container.contains(hoveredElement))
+              continue;
+
+            isActive = true;
+            break;
+          }
+
+          if (!isActive) {
+            hoverNode.tooltip.classList.remove('rendered-component__hover-text--active');
+            continue;
+          }
+
+          const containerRect = hoverNode.tooltip.parentElement.getBoundingClientRect();
+
+          hoverNode.tooltip.style.left = `${clientX - containerRect.x}px`;
+          hoverNode.tooltip.style.top = `${clientY - containerRect.y}px`;
+
+          hoverNode.tooltip.classList.add('rendered-component__hover-text--active');
+
+          for (let nextHoverIndex = hoverIndex + 1; nextHoverIndex < this.hoverNodes.length; ++nextHoverIndex)
+            this.hoverNodes[nextHoverIndex].tooltip.classList.remove('rendered-component__hover-text--active');
+
+          break;
+        }
+      }
+
+      randomObfuscationChar() {
         return this.charPool.charAt(Math.floor(Math.random() * this.charPool.length));
       }
 
@@ -374,23 +428,32 @@ export default function ExtendedCodeMirror({
 
       attachToObfuscatedTerminals(components: HTMLElement[]) {
         this.obfuscatedTerminals = [];
+        this.hoverNodes = [];
 
         for (const component of components)
-          this.collectObfuscatedTerminals(component, this.obfuscatedTerminals);
+          this.collectVariousTargets(component);
       }
 
-      collectObfuscatedTerminals(element: Element, bucket: Element[], isActive: boolean = false) {
+      collectVariousTargets(element: Element, isActive: boolean = false) {
         isActive ||= element.classList.contains('rendered-component--obfuscated');
 
         let childCount = element.children.length;
 
         if (isActive && childCount == 0) {
-          bucket.push(element);
+          this.obfuscatedTerminals.push(element);
           return;
         }
 
-        for (let childIndex = 0; childIndex < childCount; ++childIndex)
-          this.collectObfuscatedTerminals(element.children[childIndex], bucket, isActive);
+        for (let childIndex = childCount - 1; childIndex >= 0; --childIndex) {
+          const child = element.children[childIndex];
+
+          if (child.classList.contains('rendered-component__hover-text')) {
+            this.hoverNodes.push({ container: element, tooltip: child as HTMLElement });
+            element.removeChild(child);
+          }
+
+          this.collectVariousTargets(child, isActive);
+        }
       }
 
       inject(view: EditorView) {
@@ -413,6 +476,12 @@ export default function ExtendedCodeMirror({
         this.attachToObfuscatedTerminals(renderResult);
 
         resultContainer.replaceChildren(...renderResult);
+
+        // Hoist up all hover-nodes to the top scope, because otherwise, sibling-containers will
+        // interfer with the tooltip within their predecessor-containers (being rendered on-top;
+        // also, causing very weird visual glitches that I'd rather avoid).
+        for (const hoverNode of this.hoverNodes)
+          resultContainer.appendChild(hoverNode.tooltip);
       }
     }
   );
