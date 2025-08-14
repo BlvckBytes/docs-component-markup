@@ -9,10 +9,15 @@ import { vim } from "@replit/codemirror-vim"
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import languageMappings from './mc_1_21_5_en_us.json';
+import keyMappings from './mc_1_21_5_keymap.json';
 
 export const injectLanguageMappings = () => {
-  window["tryResolveKey"] = (key: string) => {
+  window["tryResolveTranslationKey"] = (key: string) => {
     return languageMappings[key];
+  };
+
+  window["tryResolveKeybind"] = (key: string) => {
+    return keyMappings[key];
   };
 };
 

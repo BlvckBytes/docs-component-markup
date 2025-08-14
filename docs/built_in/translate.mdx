@@ -46,6 +46,24 @@ must thereby be self-closing (does not accept content).
   ]
 }} />
 
-## Example
+## Examples
 
-TODO: Add example
+### Simple Value
+
+Most values do not contain any placeholders, making for the simplest kind of translation.
+
+```!component-markup
+Buy <&b>32x <translate key="block.minecraft.blue_glazed_terracotta" /></> for <&a>15$
+```
+
+### Requiring Placeholders
+
+Whenever placeholders are contained, specify them in the desired order; if values are missing, the client will not render the message.
+
+```!component-markup
+<translate
+  key="death.attack.cactus.player"
+  with={<&d>Notch}
+  with={<&c>Herobrine}
+/>
+```
