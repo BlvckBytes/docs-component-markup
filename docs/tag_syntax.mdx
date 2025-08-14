@@ -293,7 +293,7 @@ Differentiation occurs between markup- and scalar-values: markup-attributes acce
 
 Attributes which support multiple values may be assigned more than once - each occurrence will be collected and passed to the tag as a list when executing it, maintaining the top-down order of assignment.
 
-```component-markup
+```!component-markup
 <translate
   key="chat.type.advancement.challenge"
   with={<green>Username}
@@ -343,7 +343,7 @@ The features as described above also apply to attributes which require their val
 
 The result of the input
 
-```component-markup
+```!component-markup
 <translate
   key="chat.type.advancement.challenge"
   with={<aqua>Username}
@@ -353,7 +353,7 @@ The result of the input
 
 is equivalent to that of (using [Let-Bindings](#let-bindings) to introduce markup-variables; they could just as well come from the environment)
 
-```component-markup
+```!component-markup
 <container
   *let-first={<aqua>Username}
   *let-second={<aqua>Challenge-Name}
@@ -364,13 +364,11 @@ is equivalent to that of (using [Let-Bindings](#let-bindings) to introduce marku
   />
 ```
 
-since it assigns one list-item to one instance of the `with`-attribute, due to the spread-operator being present, yielding:
-
-<img className='rendered-image' src={useBaseUrl('/img/markup_attribute_binding_spread.png')} />
+since it assigns one list-item to one instance of the `with`-attribute, due to the spread-operator being present.
 
 In contrast to the above, if not using the spread-operator, components will simply be interpreted sequentially, with the result becoming the value of **a single** attribute-instance; the following example portrays said behaviour (the `Third` value was manually added because `translate`-components do not render if the count of their placeholders is not matched - that's a client-side limitation):
 
-```component-markup
+```!component-markup
 <container
   *let-first={<aqua>First}
   *let-second={<aqua>Second}
@@ -382,11 +380,9 @@ In contrast to the above, if not using the spread-operator, components will simp
   />
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/markup_attribute_binding_non_spread.png')} />
-
 As mentioned earlier, non-markup values will simply be interpreted as plain text:
 
-```component-markup
+```!component-markup
 <container
   *let-first="'hello, world'"
 >
@@ -396,8 +392,6 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
     with={<red>Second}
   />
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/markup_attribute_binding_non_markup.png')} />
 
 ### If-Conditionals
 

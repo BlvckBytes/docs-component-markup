@@ -8,6 +8,13 @@ import CodeMirror from '@uiw/react-codemirror';
 import { vim } from "@replit/codemirror-vim"
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 import useIsBrowser from '@docusaurus/useIsBrowser';
+import languageMappings from './mc_1_21_5_en_us.json';
+
+export const injectLanguageMappings = () => {
+  window["tryResolveKey"] = (key: string) => {
+    return languageMappings[key];
+  };
+};
 
 // ================================================================================
 // Token Style-Classes
@@ -250,8 +257,10 @@ export default function ExtendedCodeMirror({
 }): ReactNode {
   const isBrowser = useIsBrowser();
 
-  if (isBrowser)
+  if (isBrowser) {
     injectTokenStyle();
+    injectLanguageMappings();
+  }
 
   type TokenizerFunction = (input: string) => TokenizerResult;
   let tokenizerFunction: TokenizerFunction = null;
