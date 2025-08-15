@@ -148,18 +148,16 @@ render, animations may be created.
 With the `deep`-flag set, The rainbow will dive into the markup-attributes of its members in specified
 order and colorize their contents (if applicable) just as well; this allows for some neat effects.
 
-```component-markup
+```!component-markup
 <rainbow deep>
   <hover-text value={and it continues here!}>The rainbow starts here</>
 </>
 ```
 
-<img className='rendered-image' src={useBaseUrl('/img/deep_rainbow_text.png')} />
-
 This feature works with an arbitrary number of attributes, so yes - crazy (and possibly useless)
 colorization like the following works also.
 
-```component-markup
+```!component-markup
 <rainbow deep>
   <hover-item
     material="dirt"
@@ -172,5 +170,3 @@ colorization like the following works also.
     }
   >My text</>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/deep_rainbow_item.png')} />
