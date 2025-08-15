@@ -106,6 +106,7 @@ a.unstyled-anchor:active
   font-family: var(--font, '?'), 'minecraft';
   text-shadow: var(--shadow-color) .15rem .15rem;
   white-space: pre-wrap;
+  max-width: max-content;
 
   &--bold {
     font-weight: bold;

@@ -101,11 +101,11 @@ tag-notation, as to unify syntax and stick to the new standard.
 
 To be used as follows:
 
-```component-markup
+```!component-markup
 <green>Green text</>
 ```
 
-```component-markup
+```!component-markup
 <&b>Aqua text</>
 ```
 
@@ -125,7 +125,7 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td style={{textAlign: 'center'}}><ColorSquare color="#E8871E" /></td>
       <td>#E8871E</td>
       <td>
-        ```component-markup
+        ```!component-markup
         <#E8871E>My text</>
         ```
       </td>
@@ -134,7 +134,7 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td style={{textAlign: 'center'}}><ColorSquare color="#6883BA" /></td>
       <td>#6883BA</td>
       <td>
-        ```component-markup
+        ```!component-markup
         <#6883BA>My text</>
         ```
       </td>
@@ -143,7 +143,7 @@ to access the whole realm of 16.7 million new values. In order to specify such c
       <td style={{textAlign: 'center'}}><ColorSquare color="#DD99BB" /></td>
       <td>#DD99BB</td>
       <td>
-        ```component-markup
+        ```!component-markup
         <#DD99BB>My text</>
         ```
       </td>
@@ -171,12 +171,12 @@ tag will suffice.
       <td>bold</td>
       <td>
         <code>b</code>
-        <p style={{height: '4rem'}}></p>
+        <p style={{height: '10rem'}}></p>
         <code>&l</code>
       </td>
       <td>
-        ```component-markup
-        <b>Bold text</>
+        ```!component-markup
+        <b>Bold text</><br/>
         <!b>Non-bold text</>
         ```
         ```component-markup
@@ -189,12 +189,12 @@ tag will suffice.
       <td>italic</td>
       <td>
         <code>i</code>
-        <p style={{height: '4rem'}}></p>
+        <p style={{height: '10rem'}}></p>
         <code>&o</code>
       </td>
       <td>
-        ```component-markup
-        <i>Italic text</>
+        ```!component-markup
+        <i>Italic text</><br/>
         <!i>Non-italic text</>
         ```
         ```component-markup
@@ -207,12 +207,12 @@ tag will suffice.
       <td>underlined</td>
       <td>
         <code>u</code>
-        <p style={{height: '4rem'}}></p>
+        <p style={{height: '10rem'}}></p>
         <code>&n</code>
       </td>
       <td>
-        ```component-markup
-        <u>Underlined text</>
+        ```!component-markup
+        <u>Underlined text</><br/>
         <!u>Non-underlined text</>
         ```
         ```component-markup
@@ -225,12 +225,12 @@ tag will suffice.
       <td>strikethrough</td>
       <td>
         <code>st</code>
-        <p style={{height: '4rem'}}></p>
+        <p style={{height: '10rem'}}></p>
         <code>&m</code>
       </td>
       <td>
-        ```component-markup
-        <st>Strikethrough text</>
+        ```!component-markup
+        <st>Strikethrough text</><br/>
         <!st>Non-strikethrough text</>
         ```
         ```component-markup
@@ -243,12 +243,12 @@ tag will suffice.
       <td>obfuscated</td>
       <td>
         <code>obf</code>
-        <p style={{height: '4rem'}}></p>
+        <p style={{height: '10rem'}}></p>
         <code>&k</code>
       </td>
       <td>
-        ```component-markup
-        <obf>Obfuscated text</>
+        ```!component-markup
+        <obf>Obfuscated text</><br/>
         <!obf>Non-obfuscated text</>
         ```
         ```component-markup
@@ -377,4 +377,17 @@ multiple styles dynamically, by leveraging the intrinsic `*use`-attribute:
 The following<space/>
 <style *use="render_count % 2 eq 0" color="red" b i u>WARNING</><space/>
 is really important!
+```
+
+By default, shadow-colors reside at around 25% opacity and, with modern versions of minecraft, default
+to the color of the text (or black if the text-color ends up being white):
+
+```!component-markup
+<style shadow="red">Hello, shadow!
+```
+
+In order to increase the shadow's visibility, let's ramp it all the way up for a change.
+
+```!component-markup
+<style shadow="red" shadow-opacity=100>Hello, shadow!
 ```
