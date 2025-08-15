@@ -28,10 +28,10 @@ public abstract class TagDefinition {
     this.tagPriority = tagPriority;
   }
 
-  public abstract boolean matchName(StringView tagNameLower);
+  public abstract boolean matchName(StringView tagName);
 
   public abstract @NotNull MarkupNode createNode(
-    @NotNull StringView tagNameLower,
+    @NotNull StringView tagName,
     @NotNull AttributeMap attributes,
     @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
@@ -96,17 +96,17 @@ public abstract class MarkupNode {
   public @Nullable ExpressionNode ifCondition;
   public @Nullable ExpressionNode useCondition;
 
-  public int position;
+  public final StringView positionProvider;
 
   public @Nullable List<MarkupNode> children;
   public @Nullable LinkedHashSet<LetBinding> letBindings;
 
   public MarkupNode(
-    int position,
+    StringView positionProvider,
     @Nullable List<MarkupNode> children,
     @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
-    this.position = position;
+    this.positionProvider = positionProvider;
     this.children = children;
     this.letBindings = letBindings;
   }
@@ -305,19 +305,25 @@ public interface Interpreter {
 
   @Nullable Double evaluateAsDoubleOrNull(@Nullable ExpressionNode expression);
 
+  @NotNull Number evaluateAsLongOrDouble(@Nullable ExpressionNode expressionNode);
+
+  @Nullable Number evaluateAsLongOrDoubleOrNull(@Nullable ExpressionNode expressionNode);
+
   boolean evaluateAsBoolean(@Nullable ExpressionNode expression);
 
   TriState evaluateAsTriState(@Nullable ExpressionNode expression);
 
   @Nullable Object evaluateAsPlainObject(@Nullable ExpressionNode expression);
 
-  ComponentOutput interpretSubtree(MarkupNode node, SlotContext slotContext);
+  boolean interpret(MarkupNode node);
+
+  boolean interpret(MarkupNode node, @Nullable Runnable afterScopeBegin);
 
   OutputBuilder getCurrentBuilder();
 
   ComponentConstructor getComponentConstructor();
 
-  boolean isInSubtree();
+  int getCurrentSubtreeDepth();
 
 }
 ```
@@ -330,11 +336,11 @@ within the interpreter, providing a way to modify the temporary-variable-stack:
 ```java
 public interface TemporaryMemberEnvironment extends InterpretationEnvironment {
 
-  void pushVariable(String name, Object value);
+  void beginScope();
 
-  void updateVariable(String name, Object value);
+  void endScope();
 
-  void popVariable(String name);
+  void setScopeVariable(String name, Object value);
 
   InterpretationEnvironment snapshot();
 
@@ -351,6 +357,20 @@ system to create a static copy to be used when snapshotting the environment for 
 public interface InternalCopyable {
 
   Object copy();
+
+}
+```
+
+In order to avoid having to make use of reflection whenever accessing members of objects within expressions
+with the member-operator, the following interface - if implemented on the object accessed into - is called first, as to directly access
+named fields; it also doubles as a means to define arbitrarily complex "getters".
+
+```java
+public interface DirectFieldAccess {
+
+  Object UNKNOWN_FIELD_SENTINEL = new Object();
+
+  @Nullable Object accessField(String rawIdentifier);
 
 }
 ```
@@ -379,8 +399,6 @@ public interface OutputBuilder {
   void onText(TextNode node, @Nullable Consumer<Object> creationHandler, boolean doNotBuffer);
 
   Object onUnit(UnitNode node);
-
-  void emitComponent(Object component);
 
 }
 ```
@@ -573,7 +591,7 @@ public class PlayerNameTag extends TagDefinition {
     return new PlayerNameNode(
       attributes.getOptionalExpressionNode("display-name"),
       attributes.getOptionalMarkupNode("renderer"),
-      tagName.startInclusive, letBindings
+      tagName, letBindings
     );
   }
 }
