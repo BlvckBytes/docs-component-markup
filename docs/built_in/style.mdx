@@ -373,10 +373,8 @@ If the value is to be driven by data, attribute-binding allows to assign express
 Next to specifying style statically or dynamically, one may also employ this tag in order to toggle
 multiple styles dynamically, by leveraging the intrinsic `*use`-attribute:
 
-```component-markup
+```!!component-markup
 The following<space/>
-<style *use="enable_warning" color="red" b i u>WARNING</><space/>
+<style *use="render_count % 2 eq 0" color="red" b i u>WARNING</><space/>
 is really important!
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/style_use_warning.gif')} />

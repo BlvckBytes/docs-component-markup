@@ -31,17 +31,22 @@ function SmartCode(props: { children: React.ReactNode; className?: string }) {
 
     if (typeof children === 'string' && className != null && className.startsWith(classPrefix)) {
       let language = className.substring(classPrefix.length);
-      let interpret = false;
+      let bangCount = 0;
 
-      if (language.charAt(0) == '!') {
+      while (language.charAt(0) == '!') {
         language = language.substring(1);
-        interpret = true;
+        ++bangCount;
       }
 
       if (language == "java")
         return <CodeBlock {...props} />;
 
-      return <ExtendedCodeMirror interpret={interpret} language={language} lenient={true} value={children.trim()} />
+      return <ExtendedCodeMirror
+        bangCount={bangCount}
+        language={language}
+        lenient={true}
+        value={children.trim()}
+      />
     }
 
     return <CodeBlock {...props} />

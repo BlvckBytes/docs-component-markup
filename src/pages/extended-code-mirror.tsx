@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef } from 'react';
 import { useThemeConfig } from '@docusaurus/theme-common';
-import { EditorState, Extension, RangeSet, RangeSetBuilder, StateField, Transaction } from '@codemirror/state';
+import { EditorState, Extension, RangeSet, RangeSetBuilder, StateEffect, StateField, Transaction } from '@codemirror/state';
 import { tokenize } from '../custom-prism/component-markup';
 import { Decoration, EditorView, Tooltip, ViewPlugin, ViewUpdate, showTooltip } from '@codemirror/view';
 import { linter, Diagnostic } from "@codemirror/lint";
@@ -142,7 +142,7 @@ export interface TokenizerResult {
   renderResult: HTMLElement[] | null;
 };
 
-export const getTokenizerResult = (input: string, lenient: boolean, expression: boolean, interpret: boolean): TokenizerResult => {
+export const getTokenizerResult = (input: string, lenient: boolean, expression: boolean, interpret: boolean, renderCount: number): TokenizerResult => {
   let renderResult: HTMLElement[] | null = null;
 
   try {
@@ -163,7 +163,7 @@ export const getTokenizerResult = (input: string, lenient: boolean, expression: 
       });
     };
 
-    const { errorMessage, errorCharIndex } = tokenize(input, lenient, expression, interpret);
+    const { errorMessage, errorCharIndex } = tokenize(input, lenient, expression, interpret, renderCount);
 
     if (errorMessage != null) {
       return {
@@ -247,7 +247,7 @@ export default function ExtendedCodeMirror({
   vimMode = false,
   activeLine = false,
   lenient = false,
-  interpret = false
+  bangCount = 0
 } : {
   value: string,
   language: string,
@@ -255,7 +255,7 @@ export default function ExtendedCodeMirror({
   vimMode?: boolean,
   activeLine?: boolean,
   lenient?: boolean,
-  interpret?: boolean,
+  bangCount?: number,
 }): ReactNode {
   const isBrowser = useIsBrowser();
 
@@ -274,16 +274,21 @@ export default function ExtendedCodeMirror({
   ];
 
   if (isBrowser) {
+    let renderCount = 0;
+
     if (language == "component-markup")
-      tokenizerFunction = input => getTokenizerResult(input, lenient, false, interpret);
+      tokenizerFunction = input => getTokenizerResult(input, lenient, false, bangCount > 0, ++renderCount);
 
     else if (language == "markup-expression")
-      tokenizerFunction = input => getTokenizerResult(input, false, true, false);
+      tokenizerFunction = input => getTokenizerResult(input, false, true, false, 0);
   }
 
   // ================================================================================
   // Syntax Highlighting
   // ================================================================================
+
+  // Define a custom effect to signal a forced update
+  const forceUpdateEffect = StateEffect.define<void>();
 
   const tokenizerResultState = StateField.define<TokenizerResult>({
     create: function (state: EditorState): TokenizerResult {
@@ -293,10 +298,10 @@ export default function ExtendedCodeMirror({
       return tokenizerFunction(state.doc.toString());
     },
     update: function (value: TokenizerResult, transaction: Transaction): TokenizerResult {
-      if (!transaction.docChanged)
-        return value;
+      if (transaction.docChanged || transaction.effects.some(e => e.is(forceUpdateEffect)))
+        return this.create(transaction.state);
 
-      return this.create(transaction.state);
+      return value;
     }
   });
 
@@ -346,6 +351,9 @@ export default function ExtendedCodeMirror({
         this.inject(view);
 
         setInterval(() => this.updateObfuscatedTerminals(), 50);
+
+        if (bangCount > 1)
+          setInterval(() => view.dispatch({ effects: forceUpdateEffect.of() }), 1000 / bangCount);
 
         window.addEventListener('pointermove', event => this.handlePointerMove(event.clientX, event.clientY));
       }
@@ -401,7 +409,7 @@ export default function ExtendedCodeMirror({
       }
 
       update(update: ViewUpdate) {
-        if (update.docChanged)
+        if (update.docChanged || update.transactions.some(t => t.effects.some(e => e.is(forceUpdateEffect))))
           this.inject(update.view);
       }
 
