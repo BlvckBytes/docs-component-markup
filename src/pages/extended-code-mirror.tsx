@@ -151,9 +151,6 @@ export const getTokenizerResult = (input: string, lenient: boolean, expression: 
     // By convention with the TeeVM script; most efficient way to pass token-data
 
     window["onEmitComponents"] = (components: HTMLElement[]) => {
-      for (const component of components)
-        component.className += " rendered-component-line";
-
       renderResult = components;
     };
 

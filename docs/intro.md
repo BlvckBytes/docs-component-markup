@@ -14,7 +14,7 @@ While there are broadly accepted "solutions" in existence, they all fail to sati
 
 As for readability and maintainability, we employ proper XML-syntax with named attributes instead of trying to compress information ad-absurdum; also, components as arguments are not mere strings, but fully fledged markup.
 
-```component-markup
+```!component-markup
 <hover-item
   name={<red>My tooltip}
   lore={
@@ -35,16 +35,17 @@ Power-users may define their own tags with ease, being able to generate content 
 
 With the majority of existing systems, templating seems to be an afterthought and is usually solved by substituting variables at the level of the input-string before parsing the final expression. This language supports not only the evaluation of flexible [Expressions](./expression_syntax) at runtime, but also comes with conditionals, loops and variable-binding; the sky is the limit!
 
-```component-markup
+```!component-markup
 <gray>
   Online players:<space/>
   <red
-    *for-player_name="player_names"
+    *for-player_name="['Alex', 'Steve', 'Notch', 'BlvckBytes']"
     *if="player_name neq 'Steve'"
     *let-position_number="loop.index + 1"
-    *for-separator={<gray>, }
+    *for-separator={<gray>,<space/>}
   >
-    <run-command
+    <!-- Just as a visual example - could also be <run-command/> -->
+    <hover-text
       value=`/tp {player_name}`
     >#{position_number} {player_name}</>
   </>

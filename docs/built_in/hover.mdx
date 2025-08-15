@@ -34,15 +34,13 @@ Displays a single line of text when hovering.
 
 ### Example
 
-```component-markup
+```!component-markup
 <hover-text
   value={
     <red>Displayed when hovering
   }
 ><aqua>My text</*>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/hover_show_text.png')} />
 
 ## Show Item
 
@@ -112,7 +110,7 @@ as soon as multiline tooltips are to be displayed, `l-cm: <hover-item>` becomes 
 that there is a bit more spacing in-between the item-name and the first lore-line than is between subsequent
 lore-lines, which is why this special markup-slot would make for a great headline, as to not break uniformity.
 
-```component-markup
+```!component-markup
 <hover-item
   name={
     <red>First line
@@ -124,8 +122,6 @@ lore-lines, which is why this special markup-slot would make for a great headlin
   }
 ><yellow>My text</>
 ```
-
-<img className='rendered-image' src={useBaseUrl('/img/hover_show_item_multiline.png')} />
 
 #### Mimicking Items
 
@@ -150,7 +146,7 @@ Let's take the following real item as a template:
 
 Then, the following markup, which could easily become data-driven, will perfectly represent its real tooltip:
 
-```component-markup
+```!component-markup
 <hover-item
   hide-properties
   name={
@@ -174,10 +170,6 @@ Then, the following markup, which could easily become data-driven, will perfectl
   }
 ><yellow>My item
 ```
-
-Yielding in the following result:
-
-<img className='rendered-image' src={useBaseUrl('/img/hover_show_item_item_result.png')} />
 
 ## Show Entity
 
