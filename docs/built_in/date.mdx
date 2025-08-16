@@ -50,6 +50,17 @@ Formats a given timestamp, or the current time (for `l-me: null`-values), based 
       multiValue: false,
       type: AttributeType.STRING,
     },
+    {
+      name: 'locale',
+      aliases: [],
+      description: [
+        'Dictates names, number-styles, etc.',
+        'E.g. de_AT, en_GB, etc.'
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
   ]
 }} />
 
@@ -59,7 +70,7 @@ Formats a given timestamp, or the current time (for `l-me: null`-values), based 
 
 When not supplying a value, or the value evaluates to null, the current time will automatically be used.
 
-```!component-markup
+```!!!component-markup
 The time is: <&b><date format="HH:mm:ss" />
 ```
 
