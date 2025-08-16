@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useRef, useEffect } from 'react';
 import { useThemeConfig } from '@docusaurus/theme-common';
 import { EditorState, Extension, RangeSet, RangeSetBuilder, StateEffect, StateField, Transaction } from '@codemirror/state';
 import { tokenize } from '../custom-prism/component-markup';
@@ -259,6 +259,9 @@ export default function ExtendedCodeMirror({
 }): ReactNode {
   const isBrowser = useIsBrowser();
 
+  let obfuscatedInterval: ReturnType<typeof setInterval> | null = null;
+  let forceUpdateInterval: ReturnType<typeof setInterval> | null = null;
+
   if (isBrowser) {
     injectTokenStyle();
     injectLanguageMappings();
@@ -350,10 +353,11 @@ export default function ExtendedCodeMirror({
         this.charPool = 'ABCDEFGHJKLMNOPQRSTUVWXYZ0123456789abcdeghjmnopqrsuvwxyz§$%&=?^/\\-#_';
         this.inject(view);
 
-        setInterval(() => this.updateObfuscatedTerminals(), 50);
+        if (obfuscatedInterval == null)
+          obfuscatedInterval = setInterval(() => this.updateObfuscatedTerminals(), 50);
 
-        if (bangCount > 1)
-          setInterval(() => view.dispatch({ effects: forceUpdateEffect.of() }), 1000 / bangCount);
+        if (bangCount > 1 && forceUpdateInterval == null)
+          forceUpdateInterval = setInterval(() => view.dispatch({ effects: forceUpdateEffect.of() }), 1000 / bangCount);
 
         window.addEventListener('pointermove', event => this.handlePointerMove(event.clientX, event.clientY));
       }
@@ -559,6 +563,16 @@ export default function ExtendedCodeMirror({
       errorLinterExtension,
       errorTooltipExtension
     );
+
+    if (isBrowser) {
+      useEffect(() => {
+        if (obfuscatedInterval !== null)
+          clearInterval(obfuscatedInterval);
+
+        if (forceUpdateInterval !== null)
+          clearInterval(forceUpdateInterval);
+      });
+    }
 
     if (editable && vimMode)
       extensions.push(vim());
