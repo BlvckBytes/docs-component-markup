@@ -28,10 +28,10 @@ public abstract class TagDefinition {
     this.tagPriority = tagPriority;
   }
 
-  public abstract boolean matchName(StringView tagName);
+  public abstract boolean matchName(InputView tagName);
 
   public abstract @NotNull MarkupNode createNode(
-    @NotNull StringView tagName,
+    @NotNull InputView tagName,
     @NotNull AttributeMap attributes,
     @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
@@ -96,13 +96,13 @@ public abstract class MarkupNode {
   public @Nullable ExpressionNode ifCondition;
   public @Nullable ExpressionNode useCondition;
 
-  public final StringView positionProvider;
+  public final InputView positionProvider;
 
   public @Nullable List<MarkupNode> children;
   public @Nullable LinkedHashSet<LetBinding> letBindings;
 
   public MarkupNode(
-    StringView positionProvider,
+    InputView positionProvider,
     @Nullable List<MarkupNode> children,
     @Nullable LinkedHashSet<LetBinding> letBindings
   ) {
@@ -291,6 +291,8 @@ the output, all thanks to the provided interpreter-reference:
 ```java
 public interface Interpreter {
 
+  @Nullable PlatformEntity getRecipient();
+
   TemporaryMemberEnvironment getEnvironment();
 
   @NotNull String evaluateAsString(@Nullable ExpressionNode expression);
@@ -323,6 +325,8 @@ public interface Interpreter {
 
   ComponentConstructor getComponentConstructor();
 
+  DataProvider getDataProvider();
+
   int getCurrentSubtreeDepth();
 
 }
@@ -351,7 +355,7 @@ public interface TemporaryMemberEnvironment extends InterpretationEnvironment {
 
 When introducing variable-values which are modified by reference later on, as is the case with the `loop`-variable
 which the intrinsic `*for` attribute introduces, they should implement the following interface, as to allow the
-system to create a static copy to be used when snapshotting the environment for deferred components or captures.
+system to create a static copy to be used when snapshotting the environment for captures.
 
 ```java
 public interface InternalCopyable {
@@ -402,241 +406,3 @@ public interface OutputBuilder {
 
 }
 ```
-
-## Deferred Content
-
-:::info
-Deferred content is still not entirely nailed down and thus considered experimental.
-:::
-
-The concept of deferred components represents another stage of templating: tayloring content
-to the specific recipient it's sent to. If this information is already available at the time
-of interpretation, the recipient may be passed to the call of the interpreter, causing deferred
-components to render immediately, as they now have access to the recipient-reference; otherwise,
-the result will contain one or more instances of a custom derivative of the platform's native
-component which essentially contains a context-closure that calls back into the deferred node
-once said reference is provided later on, right before sending/applying the component.
-
-This concept solves the entire headache of server-side rendered (SSR) components, which simplifies
-platform-implementations by a great deal without having to compromise on available features;
-quite the opposite - we may introduce whichever SSR-tags and features that prove beneficial
-in a version-agnostic manner. Usually, these include: NBT-data, selectors, score-values and
-the like.
-
-### Advantages
-
-The main advantage deferred content has over simply employing environment-variables to interpret
-ASTs on a per-recipient basis is that this way, non-tailored components are constructed only once,
-instead of over and over again, yielding the exact same result each time; think of it as a partially
-cached tree. To ensure further efficiency, the paths to deferred components within the result are
-stored on a type of prefix-tree, avoiding to needlessly walk all children; once deferred components
-are invoked, their result is spliced into the final output by cloning along the necessary paths, leaving
-the immutable template untouched.
-
-### The Deferred Node
-
-How does a tag register itself as being deferred? It simply emits a partial tree which either is- or
-contains a deferred node, where such a node has to be able to create a parameter to be stored within
-the closure, as well as to render the deferred placeholder as concrete and tailored components.
-
-```java
-public abstract class DeferredNode<Parameter extends RendererParameter> extends UnitNode implements DeferredRenderer<Parameter> {
-
-  public DeferredNode(int position, @Nullable LinkedHashSet<LetBinding> letBindings) {
-    super(position, letBindings);
-  }
-
-  public abstract Parameter createParameter(Interpreter interpreter);
-
-}
-```
-
-While the parameter may be of whatever desired type, it is considered good practise to implement a proper
-plain-text representation which is substituted whenever raw (non-substituted) results are applied/sent such
-that the API-user knows that they forgot to pass a receiver-reference before applying said result;
-this may also be rather handy when debugging one's template and while developing the system in general.
-
-```java
-public interface RendererParameter {
-
-  String asPlainText();
-
-}
-```
-
-The deferred renderer receives the parameter constructed prior, a reference to the component-constructor, the
-context of the slot which it is rendered into, as to simply pass on to the interpreter (if required) to ensure
-proper reset-behavior, as well as a snapshot of the environment containing the state at the point in time of the
-corresponding tag within the cycle of interpretation. All of this information allows for seamless integration.
-
-```java
-public interface DeferredRenderer<Parameter extends RendererParameter> {
-
-  /**
-   * @return A list of components, where (if supported by the slot) each represents
-   *         another line; return null to become invisible (no content).
-   */
-  @Nullable List<Object> renderComponent(
-    Parameter parameter,
-    ComponentConstructor componentConstructor,
-    InterpretationEnvironment environment,
-    SlotContext slotContext,
-    @Nullable Object recipient
-  );
-}
-```
-
-### Example
-
-Let's implement a very simple tag called `l-cm: <player-name/>`, starting out by defining a parameter
-which just captures whether to use the display-name or the plain account-name.
-
-```java
-public class PlayerNameParameter implements RendererParameter {
-
-  public boolean displayName;
-
-  public PlayerNameParameter(boolean displayName) {
-    this.displayName = displayName;
-  }
-
-  @Override
-  public String asPlainText() {
-    return "PlayerName{displayName=" + displayName + "}";
-  }
-}
-```
-
-Next up, by deriving the `DeferredNode`, we prepare for defining the corresponding tag - its attributes
-will feed into the constructor of this class, allowing for not only the aforementioned display-name
-flag, but also to provide a custom markup-renderer.
-
-```java
-public class PlayerNameNode extends DeferredNode<PlayerNameParameter> {
-
-  public final @Nullable ExpressionNode displayName;
-  public final @Nullable MarkupNode renderer;
-
-  public PlayerNameNode(
-    @Nullable ExpressionNode displayName,
-    @Nullable MarkupNode renderer,
-    int position,
-    @Nullable LinkedHashSet<LetBinding> letBindings
-  ) {
-    super(position, letBindings);
-
-    this.displayName = displayName;
-    this.renderer = renderer;
-  }
-
-  @Override
-  public @Nullable List<Object> renderComponent(
-    PlayerNameParameter parameter,
-    ComponentConstructor componentConstructor,
-    InterpretationEnvironment environment,
-    SlotContext slotContext,
-    @Nullable Object recipient
-  ) {
-    if (recipient == null)
-      return null;
-
-    DeferredDataProvider provider = componentConstructor.getDataProvider();
-    String name = parameter.displayName ? provider.getDisplayName(recipient) : provider.getName(recipient);
-
-    if (renderer == null)
-      return Collections.singletonList(componentConstructor.createTextComponent(name));
-
-    // v- Do not modify the component of the closure, as it may be reused!
-    environment = environment.copy().withVariable("player_name", name);
-
-    //    Deferred content allows for fully fledged markup!
-    //    By passing the recipient directly to the interpreter, deeply nested deferred tags
-    //    will render immediately, assuring that the unprocessed components will not contain
-    //    any more closures - because all information is available right now anyways. This
-    // v- allows for a great deal of reusable and context-insensitive templating.
-    return MarkupInterpreter.interpret(
-      componentConstructor, environment, recipient, slotContext, renderer
-    ).unprocessedComponents;
-  }
-
-  @Override
-  public PlayerNameParameter createParameter(Interpreter interpreter) {
-    return new PlayerNameParameter(interpreter.evaluateAsBoolean(this.displayName));
-  }
-}
-```
-
-Last but not least, the tag can be defined, which now constructs the node above, thereby
-registering deferred content.
-
-```java
-public class PlayerNameTag extends TagDefinition {
-
-  public PlayerNameTag() {
-    super(TagClosing.SELF_CLOSE, TagPriority.NORMAL);
-  }
-
-  @Override
-  public boolean matchName(StringView tagName) {
-    return tagName.contentEquals("player-name", true);
-  }
-
-  @Override
-  public @NotNull MarkupNode createNode(
-    @NotNull StringView tagName,
-    @NotNull AttributeMap attributes,
-    @Nullable LinkedHashSet<LetBinding> letBindings,
-    @Nullable List<MarkupNode> children
-  ) {
-    return new PlayerNameNode(
-      attributes.getOptionalExpressionNode("display-name"),
-      attributes.getOptionalMarkupNode("renderer"),
-      tagName, letBindings
-    );
-  }
-}
-```
-
-When rendering the tag, it works as expected - especially with monochrome color.
-
-```component-markup
-<gray>Hello, <aqua><player-name/></>! :)
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/deferred_example_monochrome.png')} />
-
-If gradients or rainbows are to be applied, they will not be able to take effect as expected,
-since the deferred node is represented by a single component at the time of interpretation,
-which does not yet know the content and thus its length - making it be an atomic unit.
-
-```component-markup
-<gray>Hello, <rainbow><player-name/></>! :)
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/deferred_example_rainbow_outer.png')} />
-
-For this exact reason, the renderer allows to interpret custom markup at the time of
-substituting deferred content - now, rainbows apply properly. This style of implementation
-allows for much flexibility, like to provide custom representations for retrieved data. As
-can be seen in the implementation of the corresponding node above, the variable `player_name`
-is introduced, containing the resolved value to be visualised however desired.
-
-```component-markup
-<gray>Hello, <player-name renderer={ <rainbow>{player_name} } />! :)
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/deferred_example_rainbow_inner.png')} />
-
-The environment (which includes all temporary variables) is captured at the
-point in time during interpretation at which the corresponding deferred tag resides, which is
-also passed down into the render-method - thus, "outer" variables are easily accessible. This
-combination allows for flexible and uniform markup across multiple stages of evaluation.
-
-```component-markup
-<gray *let-my_var="'test'">Hello,<space/>
-  <player-name
-    renderer={ <rainbow>{player_name}</>, <red>{my_var} }
-  />! :)
-```
-
-<img className='rendered-image' src={useBaseUrl('/img/deferred_example_environment_snapshot.png')} />

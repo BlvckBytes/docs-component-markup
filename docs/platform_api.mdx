@@ -18,6 +18,8 @@ set of features with just a few basic necessities provided.
 ```java
 public interface ComponentConstructor {
 
+  boolean doesSupport(PlatformFeature feature);
+
   // ================================================================================
   // SlotContext
   // ================================================================================
@@ -34,13 +36,6 @@ public interface ComponentConstructor {
 
   Object createTranslateComponent(String key, List<Object> with, @Nullable String fallback);
 
-  DeferredComponent createDeferredComponent(
-    DeferredRenderer<?> renderer,
-    RendererParameter parameter,
-    InterpretationEnvironment environmentSnapshot,
-    SlotContext slotContext
-  );
-
   // ================================================================================
   // Click-Action
   // ================================================================================
@@ -51,7 +46,7 @@ public interface ComponentConstructor {
 
   void setClickOpenFileAction(Object component, String value);
 
-  void setClickOpenUrlAction(Object component, URI value);
+  void setClickOpenUrlAction(Object component, String value);
 
   void setClickRunCommandAction(Object component, String value);
 
@@ -63,7 +58,7 @@ public interface ComponentConstructor {
 
   void setHoverItemAction(
     Object component,
-    @Nullable String material,
+    String material,
     @Nullable Integer count,
     @Nullable Object name,
     @Nullable List<Object> lore,
@@ -101,49 +96,21 @@ public interface ComponentConstructor {
   void setItalicFormat(Object component, TriState value);
 
   // ================================================================================
-  // Members
+  // Children
   // ================================================================================
 
-  /**
-   * @return Non-null value (component; either equal to input or clone if that was necessary
-   * or more efficient to swap out the members via) iif the slot was valid on this component
-   */
-  @Nullable Object setMembers(Object component, MembersSlot slot, @Nullable List<Object> children);
-
-  /**
-   * @return Non-null value iif the slot was valid on this component
-   */
-  @Nullable List<Object> getMembers(Object component, MembersSlot slot);
-
-  /**
-   * Creates a shallow copy of the given component which also copies all member-lists
-   * such that they can be safely manipulated.
-   */
-  Object shallowCopyIncludingMemberLists(Object component);
-
-  // ================================================================================
-  // Miscellaneous
-  // ================================================================================
-
-  DeferredDataProvider getDataProvider();
-
-  String stripToPlainText(Object component);
+  void setChildren(Object component, @Nullable List<Object> children);
 }
 ```
 
-## Deferred Data-Provider
+## Data-Provider
 
-In order to evaluate deferred components which are tailored to a specific receiver, the
-data-provider again implements platform-specific versions to call into.
+The system requires to resolve data from the state-machine that is the Minecraft-server, e.g. finding entities via selectors, reading NBT-data from various sources and so on and so forth.
 
 ```java
-public interface DeferredDataProvider {
+public interface DataProvider {
 
-  String getName(@NotNull Object recipient);
-
-  String getDisplayName(@NotNull Object recipient);
-
-  // TODO: NBT data access, selector execution, etc.
+  List<PlatformEntity> executeSelector(TargetSelector selector, Coordinates origin, @Nullable PlatformEntity self);
 
 }
 ```

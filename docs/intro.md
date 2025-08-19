@@ -69,9 +69,6 @@ To be frank, getting all of the countless little details and edge-cases of this 
 - Finalizing the API of the `ComponentConstructor`
   - Implementing the `ComponentConstructor` for the whole desired version-range
   - Coming up with a simple solution to load them on-demand from a repo (possibly including local caching)
-- Nailing down the last few details of the `DeferredComponent`
-  - Implement `Selector`- and `Coordinates`-parsing and execution
-  - Finalizing the API of the `DeferredDataProvider`
 - Designing the `ComponentApplicator` from the ground up (yet uncharted territory)
 
 ...and possibly a few other bits and bobs, :).
