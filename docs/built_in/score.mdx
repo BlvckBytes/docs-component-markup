@@ -18,18 +18,29 @@ acts as a placeholder and must thereby be self-closing (does not accept content)
   selfClosing: true,
   attributes: [
     {
-      name: 'holder',
+      name: 'name',
       aliases: [],
-      description: 'Selector to decide score-holders with',
+      description: 'Name of the score-holder (player-name)',
       fallback: null,
       multiValue: false,
-      type: AttributeType.SELECTOR,
+      type: AttributeType.STRING,
     },
     {
       name: 'objective',
       aliases: [],
       description: 'Name of the target-objective',
       fallback: null,
+      multiValue: false,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'type',
+      aliases: [],
+      description: [
+        'Additional objective-parameter if required',
+        'e.g. sand for objective mine_block'
+      ],
+      fallback: 'null',
       multiValue: false,
       type: AttributeType.STRING,
     },
@@ -50,17 +61,12 @@ acts as a placeholder and must thereby be self-closing (does not accept content)
       type: AttributeType.STRING,
     },
     {
-      name: 'separator',
+      name: 'renderer',
       aliases: [],
-      description: 'Separator injected in-between list-items',
-      fallback: 'null',
-      multiValue: false,
-      type: AttributeType.MARKUP,
-    },
-    {
-      name: 'representation',
-      aliases: [],
-      description: 'Representation of each item; introduces the {value} placeholder',
+      description: [
+        'Custom renderer to display a value',
+        'Introduces the {score_value} placeholder'
+      ],
       fallback: 'null',
       multiValue: false,
       type: AttributeType.MARKUP,
@@ -68,6 +74,40 @@ acts as a placeholder and must thereby be self-closing (does not accept content)
   ]
 }} />
 
-## Example
+## Examples
 
-TODO: Add example
+### Plain Value
+
+In order to retrieve a score-value as-is, there's no need to specify a custom renderer.
+
+:::info
+By default, the scoreboard does not track any of the existing vanilla criteria, thus they need to be added manually by invoking: `/scoreboard objectives add health health`. For this web-renderer, we randomly generate them.
+:::
+
+```!component-markup
+The score-value is: <&b><score name="BlvckBytes" objective="health"/>
+```
+
+### Modified Value
+
+With the renderer, score-values may be modified as desired; let's transform the count of half-hearts that `health` shows a fractional number.
+
+```!component-markup
+The score-value is: <&b><score
+  name="BlvckBytes"
+  objective="health"
+  renderer={{score_value / 2.0}}
+/>
+```
+
+### Typed Value
+
+Some objectives require a type, like when one wants to resolve how many blocks of a specific material have been mined by a player.
+
+```!component-markup
+The score-value is: <&b><score
+  name="BlvckBytes"
+  objective="mine_block"
+  type="iron_ore"
+/>
+```
