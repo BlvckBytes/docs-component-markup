@@ -12,7 +12,7 @@ While there are broadly accepted "solutions" in existence, they all fail to sati
 
 ### Readability
 
-As for readability and maintainability, we employ proper XML-syntax with named attributes instead of trying to compress information ad-absurdum; also, components as arguments are not mere strings, but fully fledged markup.
+As for readability and maintainability, we employ a custom-tailored derivative of XML-syntax called CML (*Component Markup Language*), relying on named attributes instead of trying to compress information ad-absurdum; also, components as arguments are not mere strings, but fully fledged markup.
 
 ```!component-markup
 <hover-item
