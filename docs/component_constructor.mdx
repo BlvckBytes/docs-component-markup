@@ -2,14 +2,12 @@
 sidebar_position: 4
 ---
 
-# Platform API
+# Component Constructor
 
 This project remains entirely platform-agnostic by working with externally provided implementations of
-the platform-API, which comes with many benefits, such as the fact that no intermediate representation
+the `ComponentConstructor`, which comes with many benefits, such as the fact that no intermediate representation
 and thus no conversions are necessary - also, proper automated testing can be conducted using independent
 mocks.
-
-## Component-Constructor
 
 In order to construct- and interact with components native to the platform at hand, the
 component-constructor offers various endpoints, allowing the system to unfold the full
@@ -18,7 +16,7 @@ set of features with just a few basic necessities provided.
 ```java
 public interface ComponentConstructor {
 
-  boolean doesSupport(PlatformFeature feature);
+  boolean doesSupport(ConstructorFeature feature);
 
   // ================================================================================
   // SlotContext
@@ -100,17 +98,5 @@ public interface ComponentConstructor {
   // ================================================================================
 
   void setChildren(Object component, @Nullable List<Object> children);
-}
-```
-
-## Data-Provider
-
-The system requires to resolve data from the state-machine that is the Minecraft-server, e.g. finding entities via selectors, reading NBT-data from various sources and so on and so forth.
-
-```java
-public interface DataProvider {
-
-  List<PlatformEntity> executeSelector(TargetSelector selector, Coordinates origin, @Nullable PlatformEntity self);
-
 }
 ```

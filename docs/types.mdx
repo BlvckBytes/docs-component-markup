@@ -148,43 +148,6 @@ where if an attribute operates on whole numbers only, decimal digits will be tru
 
 When providing a <TypeRender type={AttributeType.BOOLEAN} />, `l-me: true` yields `l-me: 1` and `l-me: false` yields `l-me: 0`. When providing a <TypeRender type={AttributeType.STRING} />, the system tries to parse it as a number, meaning that `l-me: '512'` will become `l-me: 512`; malformed numbers result in `l-me: 0`.
 
-## Coordinates
-
-TODO: Write this part of the documentation
-
-(https://minecraft.fandom.com/wiki/Coordinates#Commands)
-
-The <TypeRender type={AttributeType.COORDINATES} /> type...
-
-## Selector
-
-TODO: Write this part of the documentation
-
-(https://minecraft.fandom.com/wiki/Target_selectors)
-
-The <TypeRender type={AttributeType.SELECTOR} /> type...
-
-## PlatformEntity
-
-This wrapper represents a platform-agnostic minimal overview of an entity, which may be a player, or any other creature residing within any given world. It contains the following properties:
-
-- `name` - Name of the entity
-- `display_name` - Custom display-name of the entity, if any (otherwise falls back to `name`)
-- `uuid` - The UUIDv4 which identifies this entity
-- `x` - The entity's block-location on the `x`-axis
-- `y` - The entity's block-location on the `y`-axis
-- `z` - The entity's block-location on the `z`-axis
-- `location` - The entity's location as a [Location](#location)
-
-## Location
-
-This wrapper represents a point in 3D-space within a named world. It contains the following properties:
-
-- `x` - X-coordinate
-- `y` - Y-coordinate
-- `z` - Z-coordinate
-- `world` - The name of the world, optional (`l-me: null` means `l-me: "world"`)
-
 ## The ValueInterpreter
 
 The behavior of interpreting one type as another is defined by the `ValueInterpreter`:

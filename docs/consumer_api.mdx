@@ -54,7 +54,6 @@ possible, as to not bring down whatever relied on receiving an output to render.
 // Platform-specific reference obtained via the factory
 // TODO: An implementation of said factory still requires more work
 ComponentConstructor componentConstructor;
-DataProvider dataProvider;
 
 // An instance which has been successfully parsed prior
 MarkupNode ast;
@@ -68,9 +67,7 @@ InterpretationEnvironment myEnvironment = new InterpretationEnvironment()
 
 List<Object> components = MarkupInterpreter.interpret(
   componentConstructor,
-  dataProvider,
   myEnvironment,
-  null, // No recipient that tags may custom-tailor for
   SlotType.CHAT,
   ast
 );
