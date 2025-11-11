@@ -41,11 +41,19 @@ function SmartCode(props: { children: React.ReactNode; className?: string }) {
       if (language == "java")
         return <CodeBlock {...props} />;
 
+      let editable = false;
+
+      if (language.endsWith('-editable')) {
+        language = language.substring(0, language.length - '-editable'.length);
+        editable = true;
+      }
+
       return <ExtendedCodeMirror
         bangCount={bangCount}
         language={language}
         lenient={true}
         value={children.trim()}
+        editable={editable}
       />
     }
 
