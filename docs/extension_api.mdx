@@ -224,11 +224,11 @@ as for every of its children:
 ```java
 public interface InterpreterInterceptor {
 
-  InterceptionResult interceptInterpretation(MarkupNode node, Interpreter interpreter);
+  InterceptionResult interceptInterpretation(MarkupNode node, Interpreter<?, ?> interpreter);
 
-  void afterInterpretation(MarkupNode node, Interpreter interpreter);
+  void afterInterpretation(MarkupNode node, Interpreter<?, ?> interpreter);
 
-  void onSkippedByChild(MarkupNode node, Interpreter interpreter, InterceptionResult priorResult);
+  void onSkippedByChild(MarkupNode node, Interpreter<?, ?> interpreter, InterceptionResult priorResult);
 
 }
 ```
@@ -289,9 +289,7 @@ introduce temporary variables, interpret markup subtrees, construct platform-spe
 the output, all thanks to the provided interpreter-reference:
 
 ```java
-public interface Interpreter {
-
-  @Nullable PlatformEntity getRecipient();
+public interface Interpreter<B, C> {
 
   TemporaryMemberEnvironment getEnvironment();
 
@@ -321,11 +319,9 @@ public interface Interpreter {
 
   boolean interpret(MarkupNode node, @Nullable Runnable afterScopeBegin);
 
-  OutputBuilder getCurrentBuilder();
+  OutputBuilder<B, C> getCurrentBuilder();
 
-  ComponentConstructor getComponentConstructor();
-
-  DataProvider getDataProvider();
+  ComponentConstructor<B, C> getComponentConstructor();
 
   int getCurrentSubtreeDepth();
 
@@ -392,17 +388,17 @@ When it comes to emitting intercepted or even custom elements to the final outpu
 reference, as provided by the interpreter, allows for much flexibility:
 
 ```java
-public interface OutputBuilder {
+public interface OutputBuilder<B> {
 
   void onBreak();
 
   void onNonTerminalBegin(MarkupNode nonTerminal);
 
-  @Nullable Object onNonTerminalEnd();
+  @Nullable B onNonTerminalEnd();
 
-  void onText(TextNode node, @Nullable Consumer<Object> creationHandler, boolean doNotBuffer);
+  void onText(TextNode node, @Nullable Consumer<B> creationHandler, boolean doNotBuffer);
 
-  Object onUnit(UnitNode node);
+  B onUnit(UnitNode node);
 
 }
 ```
