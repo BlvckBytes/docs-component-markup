@@ -215,6 +215,17 @@ avg(8, 21, 4, 3, 3, 5, 8, 2)
 
 The above will result in `l-me: 6.75`.
 
+#### Len
+
+Calculates the length of either a provided map, array, collection or string; `l-me: null` as
+well as other, incompatible values will be passed through untouched.
+
+```markup-expression
+len("Hello, world")
+```
+
+The above will result in `l-me: 12`.
+
 ## String Transformation
 
 The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
