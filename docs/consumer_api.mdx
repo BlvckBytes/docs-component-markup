@@ -78,11 +78,11 @@ List<Object> components = MarkupInterpreter.interpret(
 ## Logging Errors
 
 Since runtime-errors are handled gracefully, logging is an integral part of this system; thus, the internally
-widely-used `LoggerProvider` has been introduced, which allows the user to provide a reference of their own
+widely-used `GlobalLogger` has been introduced, which allows the user to provide a reference of their own
 at any point in time:
 
 ```java
-public class LoggerProvider {
+public class GlobalLogger {
 
   private static Logger logger = Logger.getAnonymousLogger();
 
@@ -105,7 +105,29 @@ public class LoggerProvider {
   }
 
   public static void set(Logger logger) {
-    LoggerProvider.logger = logger;
+    GlobalLogger.logger = logger;
   }
+}
+```
+
+The above will only log internal errors, meaning actual divergences from expected behavior. When
+it comes to user-errors, such as malformed expressions or invalid tag-usage, these are logged
+separately, using the dependency-injected `InterpreterLogger`, such that the user of the library
+can decide how to handle these, for example by prefixing log-lines with additional context, like
+the path of the corresponding configuration-file on the system.
+
+```java
+public interface InterpreterLogger {
+
+  default void logErrorScreen(InputView positionProvider, String message) {
+    log(positionProvider, positionProvider.getPosition(), message, null);
+  }
+
+  default void logErrorScreen(InputView positionProvider, String message, Throwable e) {
+    log(positionProvider, positionProvider.getPosition(), message, null);
+  }
+
+  void log(InputView view, int position, String message, @Nullable Throwable e);
+
 }
 ```
