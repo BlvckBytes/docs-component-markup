@@ -198,6 +198,16 @@ a.unstyled-anchor:active
   border-bottom: .125rem solid currentcolor;
 }
 
+.cm-editor {
+  overflow: visible !important;
+}
+
+.cm-scroller {
+  overflow: none !important;
+  border-radius: .35rem;
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
+
 @font-face {
   font-family: 'minecraft';
   src: url('/font/MinecraftRegular.otf');
