@@ -339,6 +339,7 @@ export default function ExtendedCodeMirror({
   interface HoverNode {
     container: Element,
     tooltip: HTMLElement
+    depth: number;
   }
 
   const renderResultInjectorExtension = ViewPlugin.fromClass(
@@ -367,9 +368,12 @@ export default function ExtendedCodeMirror({
           return;
 
         const hoveredElements = document.elementsFromPoint(clientX, clientY);
+        const activeHoverNodes: HoverNode[] = [];
 
         for (let hoverIndex = 0; hoverIndex < this.hoverNodes.length; ++hoverIndex) {
           const hoverNode = this.hoverNodes[hoverIndex];
+
+          hoverNode.tooltip.classList.remove('rendered-component__hover-text--active');
 
           let isActive = false;
 
@@ -389,23 +393,23 @@ export default function ExtendedCodeMirror({
             break;
           }
 
-          if (!isActive) {
-            hoverNode.tooltip.classList.remove('rendered-component__hover-text--active');
-            continue;
-          }
-
-          const containerRect = hoverNode.tooltip.parentElement.getBoundingClientRect();
-
-          hoverNode.tooltip.style.left = `${clientX - containerRect.x}px`;
-          hoverNode.tooltip.style.top = `${clientY - containerRect.y}px`;
-
-          hoverNode.tooltip.classList.add('rendered-component__hover-text--active');
-
-          for (let nextHoverIndex = hoverIndex + 1; nextHoverIndex < this.hoverNodes.length; ++nextHoverIndex)
-            this.hoverNodes[nextHoverIndex].tooltip.classList.remove('rendered-component__hover-text--active');
-
-          break;
+          if (isActive)
+            activeHoverNodes.push(hoverNode);
         }
+
+        if (activeHoverNodes.length == 0)
+          return;
+
+        // Choose the deepest hover-node (most specific), seeing how hover-events
+        // may be nested within each other - the client also handles this properly.
+        const hoverNode = activeHoverNodes.sort((a, b) => b.depth - a.depth)[0];
+
+        const containerRect = hoverNode.tooltip.parentElement.getBoundingClientRect();
+
+        hoverNode.tooltip.style.left = `${clientX - containerRect.x}px`;
+        hoverNode.tooltip.style.top = `${clientY - containerRect.y}px`;
+
+        hoverNode.tooltip.classList.add('rendered-component__hover-text--active');
       }
 
       randomObfuscationChar() {
@@ -440,10 +444,10 @@ export default function ExtendedCodeMirror({
         this.hoverNodes = [];
 
         for (const component of components)
-          this.collectVariousTargets(component);
+          this.collectVariousTargets(component, 0);
       }
 
-      collectVariousTargets(element: Element, isActive: boolean = false) {
+      collectVariousTargets(element: Element, depth: number, isActive: boolean = false) {
         isActive ||= element.classList.contains('rendered-component--obfuscated');
 
         let childCount = element.children.length;
@@ -457,11 +461,11 @@ export default function ExtendedCodeMirror({
           const child = element.children[childIndex];
 
           if (child.classList.contains('rendered-component__hover-text')) {
-            this.hoverNodes.push({ container: element, tooltip: child as HTMLElement });
+            this.hoverNodes.push({ container: element, depth, tooltip: child as HTMLElement });
             element.removeChild(child);
           }
 
-          this.collectVariousTargets(child, isActive);
+          this.collectVariousTargets(child, depth + 1, isActive);
         }
       }
 
