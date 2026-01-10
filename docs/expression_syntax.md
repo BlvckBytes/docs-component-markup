@@ -30,6 +30,27 @@ When specifying string-literals inside of attribute-values which themselves use 
 ```
 :::
 
+### Multiline
+
+In some cases, especially when making use of [Immediate Array](#immediate-array) or [Immediate Map](#immediate-map), having string-literals span
+over multiple lines can be rather handy, as to increase readability. To mark a string as multiline,
+simply repeat its quote three times in a row, making either `"""` or `'''` become the new
+string-literal delimiter.
+
+```component-markup
+<my-tag
+  *let-data="""
+  {
+    first_key: "Hello, world!",
+    second_key: 512,
+    third_key: .21,
+    fourth_key: true,
+    fifth_key: false
+  }
+  """
+>
+```
+
 ## Numbers
 
 Numeric values are always expressed using the decimal system, i.e. digits `0` through `9`.
@@ -295,6 +316,12 @@ Analogous to immediate arrays, immediate maps may also be combined with the intr
 >Hello, {veggy}!
 ```
 
+In order to be directly compatible with JSON for quick debugging, map-keys may also be
+string-literals, as follows:
+
+```markup-expression
+{ "first": 5, "second": "hello", "third": true }
+```
 
 ## Range Operator
 
