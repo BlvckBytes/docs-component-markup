@@ -247,6 +247,11 @@ len("Hello, world")
 
 The above will result in `l-me: 12`.
 
+#### Has
+
+Checks whether its operand, be it an identifier or a string, exists within the current environment;
+`l-me: null` as well as other, incompatible values will be passed through untouched.
+
 ## String Transformation
 
 The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let's assume an input of `l-me: value` being `l-me: ' Hellö wöRLd '`.
