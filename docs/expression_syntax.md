@@ -250,7 +250,21 @@ The above will result in `l-me: 12`.
 #### Has
 
 Checks whether its operand, be it an identifier or a string, exists within the current environment;
-`l-me: null` as well as other, incompatible values will be passed through untouched.
+`l-me: null` will be passed through untouched. Inputs are sanitized, meaning that casing and
+formatting are normalized before making the request.
+
+```markup-expression
+has("my_environment_variable")
+```
+
+#### Env
+
+Accesses the value corresponding to the name as reflected by the string of its operand within the current environment; `l-me: null` will be passed through untouched. Inputs are sanitized, meaning
+that casing and formatting are normalized before making the request.
+
+```markup-expression
+env("my_environment_variable")
+```
 
 ## String Transformation
 
@@ -794,8 +808,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Negation</td>
       <td>`not`</td>
-      <td rowSpan={15}>13</td>
-      <td rowSpan={15}>right-to-left</td>
+      <td rowSpan={22}>13</td>
+      <td rowSpan={22}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
@@ -846,12 +860,40 @@ Associativity regards the order of operations on chains of operators of same pre
       <td>`round()`</td>
     </tr>
     <tr>
-      <td>Floor</td>
+      <td>Round Down</td>
       <td>`floor()`</td>
     </tr>
     <tr>
-      <td>Ceil</td>
+      <td>Round Up</td>
       <td>`ceil()`</td>
+    </tr>
+    <tr>
+      <td>Minimum Value</td>
+      <td>`min()`</td>
+    </tr>
+    <tr>
+      <td>Maximum Value</td>
+      <td>`max()`</td>
+    </tr>
+    <tr>
+      <td>Summation</td>
+      <td>`sum()`</td>
+    </tr>
+    <tr>
+      <td>Averaging</td>
+      <td>`avg()`</td>
+    </tr>
+    <tr>
+      <td>Length</td>
+      <td>`len()`</td>
+    </tr>
+    <tr>
+      <td>Env-Var Existence</td>
+      <td>`has()`</td>
+    </tr>
+    <tr>
+      <td>Env-Var Access</td>
+      <td>`env()`</td>
     </tr>
     <tr>
       <td>Subscripting</td>
