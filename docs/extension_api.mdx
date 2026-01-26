@@ -32,6 +32,7 @@ public abstract class TagDefinition {
 
   public abstract @NotNull MarkupNode createNode(
     @NotNull InputView tagName,
+    boolean selfClosing,
     @NotNull AttributeMap attributes,
     @Nullable LinkedHashSet<LetBinding> letBindings,
     @Nullable List<MarkupNode> children
@@ -147,6 +148,12 @@ public interface AttributeMap {
   @NotNull MarkupList getMandatoryMarkupList(String name, String... aliases);
 
   @NotNull MarkupList getOptionalMarkupList(String name, String... aliases);
+
+  @NotNull MarkupList getRemainingValuesInOrderAsMarkup();
+
+  // v- Miscellaneous
+
+  boolean hasUnusedValues();
 
 }
 ```

@@ -123,6 +123,7 @@ export const decideClassName = (type: string, value: string | null = null): stri
     case "MARKUP__OPERATOR__INTRINSIC_EXPRESSION":
     case "MARKUP__OPERATOR__DYNAMIC_ATTRIBUTE":
     case "MARKUP__OPERATOR__CAPTURE":
+    case "MARKUP__OPERATOR__BIND_BY_NAME":
     case "EXPRESSION__SYMBOLIC_OPERATOR__ANY":
       return "tk-operator";
     case "EXPRESSION__NAMED_PREFIX_OPERATOR":

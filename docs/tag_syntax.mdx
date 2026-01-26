@@ -393,6 +393,29 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
   />
 ```
 
+### By-Name Bound Attributes
+
+As a shorthand for binding dynamic values consisting of a single variable-name (one that is
+in essence equal to the name of the attribute to bind to), the bind-by-name operator `&` may be used.
+
+Instead of writing the redundant form of
+
+```component-markup
+<container [my-value]="my_value" />
+```
+
+one can simply prepend an ampersand to the attribute-name, as follows:
+
+```component-markup
+<container &my_value />
+```
+
+This will have the exact same effect as the longer version shown first. Due to the fact that
+identifiers within expressions use `snake_case`, while attribute-names use `kebab-case`,
+the conversion from the former to the latter style is handled automatically by the system. The
+operand is always denoted as an expression-identifier with underscores, never as a
+markup-attribute with hyphens.
+
 ### If-Conditionals
 
 The simplest form of a conditional is represented by the intrinsic `*if` attribute, which is **always** treated as an expression (square brackets must **not** be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.
