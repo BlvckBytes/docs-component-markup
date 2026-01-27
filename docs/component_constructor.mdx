@@ -39,6 +39,11 @@ public interface ComponentConstructor<B, C> {
 
   B createTextComponent(String text);
 
+  /**
+   * @return Whether the component was a text-component and the operation was successful.
+   */
+  boolean setText(B component, String text);
+
   B createKeyComponent(String key);
 
   B createTranslateComponent(String key, List<C> with, @Nullable String fallback);
