@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Tag Syntax | ComponentMarkup</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://blvckbytes.github.io/docs-component-markup/docs/tag_syntax"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Tag Syntax | ComponentMarkup"><meta data-rh="true" name="description" content="The Component Markup Language has been heavily inspired by XML, while also making various domain-specific improvements as to reduce friction when trying to depict component-templates. The following overview will outline its features and facets one by one, all while explaining why these patterns are in place."><meta data-rh="true" property="og:description" content="The Component Markup Language has been heavily inspired by XML, while also making various domain-specific improvements as to reduce friction when trying to depict component-templates. The following overview will outline its features and facets one by one, all while explaining why these patterns are in place."><link data-rh="true" rel="icon" href="/docs-component-markup/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://blvckbytes.github.io/docs-component-markup/docs/tag_syntax"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/tag_syntax" hreflang="en"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/tag_syntax" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tag Syntax","item":"https://blvckbytes.github.io/docs-component-markup/docs/tag_syntax"}]}</script><link rel="stylesheet" href="/docs-component-markup/assets/css/styles.60646980.css">
-<script src="/docs-component-markup/assets/js/runtime~main.5121d0fc.js" defer="defer"></script>
-<script src="/docs-component-markup/assets/js/main.5ec87d40.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/runtime~main.28c7c0d3.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/main.c6b4d5b4.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -145,13 +145,18 @@ strongly advised to handle this special feature with great care.</p>
 in essence equal to the name of the attribute to bind to), the bind-by-name operator <!-- -->Code-Blocks are only available within the browser<!-- --> may be used.</p>
 <p>Instead of writing the redundant form of</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
-<p>one can simply prepend an ampersand to the attribute-name, as follows:</p>
+<p>one can simply prepend an ampersand to the value-expression, as follows:</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>This will have the exact same effect as the longer version shown first. Due to the fact that
 identifiers within expressions use <!-- -->Code-Blocks are only available within the browser<!-- -->, while attribute-names use <!-- -->Code-Blocks are only available within the browser<!-- -->,
 the conversion from the former to the latter style is handled automatically by the system. The
 operand is always denoted as an expression-identifier with underscores, never as a
 markup-attribute with hyphens.</p>
+<p>For additional convenience, member-access-chains are also supported, where the innermost identifier
+serves as the attribute-name to bind to.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>In the example above, the value of the expression <!-- -->Code-Blocks are only available within the browser<!-- --> will be bound to the
+attribute called <!-- -->Code-Blocks are only available within the browser<!-- -->.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="if-conditionals">If-Conditionals<a href="#if-conditionals" class="hash-link" aria-label="Direct link to If-Conditionals" title="Direct link to If-Conditionals">​</a></h3>
 <p>The simplest form of a conditional is represented by the intrinsic <!-- -->Code-Blocks are only available within the browser<!-- --> attribute, which is <strong>always</strong> treated as an expression (square brackets must <strong>not</strong> be added explicitly); if matching, the tag to which it is applied shows up and if not, the tag will not be evaluated.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
