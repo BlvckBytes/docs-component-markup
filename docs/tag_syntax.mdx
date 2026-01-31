@@ -404,7 +404,7 @@ Instead of writing the redundant form of
 <container [my-value]="my_value" />
 ```
 
-one can simply prepend an ampersand to the attribute-name, as follows:
+one can simply prepend an ampersand to the value-expression, as follows:
 
 ```component-markup
 <container &my_value />
@@ -415,6 +415,16 @@ identifiers within expressions use `snake_case`, while attribute-names use `keba
 the conversion from the former to the latter style is handled automatically by the system. The
 operand is always denoted as an expression-identifier with underscores, never as a
 markup-attribute with hyphens.
+
+For additional convenience, member-access-chains are also supported, where the innermost identifier
+serves as the attribute-name to bind to.
+
+```component-markup
+<container &first.second.third />
+```
+
+In the example above, the value of the expression `l-me: first.second.third` will be bound to the
+attribute called `third`.
 
 ### If-Conditionals
 
