@@ -29,18 +29,6 @@ export class AttributeType {
     '/docs/types#number'
   );
 
-  static COORDINATES = new AttributeType(
-    '#57cd71',
-    'coordinates',
-    '/docs/types#coordinates'
-  );
-
-  static SELECTOR = new AttributeType(
-    '#cd57c1',
-    'selector',
-    '/docs/types#selector'
-  );
-
   constructor(
     public color: string,
     public name: string,
