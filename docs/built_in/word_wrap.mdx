@@ -1,0 +1,90 @@
+---
+sidebar_position: 17
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Word-Wrap
+
+## Overview
+
+Wraps text at a given maximum line length, breaking at spaces where possible and allowing to
+inject custom separators in-between values, if there are multiple of them.
+
+<TagDocRender tag={{
+  name: 'word-wrap',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'The text to be wrapped',
+      fallback: null,
+      multiValue: true,
+      type: AttributeType.STRING,
+    },
+    {
+      name: 'width',
+      aliases: [],
+      description: 'Maximum line-width in characters',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: 'token-renderer',
+      aliases: [],
+      description: [
+        'Renderer called for each displayed token; introduces:',
+        '- token: String',
+      ],
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'value-separator',
+      aliases: [],
+      description: 'Separator in-between values',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+  ]
+}} />
+
+## Examples
+
+### Single Value
+
+```!component-markup
+<&6><word-wrap
+  value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  width=32
+/>
+```
+
+### Multiple Values
+
+```!component-markup
+<&6><word-wrap
+  [...value]="['Pink Terracotta', 'Red Sand', 'Diamond Ore', 'Golden Leggings', 'Deepslate Emerald Ore', 'Raw Salmon']"
+  value-separator={<&7>,<space/>}
+  width=25
+/>
+```
+
+In order to attach a custom appearance to only the value-tokens, but not the value-separators,
+make use of the `token-renderer` attribute.
+
+```!component-markup
+<&6><word-wrap
+  [...value]="['Pink Terracotta', 'Red Sand', 'Diamond Ore', 'Golden Leggings', 'Deepslate Emerald Ore', 'Raw Salmon']"
+  value-separator={<&7>,<space/>}
+  token-renderer={<u>{token}}
+  width=25
+/>
+```
