@@ -140,13 +140,17 @@ The following mathematical operators are available when formulae are to be expre
 | Modulo         | `l-me: a % b` | 2          |
 | Exponentiation | `l-me: a ^ b` | 3          |
 
-## Numeric Operators
+## Prefix Operators
 
-Due to the fact that the precision of numbers is widened as required, multiplying a long (whole number) by a double (fractional number) will convert the former to the latter and thus result in a fractional value. When working with literal values, like `l-me: 5` and `l-me: 2`, one can always force fractional evaluation by adding a simple `.0` to one of the two operands, as in `l-me: 5 / 2.0` - now, the result will become `l-me: 2.5` instead of `l-me: 2`. If both operands are represented by variables or other complex expressions though, this little trick will not be applicable: that's when one must employ the following numeric operators.
+### Type Conversion
 
-### To Long
+#### To Long
 
-Converts a fractional number to a whole number by disregarding its fractional part, while passing whole numbers through untouched; let's assume that `l-me: x` holds `l-me: 5.3`, then
+Converts any value to a long by calling into the corresponding method of the current
+environment's `ValueInterpreter`.
+
+Assuming the `DefaultValueInterpreter` as well as that `l-me: x` holds `l-me: 5.3`, then
+the fractional part is simply discarded, such that
 
 ```markup-expression
 long(x)
@@ -154,15 +158,48 @@ long(x)
 
 will result in `l-me: 5`.
 
-### To Double
+#### To Double
 
-Converts a whole number to a fractional number by introducing a zero-valued fractional part, while passing fractional numbers through untouched; let's assume that `l-me: x` holds `l-me: 5`, then
+Due to the fact that the precision of numbers is widened as required, multiplying a long (whole number) by a double (fractional number) will convert the long to a double also and thus yield
+a fractional result. When working with literal numbers, like `l-me: 5` and `l-me: 2`, one can always force fractional evaluation by adding a simple `.0` to one of the two operands, as in `l-me: 5 / 2.0` - now, the result will become `l-me: 2.5` instead of `l-me: 2`. If both operands are represented by variables or other complex expressions, this little trick will not be applicable: that's when one must employ the following operator.
+
+Converts any value to a double by calling into the corresponding method of the current
+environment's `ValueInterpreter`.
+
+Assuming the `DefaultValueInterpreter` as well as that `l-me: x` holds `l-me: 5`, then
+a fractional part of `0` is simply introduced, such that
 
 ```markup-expression
 double(x)
 ```
 
 will result in `l-me: 5.0`.
+
+#### To Boolean
+
+Converts any value to a boolean by calling into the corresponding method of the current
+environment's `ValueInterpreter`.
+
+Assuming the `DefaultValueInterpreter` as well as that `l-me: x` holds `l-me: 1`, then
+
+```markup-expression
+bool(x)
+```
+
+will result in `l-me: true`.
+
+#### To String
+
+Converts any value to a string by calling into the corresponding method of the current
+environment's `ValueInterpreter`.
+
+Assuming the `DefaultValueInterpreter` as well as that `l-me: x` holds `l-me: [0, 1, 2]`, then
+
+```markup-expression
+str(x)
+```
+
+will result in `l-me: "[0, 1, 2]"`.
 
 ### Utilities
 
@@ -808,8 +845,8 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>Negation</td>
       <td>`not`</td>
-      <td rowSpan={22}>13</td>
-      <td rowSpan={22}>right-to-left</td>
+      <td rowSpan={24}>13</td>
+      <td rowSpan={24}>right-to-left</td>
     </tr>
     <tr>
       <td>Flip Sign</td>
@@ -854,6 +891,14 @@ Associativity regards the order of operations on chains of operators of same pre
     <tr>
       <td>To Double</td>
       <td>`double()`</td>
+    </tr>
+    <tr>
+      <td>To Boolean</td>
+      <td>`bool()`</td>
+    </tr>
+    <tr>
+      <td>To String</td>
+      <td>`str()`</td>
     </tr>
     <tr>
       <td>Round</td>
