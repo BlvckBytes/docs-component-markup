@@ -286,13 +286,23 @@ The above will result in `l-me: 12`.
 
 #### Has
 
-Checks whether its operand, be it an identifier or a string, exists within the current environment;
+Checks whether its operand, be it a string or an identifier, exists within the current environment;
 `l-me: null` will be passed through untouched. Inputs are sanitized, meaning that casing and
 formatting are normalized before making the request.
 
 ```markup-expression
 has("my_environment_variable")
 ```
+
+As already alluded to, for the sake of convenience, identifiers may also be passed directly, in
+which case the operator will not resolve their value, but take their name as the input-string.
+
+```markup-expression
+has(my_environment_variable)
+```
+
+Both of the above versions have the exact same effect: returning a boolean of whether or not 
+`l-me: my_environment_variable` exists in the current environment.
 
 #### Env
 
@@ -301,6 +311,26 @@ that casing and formatting are normalized before making the request.
 
 ```markup-expression
 env("my_environment_variable")
+```
+
+If the operand is not a mere string but instead an expression, like an identifier or a more
+complex interpolation, variables may be accessed dynamically, which makes for great flexibility.
+
+```!component-markup
+<container
+  +let-name_a="Notch"
+  +let-color_a="red"
+  +let-name_b="Steve"
+  +let-color_b="green"
+  +let-name_c="Alex"
+  +let-color_c="blue"
+>
+  <style
+    *for-suffix="['a', 'b', 'c']"
+    *for-separator={<&7>,<space/>}
+    [color]="env(`color_{suffix}`)"
+  >
+    {env(`name_{suffix}`)}
 ```
 
 ## String Transformation
