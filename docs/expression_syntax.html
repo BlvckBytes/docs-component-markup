@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Expression Syntax | ComponentMarkup</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://blvckbytes.github.io/docs-component-markup/docs/expression_syntax"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Expression Syntax | ComponentMarkup"><meta data-rh="true" name="description" content="Whenever specifying placeholders, binding variables, using intrinsic expression-attributes or binding dynamic values to the attributes of tags, expressions are the means via which to describe the value used; they can be as simple as accessing a variable, stringing data together or computing a numeric value and may become as nuanced as using boolean logic, providing fallback-values or accessing members of a variable."><meta data-rh="true" property="og:description" content="Whenever specifying placeholders, binding variables, using intrinsic expression-attributes or binding dynamic values to the attributes of tags, expressions are the means via which to describe the value used; they can be as simple as accessing a variable, stringing data together or computing a numeric value and may become as nuanced as using boolean logic, providing fallback-values or accessing members of a variable."><link data-rh="true" rel="icon" href="/docs-component-markup/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://blvckbytes.github.io/docs-component-markup/docs/expression_syntax"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/expression_syntax" hreflang="en"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/expression_syntax" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Expression Syntax","item":"https://blvckbytes.github.io/docs-component-markup/docs/expression_syntax"}]}</script><link rel="stylesheet" href="/docs-component-markup/assets/css/styles.60646980.css">
-<script src="/docs-component-markup/assets/js/runtime~main.eab69899.js" defer="defer"></script>
-<script src="/docs-component-markup/assets/js/main.1ed7436a.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/runtime~main.4eaf7072.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/main.101bec40.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -119,13 +119,21 @@ well as other, incompatible values will be passed through untouched.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>The above will result in <!-- -->Code-Blocks are only available within the browser<!-- -->.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="has">Has<a href="#has" class="hash-link" aria-label="Direct link to Has" title="Direct link to Has">​</a></h4>
-<p>Checks whether its operand, be it an identifier or a string, exists within the current environment;
+<p>Checks whether its operand, be it a string or an identifier, exists within the current environment;
 <!-- -->Code-Blocks are only available within the browser<!-- --> will be passed through untouched. Inputs are sanitized, meaning that casing and
 formatting are normalized before making the request.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>As already alluded to, for the sake of convenience, identifiers may also be passed directly, in
+which case the operator will not resolve their value, but take their name as the input-string.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>Both of the above versions have the exact same effect: returning a boolean of whether or not
+<!-- -->Code-Blocks are only available within the browser<!-- --> exists in the current environment.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="env">Env<a href="#env" class="hash-link" aria-label="Direct link to Env" title="Direct link to Env">​</a></h4>
 <p>Accesses the value corresponding to the name as reflected by the string of its operand within the current environment; <!-- -->Code-Blocks are only available within the browser<!-- --> will be passed through untouched. Inputs are sanitized, meaning
 that casing and formatting are normalized before making the request.</p>
+<!-- -->Code-Blocks are only available within the browser<!-- -->
+<p>If the operand is not a mere string but instead an expression, like an identifier or a more
+complex interpolation, variables may be accessed dynamically, which makes for great flexibility.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="string-transformation">String Transformation<a href="#string-transformation" class="hash-link" aria-label="Direct link to String Transformation" title="Direct link to String Transformation">​</a></h2>
 <p>The following transformations may come in handy when dealing with strings of characters that are to be normalised in one form or another; operators are chainable, allowing to combine effects. Let&#x27;s assume an input of <!-- -->Code-Blocks are only available within the browser<!-- --> being <!-- -->Code-Blocks are only available within the browser<!-- -->.</p>
