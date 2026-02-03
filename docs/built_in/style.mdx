@@ -391,3 +391,44 @@ In order to increase the shadow's visibility, let's ramp it all the way up for a
 ```!component-markup
 <style shadow="red" shadow-opacity=100>Hello, shadow!
 ```
+
+## Color Tag
+
+In order to set just the color of some enclosed content, the color-tag may be used as a shorthand.
+
+<TagDocRender tag={{
+  name: "color",
+  aliases: [],
+  selfClosing: false,
+  attributes: [
+    {
+      name: "value",
+      description: "Color to apply to contained text",
+      aliases: [],
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.COLOR,
+    },
+  ]
+}} />
+
+### Examples
+
+While setting a static color explicitly like this doesn't make much sense, seeing how both named
+colors as well as hexadecimal values may be used as tag-names directly, dynamic color-assignments
+can be quite useful.
+
+```!component-markup
+<container +let-my_color="gold">
+  <color [value]="my_color">This text is gold!
+```
+
+As the main use-case of this tag is to make color-theming easier, special shorthand-notation
+has been introduced, where any attribute-name other than `value` is supported, as long as `value`
+itself is absent and there is exactly one attribute specified; this fact allows for some neat
+by-name binding, making for more precise markup.
+
+```!component-markup
+<container +let-theme_color="aqua">
+  <color &theme_color>This text is aqua!
+```
