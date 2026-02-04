@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">Container | ComponentMarkup</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://blvckbytes.github.io/docs-component-markup/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://blvckbytes.github.io/docs-component-markup/docs/built_in/container"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Container | ComponentMarkup"><meta data-rh="true" name="description" content="Whenever intrinsic attributes are to be applied to a multitude of tags all at once and said members"><meta data-rh="true" property="og:description" content="Whenever intrinsic attributes are to be applied to a multitude of tags all at once and said members"><link data-rh="true" rel="icon" href="/docs-component-markup/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://blvckbytes.github.io/docs-component-markup/docs/built_in/container"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/built_in/container" hreflang="en"><link data-rh="true" rel="alternate" href="https://blvckbytes.github.io/docs-component-markup/docs/built_in/container" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Built-In Tags","item":"https://blvckbytes.github.io/docs-component-markup/docs/category/built-in-tags"},{"@type":"ListItem","position":2,"name":"Container","item":"https://blvckbytes.github.io/docs-component-markup/docs/built_in/container"}]}</script><link rel="stylesheet" href="/docs-component-markup/assets/css/styles.60646980.css">
-<script src="/docs-component-markup/assets/js/runtime~main.552f0aa5.js" defer="defer"></script>
-<script src="/docs-component-markup/assets/js/main.f86431c6.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/runtime~main.88adcf0b.js" defer="defer"></script>
+<script src="/docs-component-markup/assets/js/main.dff487ec.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -26,16 +26,8 @@ container, as follows:</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <p>Using containers with a single member as done above becomes tedious rather quickly, since
 one is often forced to append a closing-tag, as to preserve a clean hierarchy; for the
-sake of convenience, all attributes passed to a <strong>self-closing</strong> <!-- -->Code-Blocks are only available within the browser<!-- -->-tag are rendered
-in declaration-order, allowing to drop the closing-tag without compromise:</p>
-<!-- -->Code-Blocks are only available within the browser<!-- -->
-<p>While this feature already reduces some of the mental burden, we may go one step further
-and also drop the attribute-names as well as the expression-binding syntax, by employing
-the by-name attribute-binding syntax as described in <a href="/docs-component-markup/docs/tag_syntax">Tag Syntax</a>,
-which is perfectly valid, since <!-- -->Code-Blocks are only available within the browser<!-- --> does not acknowledge the names of its
-attributes - only their values and order.</p>
-<!-- -->Code-Blocks are only available within the browser<!-- -->
-<p>Now once again reformulate the conditional from earlier, with more expressive power this time.</p>
+sake of convenience, a self-closing container-tag supports a variable number of bound
+expressions, allowing for concise notation.</p>
 <!-- -->Code-Blocks are only available within the browser<!-- -->
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameterized-interpolation">Parameterized Interpolation<a href="#parameterized-interpolation" class="hash-link" aria-label="Direct link to Parameterized Interpolation" title="Direct link to Parameterized Interpolation">​</a></h3>
 <p>In order to parameterize an interpolation and thereby gain access to reusable components,
