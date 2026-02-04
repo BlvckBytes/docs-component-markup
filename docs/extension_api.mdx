@@ -129,31 +129,29 @@ take a look at its API first:
 ```java
 public interface AttributeMap {
 
-  // v- Attributes of type expression
-
   @NotNull ExpressionNode getMandatoryExpressionNode(String name, String... aliases);
 
   @Nullable ExpressionNode getOptionalExpressionNode(String name, String... aliases);
+
+  @Nullable ExpressionNode getOptionalBoundFlagExpressionNode();
 
   @NotNull ExpressionList getMandatoryExpressionList(String name, String... aliases);
 
   @NotNull ExpressionList getOptionalExpressionList(String name, String... aliases);
 
-  // v- Attributes of type markup
+  @NotNull ExpressionList getOptionalBoundFlagExpressionList();
 
   @NotNull MarkupNode getMandatoryMarkupNode(String name, String... aliases);
 
   @Nullable MarkupNode getOptionalMarkupNode(String name, String... aliases);
 
+  @Nullable MarkupNode getOptionalBoundFlagMarkupNode();
+
   @NotNull MarkupList getMandatoryMarkupList(String name, String... aliases);
 
   @NotNull MarkupList getOptionalMarkupList(String name, String... aliases);
 
-  @NotNull MarkupList getRemainingValuesInOrderAsMarkup();
-
-  // v- Miscellaneous
-
-  boolean hasUnusedValues();
+  @NotNull MarkupList getOptionalBoundFlagMarkupList();
 
 }
 ```
