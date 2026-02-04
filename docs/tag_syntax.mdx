@@ -84,53 +84,15 @@ Placeholders must not span across multiple lines as to enforce readability and s
 Whenever the result of an expression, no matter its complexity, is an instance of a `MarkupNode`, said
 markup is immediately interpreted and thereby injected into its designated placeholder.
 
-```java
-MarkupNode outerMarkup = MarkupParser.parse(
-  // v- User-changeable value
-  "...",
-  BuiltInTagRegistry.INSTANCE
-);
+This powerful feature allows to define reusable templates which then may be injected and augmented
+(conditions, loops, etc.) as needed; when evaluating said templates, they are granted access to
+all environment-variables and bindings which are available at the scope of their placeholder's position.
+Check out the examples of the [Container](./built_in/container.md)-tag (especially parameterization)
+to learn more about the details.
 
-MarkupNode innerMarkup = MarkupParser.parse(
-  // v- This value could be another config-key
-  "<red><b>Hello, world!",
-  BuiltInTagRegistry.INSTANCE
-);
-
-ComponentOutput components = MarkupInterpreter.interpret(
-  // v- Platform-specific
-  componentConstructor,
-  new InterpretationEnvironment()
-    .withVariable("inner_markup", innerMarkup),
-  // v- No immediate recipient-personalization required
-  null,
-  SlotType.CHAT,
-  outerMarkup
-);
-
-// v- Platform-specific
-componentApplicator.sendInChat(player, components);
-```
-
-With a user-changable value of
-
-```component-markup
-<aqua>Before</>
-<br/>
-<container *for="1..3" *for-separator={<br/>}>{inner_markup}</>
-<br/>
-<gold>After</>
-```
-
-the final result thus becomes
-
-<img className='rendered-image' src={useBaseUrl('/img/markup_interpolation_example.png')} />
-
-As becomes immediately apparent, this powerful feature allows to define reusable templates which then
-may be injected and augmented (conditions, loops, etc.) as needed; when evaluating said templates, they
-are granted access to all environment-variables and bindings which are available at their placeholder's position.
-Due to the fact that only pre-parsed nodes are renderable via this method, there's no additional computational
-burden caused by reusable partial templates in comparison to defining the whole template all in one place.
+Next to instances of `MarkupNode`, platform-specific `Component`-objects may also be injected at every
+placeholder-position, allowing for seamless interoperability with existing systems (or pre-evaluated
+markup) via environment-variables.
 
 ## Tags
 
@@ -390,6 +352,34 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
     key="chat.type.advancement.challenge"
     [with]="first"
     with={<red>Second}
+  />
+```
+
+For the sake of convenience, all expressions that consist either of a single identifier or a
+member-access-chain (i.e. `l-me: a.b.c.d`; the identifier at the very end of the chain makes
+for the name used in the shorthand binding) may be bound directly by dropping the assigned
+value altogether: `[my_attribute]` is equivalent to `[my-attribute]="my_attribute"`. Due to
+the fact that markup-attributes use kebab-case while expressions use snake_case, the
+conversion between the two styles is carried out automatically.
+
+Many tags also support an arbitrarily named, directly bound dynamic attribute, in order to
+supply their main value (often `value`, `key`, etc.; check individual docs for details), which
+once again allows for very terse notation.
+
+The below is a mere example, where all let-bindings are meant to be environment-variables:
+
+```!component-markup
+<container
+  *let-first={<green>first}
+  *let-second={<gold>second}
+  +let-my_key="chat.type.advancement.challenge"
+  *let-first_wrapper="{with: first}"
+  *let-second_wrapper="{with: second}"
+>
+  <translate
+    [my_key]
+    [first_wrapper.with]
+    [second_wrapper.with]
   />
 ```
 
