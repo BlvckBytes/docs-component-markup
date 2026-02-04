@@ -485,6 +485,12 @@ In the example above, if `l-me: show_text` evaluates to `l-me: false`, the entir
 textual contents; otherwise, the value of `l-me: enable_rainbow` dictates whether the rainbow is applied or not - if it
 evaluates to `l-me: false`, the text `Hello, world!` will remain uncolorized.
 
+The following demonstrates a conditionally applied rainbow.
+
+```!!component-markup
+<rainbow *use="render_count % 2 eq 0">Hello, world!</> ({render_count})
+```
+
 ### Generative Loops
 
 In order to generate content based on a sequence of data-points, the intrinsic `*for` attribute may be employed; it is a mere attribute that can be added to any existing tag, instantiating it once for each point of data. In order to assign the current item to an accessible variable, specify its name right after a hyphen attached to the intrinsic attribute, akin to [Let-Bindings](#let-bindings). The value is **always** interpreted as an expression (square brackets must **not** be added explicitly).
@@ -497,8 +503,8 @@ Once employed, the additional attributes become available:
 
 When there's no need to access the current item of iteration, simply drop the dash and use the attribute as-is; this shorter style is especially useful in combination with [Ranges](./expression_syntax#range-operator) (the `l-me: loop` context is discussed further below).
 
-```component-markup
-<red *for="1..10">The #{loop.index + 1} occurrence of this line!
+```!component-markup
+<red *for="1..5" *for-separator={<br/>}>The #{loop.index + 1} occurrence of this line!
 ```
 
 When iteration-items are required, simply attach the desired variable-name with a hyphen to the attribute.
