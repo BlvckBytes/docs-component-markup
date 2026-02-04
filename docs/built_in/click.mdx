@@ -32,10 +32,6 @@ Opens the specified URL when clicking.
   ]
 }} />
 
-### Example
-
-TODO: Add example
-
 ## Suggest Command
 
 ### Overview
@@ -57,10 +53,6 @@ Suggests the specified command within the player's chat-prompt.
     }
   ]
 }} />
-
-### Example
-
-TODO: Add example
 
 ## Run Command
 
@@ -84,10 +76,6 @@ Executes the specified command using the player's client; some vanilla-commands 
   ]
 }} />
 
-### Example
-
-TODO: Add example
-
 ## Copy To Clipboard
 
 ### Overview
@@ -110,10 +98,6 @@ Copies the specified text to the player's system-clipboard.
   ]
 }} />
 
-### Example
-
-TODO: Add example
-
 ## Change Page
 
 ### Overview
@@ -135,10 +119,6 @@ Changes the page of a book to the specified number; only works within books.
     }
   ]
 }} />
-
-### Example
-
-TODO: Add example
 
 ## Open File
 
@@ -163,6 +143,22 @@ not be used on modern versions of Minecraft (will be omitted as to avoid errors)
   ]
 }} />
 
-### Example
+## Example
 
-TODO: Add example
+### Simple Open-URL
+
+```!component-markup
+<&7>Click <open-url value="https://example.com">
+  <&b><u>here
+</open-url> to visit the <&b>example.com</> link!
+```
+
+### Value Shorthand
+
+For convenience, the `value` attribute also supports a bound expression of arbitrary name.
+
+```!component-markup
+<container +let-my_value="Lorem ipsum dolor sit amet">
+  <&7>Click to copy:<space/>
+  <to-clipboard [my_value]><&d><u>{my_value}</to-clipboard>
+```

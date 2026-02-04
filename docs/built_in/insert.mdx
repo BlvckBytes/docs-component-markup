@@ -29,4 +29,19 @@ Inserts text into the player's chat-prompt at the position of the cursor when sh
 
 ## Example
 
-TODO: Add example
+### Simple Insertion
+
+```!component-markup
+<&7>Click me to insert:<space/>
+<insert value="Example"><&d>Example</insert>
+```
+
+### Value Shorthand
+
+For convenience, the `value` attribute also supports a bound expression.
+
+```!component-markup
+<container +let-my_value="Example">
+  <&7>Click me to insert:<space/>
+  <insert [my_value]><&d>{my_value}</insert>
+```

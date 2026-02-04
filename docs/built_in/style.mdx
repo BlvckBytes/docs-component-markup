@@ -423,12 +423,9 @@ can be quite useful.
   <color [value]="my_color">This text is gold!
 ```
 
-As the main use-case of this tag is to make color-theming easier, special shorthand-notation
-has been introduced, where any attribute-name other than `value` is supported, as long as `value`
-itself is absent and there is exactly one attribute specified; this fact allows for some neat
-by-name binding, making for more precise markup.
+As an alternative to the `value` attribute, one may also pass the value by a bound expression.
 
 ```!component-markup
 <container +let-theme_color="aqua">
-  <color &theme_color>This text is aqua!
+  <color [theme_color]>This text is aqua!
 ```

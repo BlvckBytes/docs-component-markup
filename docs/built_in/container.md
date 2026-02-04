@@ -43,40 +43,16 @@ container, as follows:
 
 Using containers with a single member as done above becomes tedious rather quickly, since
 one is often forced to append a closing-tag, as to preserve a clean hierarchy; for the
-sake of convenience, all attributes passed to a **self-closing** `container`-tag are rendered
-in declaration-order, allowing to drop the closing-tag without compromise:
-
-```!component-markup
-<container
-  *let-first_component={<red>Hello, component!}
-  *let-second_component={<aqua>Bye, component!}
->
-  <container [c]="first_component" c={<br/>} [c]="second_component" />
-```
-
-While this feature already reduces some of the mental burden, we may go one step further
-and also drop the attribute-names as well as the expression-binding syntax, by employing
-the by-name attribute-binding syntax as described in [Tag Syntax](../tag_syntax.mdx),
-which is perfectly valid, since `container` does not acknowledge the names of its
-attributes - only their values and order.
-
-```!component-markup
-<container
-  *let-first_component={<red>Hello, component!}
-  *let-second_component={<aqua>Bye, component!}
->
-  <container &first_component c={<br/>} &second_component />
-```
-
-Now once again reformulate the conditional from earlier, with more expressive power this time.
+sake of convenience, a self-closing container-tag supports a variable number of bound
+expressions, allowing for concise notation.
 
 ```!!component-markup
 <container
   *let-first_component={<red>Hello, component!}
   *let-second_component={<aqua>Bye, component!}
 >
-  <container *if="render_count % 2 eq 0" &first_component />
-  <container *else &second_component />
+  <container *if="render_count % 2 eq 0" [first_component] />
+  <container *else [second_component] />
 ```
 
 ### Parameterized Interpolation
@@ -89,6 +65,6 @@ available to the interpolated component when it gets interpreted.
 <container
   *let-my_component={<rainbow><b>Well hello there, dear <&f>{name}</>!}
 >
-  <container +let-name="Steve" &my_component />
+  <container +let-name="Steve" [my_component] />
   <br/>
-  <container +let-name="Alex" &my_component />
+  <container +let-name="Alex" [my_component] />

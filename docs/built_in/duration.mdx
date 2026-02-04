@@ -86,6 +86,16 @@ My duration: <&b><duration
 />
 ```
 
+### Value Shorthand
+
+For convenience, the `value` attribute also supports a bound expression of arbitrary name,
+while all other attributes support bound expressions with matching names.
+
+```!component-markup
+<container *let-my_value="(31 + 60*3 + 60*60*8) * 1000" +let-units="hms">
+  My duration: <&b><duration [my_value] [units]/>
+```
+
 ### Custom Style
 
 As to really show what's possible, let's not just render different unit-suffixes, but also account for singular/plural differentiation, color groups based on their unit and add a colored separator.

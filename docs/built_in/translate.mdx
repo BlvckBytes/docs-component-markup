@@ -67,3 +67,13 @@ Whenever placeholders are contained, specify them in the desired order; if value
   with={<&c>Herobrine}
 />
 ```
+
+### Key Shorthand
+
+For convenience, the `key` attribute also supports a bound expression of arbitrary name,
+while all other attributes support bound expressions with matching names.
+
+```!component-markup
+<container +let-my_key="block.minecraft.red_concrete">
+  You received <&b>16x <translate [my_key]/>
+```

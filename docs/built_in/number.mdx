@@ -86,6 +86,16 @@ Formatting a fractional value of arbitrary complexity to a visually appealing tw
 This item costs <&b><number value=512.4582831 format="0.00"/> Coins
 ```
 
+### Value Shorthand
+
+For convenience, the `value` attribute also supports a bound expression of arbitrary name,
+while all other attributes support bound expressions with matching names.
+
+```!component-markup
+<container +let-my_value=512.4582831 +let-format="0.00">
+  This item costs <&b><number [my_value] [format]/> Coins
+```
+
 ### Absolute Values
 
 Removing the negative-sign `-`, if any.

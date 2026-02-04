@@ -110,7 +110,7 @@ or employ the spread-operator in order to bind a dynamic list of items
 
 ```component-markup
 <gradient
-  [...color]="['red', 'blue', 'green']"
+  [@color]="['red', 'blue', 'green']"
 >All of the fancy gradient colors!</>
 ```
 
@@ -138,8 +138,8 @@ pass one list each using the environment.
 
 ```component-markup
 <gradient
-  [...color]="my_colors"
-  [...offset]="my_offsets"
+  [@color]="my_colors"
+  [@offset]="my_offsets"
 >All of the fancy gradient colors!</>
 ```
 

@@ -81,3 +81,13 @@ To render a supplied value, simply provide it as a UNIX timestamp; this time, we
 ```!component-markup
 The time is: <&b><date value=1753970603812 zone="CET" />
 ```
+
+### Value Shorthand
+
+For convenience, the `value` attribute also supports a bound expression of arbitrary name,
+while all other attributes support bound expressions with matching names.
+
+```!component-markup
+<container +let-my_time=1753970603812 +let-zone="CET">
+  The time is: <&b><date [my_time] [zone] />
+```

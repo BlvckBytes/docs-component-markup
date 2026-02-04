@@ -39,7 +39,18 @@ Displays a single line of text when hovering.
   value={
     <red>Displayed when hovering
   }
-><aqua>My text</*>
+><aqua>My text
+```
+
+For convenience, the `value` attribute also supports a bound expression of arbitrary name.
+
+```!component-markup
+<container
+  *let-hover_content={
+    <red>Displayed when hovering
+  }
+>
+<hover-text [hover_content]><aqua>My text
 ```
 
 ## Show Item
@@ -120,7 +131,7 @@ lore-lines, which is why this special markup-slot would make for a great headlin
     <aqua>Third line<br/>
     <gold>Fourth line
   }
-><yellow>My text</>
+><yellow>My text
 ```
 
 #### Mimicking Items
@@ -221,5 +232,5 @@ Displays a tooltip containing information about an entity within the player's wo
   name={
     <red>Peppa the pig
   }
-><aqua>My text</>
+><aqua>My text
 ```

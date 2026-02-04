@@ -315,10 +315,10 @@ Attributes also support dynamic values, meaning values which are not specified i
 
 Now, `my-attribute` will be assigned to whatever value the expression `l-me: user.name` evaluates to.
 
-Whenever attributes support multiple values **and** are enclosed by square-brackets `[]` in order to be bound to an expression, the spread-operator `...` may be prepended to the attribute-name within said brackets in order to evaluate the result of the expression and instantiate an attribute-value for each item of the list it returns (becomes a singleton-list if the expression returns a scalar).
+Whenever attributes support multiple values **and** are enclosed by square-brackets `[]` in order to be bound to an expression, the spread-operator `@` may be prepended to the attribute-name within said brackets in order to evaluate the result of the expression and instantiate an attribute-value for each item of the list it returns (becomes a singleton-list if the expression returns a scalar).
 
 ```component-markup
-<my-tag [...my-attribute]="['hello', 'world', 'test']">
+<my-tag [@my-attribute]="['hello', 'world', 'test']">
 ```
 
 In the above example, the attribute `my-attribute` of the tag `my-tag` will be instantiated once for each item of the [Immediate Array](./expression_syntax#immediate-array) `l-me: ['hello', 'world', 'test']`, such that the resulting meaning effectively becomes:
@@ -338,8 +338,8 @@ The features as described above also apply to attributes which require their val
 - Scalar non-markup values are interpreted as plain text
 - Scalar markup values are interpreted as-is (rich components)
 - Lists are:
-  - Interpreted item by item if not using the spread-operator `...`
-  - Instantiating one attribute-value per item if using the spread-operator `...`
+  - Interpreted item by item if not using the spread-operator `@`
+  - Instantiating one attribute-value per item if using the spread-operator `@`
 
 The result of the input
 
@@ -360,7 +360,7 @@ is equivalent to that of (using [Let-Bindings](#let-bindings) to introduce marku
 >
   <translate
     key="chat.type.advancement.challenge"
-    [...with]="[first, second]"
+    [@with]="[first, second]"
   />
 ```
 
@@ -392,39 +392,6 @@ As mentioned earlier, non-markup values will simply be interpreted as plain text
     with={<red>Second}
   />
 ```
-
-### By-Name Bound Attributes
-
-As a shorthand for binding dynamic values consisting of a single variable-name (one that is
-in essence equal to the name of the attribute to bind to), the bind-by-name operator `&` may be used.
-
-Instead of writing the redundant form of
-
-```component-markup
-<container [my-value]="my_value" />
-```
-
-one can simply prepend an ampersand to the value-expression, as follows:
-
-```component-markup
-<container &my_value />
-```
-
-This will have the exact same effect as the longer version shown first. Due to the fact that
-identifiers within expressions use `snake_case`, while attribute-names use `kebab-case`,
-the conversion from the former to the latter style is handled automatically by the system. The
-operand is always denoted as an expression-identifier with underscores, never as a
-markup-attribute with hyphens.
-
-For additional convenience, member-access-chains are also supported, where the innermost identifier
-serves as the attribute-name to bind to.
-
-```component-markup
-<container &first.second.third />
-```
-
-In the example above, the value of the expression `l-me: first.second.third` will be bound to the
-attribute called `third`.
 
 ### If-Conditionals
 
