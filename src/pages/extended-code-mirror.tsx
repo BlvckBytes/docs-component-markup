@@ -118,6 +118,7 @@ export const decideClassName = (type: string, value: string | null = null): stri
     case "MARKUP__PUNCTUATION__EQUALS":
     case "EXPRESSION__PUNCTUATION__ANY":
     case "MARKUP__OPERATOR__SPREAD":
+    case "MARKUP__OPERATOR__SUBSTITUTION":
     case "MARKUP__OPERATOR__NEGATE":
     case "MARKUP__OPERATOR__INTRINSIC_LITERAL":
     case "MARKUP__OPERATOR__INTRINSIC_EXPRESSION":
