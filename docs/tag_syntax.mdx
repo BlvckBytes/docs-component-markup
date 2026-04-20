@@ -600,6 +600,38 @@ extend to any arbitrary depth; e.g. a separator which again displays `hover-text
     <gray>#{loop.index + 1} <red>{word}
 ```
 
+### Template Substitution
+
+In order to provide first-class support for reusable components, which also drastically simplifies
+trying to extract common patterns or provid users with a way to quickly define custom color-schemes,
+tag-names starting with the dollar-sign `$` have been reserved for template substitution.
+
+Following said dollar-sign, an expression is expected, which is evaluated within the currently provided
+environment and then interpreted as a markup-node. Seeing how substituted components are evaluated in
+the same scope as their original placeholder resided in, they also gain access to all variables of the
+current scope. These placeholder-tags may be self-closing (no children)
+
+```!component-markup
+<container
+  *let-my_value={<red>A simple, static value.}
+>
+  <$my_value *for="1..3" *for-separator={<br/>}/>
+```
+
+or can even hold content, which will be available to the substituted template via the `l-cm: <content/>`-tag
+
+```!component-markup
+<container
+  *let-pri={<gray><content/>}
+  *let-sec={<aqua><bold><content/>}
+>
+  <$pri>This part is <$sec>highlighted</> in a unique way!
+```
+
+The above syntax allows for very succinct composition of styles, without having to make use of
+let-bindings as to introduce intermediate components to be passed via the temporary environment;
+instead, the `l-cm: <content/>`-tag directly provides access, encouraging substitution thanks to simplicity.
+
 ## Comments
 
 The insertion of comments makes sense whenever passages are either to be documented, or quickly disabled, without having to delete the underlying markup. Comments are not processed by the system, but are to be thought of as mere sticky-notes, available for additional aid in human understanding. They start with `<!--` and end in `-->` - whatever comes inbetween is regarded as content of this comment and thus ignored.
