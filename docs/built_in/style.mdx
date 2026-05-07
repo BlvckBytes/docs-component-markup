@@ -409,6 +409,22 @@ In order to set just the color of some enclosed content, the color-tag may be us
       multiValue: false,
       type: AttributeType.COLOR,
     },
+    {
+      name: "lighten",
+      description: "Interpolates the color towards white for a given percentage (0-100%)",
+      aliases: [],
+      fallback: 0,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
+    {
+      name: "darken",
+      description: "Interpolates the color towards black for a given percentage (0-100%)",
+      aliases: [],
+      fallback: 0,
+      multiValue: false,
+      type: AttributeType.NUMBER,
+    },
   ]
 }} />
 
@@ -428,4 +444,13 @@ As an alternative to the `value` attribute, one may also pass the value by a bou
 ```!component-markup
 <container +let-theme_color="aqua">
   <color [theme_color]>This text is aqua!
+```
+
+Dynamic colors may also be adjusted as needed, by making use of additional tag-attributes.
+
+```!component-markup
+<container +let-theme_color="dark_purple">
+  <color [theme_color]>This text is a darker purple!</><br/>
+  <color [theme_color] lighten=33>This text is a brighter purple!</><br/>
+  <color [theme_color] darken=33>This text is an even darker purple!</>
 ```
