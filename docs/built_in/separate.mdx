@@ -1,0 +1,100 @@
+---
+sidebar_position: 18
+---
+
+import { TagDocRender } from '@site/src/components/TagDocRender';
+import { AttributeType } from '@site/src/components/AttributeType.class';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Separate
+
+## Overview
+
+Separates any number of given values with a custom separator while automatically ignoring content
+that did not render anything visible to the output, as to not inject unnecessary separators.
+
+<TagDocRender tag={{
+  name: 'separate',
+  aliases: [],
+  selfClosing: true,
+  attributes: [
+    {
+      name: 'value',
+      aliases: [],
+      description: 'Values to separate; empty values are ignored',
+      fallback: null,
+      multiValue: true,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'separator',
+      aliases: [],
+      description: 'Separator inserted in-between values',
+      fallback: null,
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+  ]
+}} />
+
+## Examples
+
+### Separate Conditionally Rendered Values
+
+In some cases, one needs to separate multiple values which are themselves conditionally rendered,
+thereby making it become unreadable to implement all separator-permutations manually. Since the
+tag automatically ignores empty values, said values can be combined with containers and if-conditions,
+making for a highly maintainable and flexible solution.
+
+```!component-markup
+<container
+  *for-i="[5, 3, 15, 2, 10, 6, 30]"
+  *for-separator={<br/>}
+>
+  <separate
+    separator={<&7> -<space/>}
+    value={
+      <container *if="i % 2 eq 0">
+        <&a>First
+    }
+    value={
+      <container *if="i % 3 eq 0">
+        <&b>Second
+    }
+    value={
+      <container *if="i % 5 eq 0">
+        <&c>Third
+    }
+  />
+```
+
+### Separate Dynamic Content
+
+In case that there already exists a list of values to separate, one can simply pass said list to the
+tag by making use of attribute-binding in combination with the spread-operator, as follows.
+
+```!component-markup
+<!-- Imagine that the values-array is stemming from a dynamic
+source, accessed via the environment, :)! -->
+<container
+  *let-a={<&a>First}
+  *let-b={<&b>Second}
+  *let-c={<&c>Third}
+  *let-d={<&d>Fourth}
+  *let-values="[a, b, c, d]"
+>
+  <separate separator={<&7>;<space/>} [@value]="values" />
+```
+
+Alternatively, if content-detection is of no concern or even unwanted, one could also employ use a for-loop.
+
+```!component-markup
+<container
+  *let-a={<&a>First}
+  *let-b={<&b>Second}
+  *let-c={<&c>Third}
+  *let-d={<&d>Fourth}
+  *let-values="[a, b, c, d]"
+>
+  <container *for-value="values" *for-separator={<&7>;<space/>} [value] />
+```
