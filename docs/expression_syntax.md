@@ -432,6 +432,31 @@ This operator may especially come in handy when combined with the intrinsic `*fo
 >Hello, {number}!
 ```
 
+Since the subtraction- and addition-operators also support collections, ranges with gaps
+can be described rather concisely.
+
+```markup-expression
+(1..5) + (30..35)
+```
+
+is equivalent to
+
+```markup-expression
+[1, 2, 3, 4, 5, 30, 31, 32, 33, 34, 35]
+```
+
+and
+
+```markup-expression
+(1..15) - (5..10)
+```
+
+is equivalent to
+
+```markup-expression
+[1, 2, 3, 4, 11, 12, 13, 14, 15]
+```
+
 ## Substring Operator
 
 A substring represents a sub-sequence of characters within another string; it may span only a single character, a few or up to the whole input, based on the colon-separated (`:`) start- and end-indices, which are **both inclusive** and **start at 0**.
