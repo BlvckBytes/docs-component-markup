@@ -632,6 +632,17 @@ The above syntax allows for very succinct composition of styles, without having 
 let-bindings as to introduce intermediate components to be passed via the temporary environment;
 instead, the `l-cm: <content/>`-tag directly provides access, encouraging substitution thanks to simplicity.
 
+For convenience, all attributes on a template-substitution tag are introduced as let-bindings into
+the scope of the substituted template, allowing for what reads almost like a function-call. Just remember
+that attributes use kebab-case, which is internally converted to snake_case before introducing the binding.
+
+```!component-markup
+<container
+  *let-my_template={<&b>Hello, {first_name} {last_name}!}
+>
+  <$my_template first-name="Markus" last-name="Persson" />
+```
+
 ## Comments
 
 The insertion of comments makes sense whenever passages are either to be documented, or quickly disabled, without having to delete the underlying markup. Comments are not processed by the system, but are to be thought of as mere sticky-notes, available for additional aid in human understanding. They start with `<!--` and end in `-->` - whatever comes inbetween is regarded as content of this comment and thus ignored.
