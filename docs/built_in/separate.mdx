@@ -34,6 +34,14 @@ that did not render anything visible to the output, as to not inject unnecessary
       multiValue: false,
       type: AttributeType.MARKUP,
     },
+    {
+      name: 'empty',
+      aliases: [],
+      description: 'Content to render if no value produced any visible output',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
   ]
 }} />
 
@@ -98,3 +106,16 @@ Alternatively, if content-detection is of no concern or even unwanted, one could
 >
   <container *for-value="values" *for-separator={<&7>;<space/>} [value] />
 ```
+
+### Empty Fallback Markup
+
+If none of the provided values rendered anything visible to the output, if specified, the `empty`-attribute's
+content will be rendered as a fallback, analogous to the `*for-empty`-attribute on loops.
+
+```!component-markup
+<separate
+  separator={,}
+  empty={<&c>No content encountered!}
+  value={<container *if="false">A}
+  value={<container *if="false">B}
+/>
