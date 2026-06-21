@@ -53,6 +53,22 @@ inject custom separators in-between values, if there are multiple of them.
       multiValue: false,
       type: AttributeType.MARKUP,
     },
+    {
+      name: 'prefix',
+      aliases: [],
+      description: 'Prefix to prepend to the very beginning of the wrapped text',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
+    {
+      name: 'subsequent-prefix',
+      aliases: [],
+      description: 'Prefix to prepend to every wrapped line after the initial one',
+      fallback: 'null',
+      multiValue: false,
+      type: AttributeType.MARKUP,
+    },
   ]
 }} />
 
